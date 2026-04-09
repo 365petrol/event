@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R&R 체크리스트 — 2026 반려견 걷기대회</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.15);
+    --text: #1a1a18;
+    --text2: #5a5a54;
+    --text3: #9a9a92;
+    --accent: #2d6a4f;
+    --accent-light: #d8f3e3;
+    --accent-text: #1b4332;
+    --danger: #c62828;
+    --danger-light: #ffebee;
+    --warn: #e65100;
+    --warn-light: #fff3e0;
+    --info: #1565c0;
+    --info-light: #e3f2fd;
+    --amber: #b45309;
+    --amber-light: #fef3c7;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+    box-shadow: var(--shadow);
+  }
+  .topbar-left { display: flex; align-items: center; gap: 12px; }
+  .logo {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .topbar-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .topbar-sub { font-size: 12px; color: var(--text3); }
+  .topbar-right { display: flex; align-items: center; gap: 8px; }
+
+  .btn {
+    padding: 7px 14px; font-size: 13px; font-weight: 500;
+    border-radius: var(--radius-sm); border: 1px solid var(--border2);
+    background: transparent; color: var(--text2); cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all .15s; white-space: nowrap;
+  }
+  .btn:hover { background: var(--surface2); }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.primary:hover { background: #235c42; }
+  .btn.danger { background: var(--danger-light); color: var(--danger); border-color: transparent; }
+  .btn.danger:hover { background: #ffcdd2; }
+  .btn.edit-mode { background: var(--amber-light); color: var(--amber); border-color: transparent; }
+  .btn.edit-mode:hover { background: #fde68a; }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+  }
+  .progress-stats {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .progress-label { font-size: 12px; color: var(--text3); }
+  .progress-pct { font-size: 13px; font-weight: 700; color: var(--accent); font-family: 'DM Mono', monospace; }
+  .progress-bar {
+    height: 5px; background: var(--surface2);
+    border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--accent);
+    border-radius: 3px; transition: width .4s ease;
+  }
+
+  /* TABS */
+  .tabs-wrap {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; gap: 0; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-wrap::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 14px 16px; font-size: 13px; font-weight: 500;
+    color: var(--text3); cursor: pointer; white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: all .15s;
+    background: transparent; border-top: none; border-left: none; border-right: none;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .tab:hover { color: var(--text2); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 18px; height: 18px; padding: 0 5px;
+    background: var(--surface2); border-radius: 9px;
+    font-size: 11px; margin-left: 5px; font-weight: 400;
+    font-family: 'DM Mono', monospace;
+  }
+  .tab.active .tab-count { background: var(--accent-light); color: var(--accent-text); }
+
+  /* MAIN CONTENT */
+  .main { max-width: 800px; margin: 0 auto; padding: 24px 16px; }
+
+  /* SECTION */
+  .section { margin-bottom: 24px; }
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 12px; font-weight: 700; color: var(--text3);
+    text-transform: uppercase; letter-spacing: .08em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-progress { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .section-add-btn {
+    font-size: 12px; color: var(--accent); background: none; border: none;
+    cursor: pointer; padding: 2px 6px; border-radius: 4px; font-family: 'Noto Sans KR', sans-serif;
+    opacity: 0; transition: opacity .15s;
+  }
+  .section:hover .section-add-btn { opacity: 1; }
+  .section-add-btn:hover { background: var(--accent-light); }
+
+  /* ITEM */
+  .item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 6px;
+    transition: box-shadow .15s, border-color .15s;
+    position: relative;
+  }
+  .item:hover { box-shadow: var(--shadow); border-color: var(--border2); }
+
+  .checkbox {
+    width: 20px; height: 20px; min-width: 20px;
+    border-radius: 5px; border: 1.5px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px; cursor: pointer;
+    transition: all .15s; background: var(--surface);
+    flex-shrink: 0;
+  }
+  .checkbox:hover { border-color: var(--accent); }
+  .checkbox.checked { background: var(--accent); border-color: var(--accent); }
+  .check-icon { display: none; }
+  .checkbox.checked .check-icon { display: block; }
+
+  .item-body { flex: 1; min-width: 0; }
+  .item-text {
+    font-size: 14px; color: var(--text); line-height: 1.5;
+    transition: color .2s;
+    cursor: pointer;
+  }
+  .item-text.done {
+    text-decoration: line-through;
+    text-decoration-color: var(--text3);
+    color: var(--text3);
+  }
+  .item-tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+  .tag {
+    font-size: 11px; padding: 2px 8px; border-radius: 20px;
+    font-weight: 500;
+  }
+  .tag-당일 { background: var(--info-light); color: var(--info); }
+  .tag-사전 { background: var(--accent-light); color: var(--accent-text); }
+  .tag-긴급 { background: var(--danger-light); color: var(--danger); }
+  .tag-홍보 { background: var(--amber-light); color: var(--amber); }
+  .tag-person { background: var(--surface2); color: var(--text2); }
+
+  .item-actions {
+    display: none; gap: 4px; align-items: center; flex-shrink: 0;
+  }
+  .edit-mode-on .item:hover .item-actions { display: flex; }
+  .icon-btn {
+    width: 28px; height: 28px; border-radius: 6px;
+    border: none; background: transparent; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text3); transition: all .15s;
+    font-size: 13px;
+  }
+  .icon-btn:hover { background: var(--surface2); color: var(--text); }
+  .icon-btn.del:hover { background: var(--danger-light); color: var(--danger); }
+
+  /* EDIT BANNER */
+  .edit-banner {
+    display: none;
+    background: var(--amber-light);
+    border-bottom: 1px solid #fcd34d;
+    padding: 10px 24px;
+    font-size: 13px; color: var(--amber);
+    align-items: center; gap: 8px;
+  }
+  .edit-banner.show { display: flex; }
+
+  /* MODAL */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4); z-index: 200;
+    align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .modal-backdrop.show { display: flex; }
+  .modal {
+    background: var(--surface); border-radius: 14px;
+    padding: 24px; width: 100%; max-width: 480px;
+    box-shadow: var(--shadow-md);
+  }
+  .modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .form-group { margin-bottom: 14px; }
+  .form-label { font-size: 12px; font-weight: 700; color: var(--text2); margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: .04em; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; padding: 9px 12px;
+    border: 1px solid var(--border2); border-radius: var(--radius-sm);
+    font-size: 14px; font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg); color: var(--text);
+    transition: border-color .15s; outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 70px; }
+  .checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .checkbox-label {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 13px; cursor: pointer; padding: 4px 10px;
+    border: 1px solid var(--border2); border-radius: 20px;
+    transition: all .15s;
+  }
+  .checkbox-label input { display: none; }
+  .checkbox-label.selected { background: var(--accent-light); border-color: var(--accent); color: var(--accent-text); }
+  .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+
+  /* STATS CARDS */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px;
+    text-align: center;
+  }
+  .stat-n { font-size: 24px; font-weight: 700; color: var(--text); font-family: 'DM Mono', monospace; }
+  .stat-l { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .stat-card.highlight .stat-n { color: var(--accent); }
+
+  /* EMPTY STATE */
+  .empty { text-align: center; padding: 40px 20px; color: var(--text3); font-size: 14px; }
+
+  /* PERSON HEADER */
+  .person-header {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 18px;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .person-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--accent); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; flex-shrink: 0;
+  }
+  .person-name { font-size: 16px; font-weight: 700; }
+  .person-role { font-size: 13px; color: var(--text2); margin-top: 2px; }
+  .person-stats { margin-left: auto; text-align: right; }
+  .person-pct { font-size: 20px; font-weight: 700; color: var(--accent); font-family: 'DM Mono', monospace; }
+  .person-done { font-size: 12px; color: var(--text3); margin-top: 1px; }
+
+  /* ADD SECTION BTN */
+  .add-section-btn {
+    width: 100%; padding: 10px; border: 1.5px dashed var(--border2);
+    border-radius: var(--radius); background: transparent;
+    color: var(--text3); font-size: 13px; cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all .15s; margin-top: 8px; display: none;
+  }
+  .edit-mode-on .add-section-btn { display: block; }
+  .add-section-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+  /* INLINE EDIT */
+  .item-text-input {
+    width: 100%; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;
+    border: none; border-bottom: 1.5px solid var(--accent);
+    background: transparent; color: var(--text); outline: none; padding: 2px 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 0 14px; }
+    .main { padding: 16px 12px; }
+    .topbar-sub { display: none; }
+    .tabs-wrap { padding: 0 14px; }
+    .progress-wrap { padding: 10px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">🐾</div>
+    <div>
+      <div class="topbar-title">R&R 체크리스트</div>
+      <div class="topbar-sub">2026 반려견 걷기대회 · 반려견순찰대연합회</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <button class="btn" id="resetBtn" onclick="resetAll()">초기화</button>
+    <button class="btn edit-mode" id="editBtn" onclick="toggleEditMode()">✏️ 편집 모드</button>
+  </div>
+</div>
+
+<!-- EDIT BANNER -->
+<div class="edit-banner" id="editBanner">
+  <span>✏️</span>
+  <span>편집 모드 활성화 — 항목 위에 마우스를 올리면 수정·삭제 버튼이 나타납니다. 제목·담당자 역할도 클릭하여 수정하세요.</span>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-stats">
+    <span class="progress-label" id="progressLabel">전체 진행률</span>
+    <span class="progress-pct" id="progressPct">0%</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap" id="tabsWrap"></div>
+
+<!-- MAIN -->
+<div class="main" id="mainContent"></div>
+
+<!-- MODAL: 항목 추가/수정 -->
+<div class="modal-backdrop" id="itemModal">
+  <div class="modal">
+    <h3 id="modalTitle">항목 추가</h3>
+    <div class="form-group">
+      <label class="form-label">내용</label>
+      <textarea class="form-textarea" id="modalText" rows="3" placeholder="업무 내용을 입력하세요"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">태그</label>
+      <div class="checkbox-group" id="modalTags">
+        <label class="checkbox-label" data-tag="사전"><input type="checkbox" value="사전">사전</label>
+        <label class="checkbox-label" data-tag="당일"><input type="checkbox" value="당일">당일</label>
+        <label class="checkbox-label" data-tag="긴급"><input type="checkbox" value="긴급">긴급</label>
+        <label class="checkbox-label" data-tag="홍보"><input type="checkbox" value="홍보">홍보</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">취소</button>
+      <button class="btn primary" onclick="saveModalItem()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: 섹션 추가 -->
+<div class="modal-backdrop" id="sectionModal">
+  <div class="modal">
+    <h3>섹션 추가</h3>
+    <div class="form-group">
+      <label class="form-label">섹션 이름</label>
+      <input class="form-input" id="sectionModalText" placeholder="예: D-1주, 당일 현장 등" />
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeSectionModal()">취소</button>
+      <button class="btn primary" onclick="saveSectionModal()">추가</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ====== DATA ======
+let appData = {
+  meta: {
+    title: "2026 반려견 걷기대회",
+    date: "2026년 6월 6일 (토)",
+    place: "안산 호수공원"
+  },
+  people: [
+    {
+      id: "p1", name: "김지민 대표", role: "총괄",
+      sections: [
+        { id: "s1", title: "사전 — D-8주~D-2주", items: [
+          { id: "i1", text: "행사 기획안 최종 승인 및 방향 결정", tags: ["사전"] },
+          { id: "i2", text: "안산시·안산시의회 후원 협의 및 관계 유지", tags: ["사전"] },
+          { id: "i3", text: "호반건설·ODAC·프로젝트21·다빈치독·너즐퍼즐 협찬 계약 최종 확인", tags: ["사전"] },
+          { id: "i4", text: "경기매일신문사·애그유니 주관사 업무 조율", tags: ["사전"] },
+          { id: "i5", text: "행사보험 가입 최종 승인", tags: ["사전","긴급"] },
+          { id: "i6", text: "주차별 진행 보고 수령 및 의사결정", tags: ["사전"] },
+        ]},
+        { id: "s2", title: "D-1주", items: [
+          { id: "i7", text: "전체 운영 매뉴얼 최종 검토 및 승인", tags: ["사전"] },
+          { id: "i8", text: "내빈(안산시장·시의원) 참석 확정 재확인", tags: ["사전"] },
+          { id: "i9", text: "출범식 퍼포먼스 최종 순서 확인", tags: ["사전"] },
+        ]},
+        { id: "s3", title: "당일 현장", items: [
+          { id: "i10", text: "총괄본부 상주 — 전체 진행 상황 최종 모니터링", tags: ["당일"] },
+          { id: "i11", text: "내빈 영접 및 응대 (VIP 대기 공간 확인)", tags: ["당일"] },
+          { id: "i12", text: "출범식 총괄 — 깃발 입장 / 리드줄 연결 퍼포먼스 / 출범 선언", tags: ["당일","긴급"] },
+          { id: "i13", text: "각 지역 순찰대 위촉장 수여 주관", tags: ["당일"] },
+          { id: "i14", text: "돌발 상황 최종 의사결정권자 역할 수행", tags: ["당일","긴급"] },
+          { id: "i15", text: "행사 종료 후 주최·후원기관 결과 보고", tags: ["당일"] },
+        ]}
+      ]
+    },
+    {
+      id: "p2", name: "백준호 본부장", role: "총괄",
+      sections: [
+        { id: "s4", title: "사전 — D-8주~D-4주", items: [
+          { id: "i16", text: "행사 기본 계획 수립 및 전체 타임라인 작성", tags: ["사전"] },
+          { id: "i17", text: "협력기관 협의 총괄 일정 조율", tags: ["사전"] },
+          { id: "i18", text: "프로그램 세부 내용 확정 (큐시트 초안)", tags: ["사전"] },
+          { id: "i19", text: "각 팀 담당자 비상연락망 작성 및 배포", tags: ["사전","긴급"] },
+        ]},
+        { id: "s5", title: "D-1주", items: [
+          { id: "i20", text: "전체 리허설 및 현장 동선 최종 점검", tags: ["사전"] },
+          { id: "i21", text: "운영 매뉴얼 전 직원·외부인력 배포", tags: ["사전"] },
+          { id: "i22", text: "각 섹션 팀장 최종 브리핑 진행", tags: ["사전"] },
+        ]},
+        { id: "s6", title: "당일 현장", items: [
+          { id: "i23", text: "총괄본부 상주 — 각 팀 진행 상황 취합 후 대표 전달", tags: ["당일"] },
+          { id: "i24", text: "10:00 기념식 출발 신호 조율", tags: ["당일"] },
+          { id: "i25", text: "11:00 걷기대회 출발 확인", tags: ["당일"] },
+          { id: "i26", text: "13:00 세미나·상담 프로그램 개시 확인", tags: ["당일"] },
+          { id: "i27", text: "15:00 펫티켓 운동회 개시 확인", tags: ["당일"] },
+          { id: "i28", text: "진행 지연·돌발 상황 발생 시 즉각 일정 조정", tags: ["당일","긴급"] },
+          { id: "i29", text: "16:00 폐회 후 철수·정산 총괄", tags: ["당일"] },
+        ]}
+      ]
+    },
+    {
+      id: "p3", name: "유성현 팀장", role: "행사 진행 총괄",
+      sections: [
+        { id: "s7", title: "사전", items: [
+          { id: "i30", text: "MC·아나운서·사운드 외부업체 섭외 및 계약", tags: ["사전"] },
+          { id: "i31", text: "기념식·출범식·운동회 큐시트 상세 작성", tags: ["사전"] },
+          { id: "i32", text: "출범식 퍼포먼스 동선 기획 (리드줄 연결, 깃발 입장)", tags: ["사전"] },
+          { id: "i33", text: "명사 세미나 연사 섭외 및 13:00 일정 확인", tags: ["사전"] },
+          { id: "i34", text: "무대 장비·음향 사전 점검 일정 수립 및 실행", tags: ["사전"] },
+          { id: "i35", text: "무대팀 7명 사전 미팅 및 역할 배분", tags: ["사전"] },
+        ]},
+        { id: "s8", title: "당일 현장", items: [
+          { id: "i36", text: "메인 무대 운영팀 7명 총괄 관리", tags: ["당일"] },
+          { id: "i37", text: "10:00 기념식 — 개회 선언·내빈 소개·축사·기념 촬영 진행", tags: ["당일"] },
+          { id: "i38", text: "11:00 걷기대회 출발 무대 신호 조율", tags: ["당일"] },
+          { id: "i39", text: "13:00 반려견 건강 상담 세미나 무대 운영", tags: ["당일"] },
+          { id: "i40", text: "15:00 펫티켓 운동회 경기 진행 (소형·중형·대형견 구분)", tags: ["당일"] },
+          { id: "i41", text: "16:00 우승자 시상 및 폐회식 무대 진행", tags: ["당일"] },
+          { id: "i42", text: "음향·조명 돌발 오류 발생 시 즉각 대응", tags: ["당일","긴급"] },
+        ]}
+      ]
+    },
+    {
+      id: "p4", name: "박일준 부장", role: "현장 인력 총괄",
+      sections: [
+        { id: "s9", title: "사전", items: [
+          { id: "i43", text: "외부 운영인력 57명 섭외 및 역할 배정표 작성", tags: ["사전"] },
+          { id: "i44", text: "홈페이지 사전 접수 시스템 관리 (목표: 3,000명)", tags: ["사전"] },
+          { id: "i45", text: "참가자 배번호·미션 리플렛·웰컴키트 물량 확보 및 포장", tags: ["사전"] },
+          { id: "i46", text: "걷기 코스 3km 동선 확정 및 8개 미션 지점 지정", tags: ["사전"] },
+          { id: "i47", text: "배치도에 따른 부스 위치 배정 확정", tags: ["사전"] },
+          { id: "i48", text: "협찬 웰컴키트 추가 품목 수령 확인 (쿨매트·해충방지 클립·샴푸 샘플)", tags: ["사전"] },
+          { id: "i49", text: "안전관리 계획 수립 및 관할기관 서류 제출", tags: ["사전","긴급"] },
+          { id: "i50", text: "안전요원 사전 시뮬레이션 교육 시행", tags: ["사전","긴급"] },
+          { id: "i51", text: "인근 의료기관·동물병원·소방서 협력 체계 구축", tags: ["사전","긴급"] },
+        ]},
+        { id: "s10", title: "당일 현장", items: [
+          { id: "i52", text: "현장 접수 데스크 운영 (본부석 명단 확인·배번호 수령)", tags: ["당일"] },
+          { id: "i53", text: "부스 운영팀 30명 배치 및 관리 (부스별 2~3명)", tags: ["당일"] },
+          { id: "i54", text: "체험 부스 — MBIT 행동테스트·건강상담·기초 위생미용", tags: ["당일"] },
+          { id: "i55", text: "체험 부스 — 장난감·수제간식 만들기·캐리커쳐·견생네컷", tags: ["당일"] },
+          { id: "i56", text: "펫티켓 캠페인·후원사 홍보 부스·푸드트럭·쉼터 운영", tags: ["당일"] },
+          { id: "i57", text: "걷기대회 8개 미션 스탬프 운영 관리", tags: ["당일"] },
+          { id: "i58", text: "완주자 도장 확인 후 캠페인 키트 수령 관리", tags: ["당일"] },
+          { id: "i59", text: "안전관리팀 8명 총괄 (안전요원 6명·응급의료인 2명)", tags: ["당일","긴급"] },
+          { id: "i60", text: "구급차 배치 확인·반려동물 응급센터 운영 관리", tags: ["당일","긴급"] },
+          { id: "i61", text: "맹견·대형견 입마개 착용 여부 현장 점검", tags: ["당일","긴급"] },
+          { id: "i62", text: "응급 환자·부상자 발생 시 초기 조치 및 병원 이송 조율", tags: ["당일","긴급"] },
+          { id: "i63", text: "대기 혼잡 시 부스별 인력 재배치 조율", tags: ["당일","긴급"] },
+        ]}
+      ]
+    },
+    {
+      id: "p5", name: "임승민 사원", role: "마케팅 총괄",
+      sections: [
+        { id: "s11", title: "사전 — D-6주~D-3주", items: [
+          { id: "i64", text: "행사 포스터·리플렛 디자인 확정", tags: ["사전","홍보"] },
+          { id: "i65", text: "온라인 사전 안내 게시 (홈페이지·SNS)", tags: ["사전","홍보"] },
+          { id: "i66", text: "포스터 부착 장소 리스트 확보", tags: ["사전","홍보"] },
+          { id: "i67", text: "포스터·리플렛 배포 시작", tags: ["사전","홍보"] },
+          { id: "i68", text: "지자체·동물단체 SNS 게시 협조 요청", tags: ["사전","홍보"] },
+          { id: "i69", text: "지역 언론 1차 보도자료 배포", tags: ["사전","홍보"] },
+        ]},
+        { id: "s12", title: "사전 — D-2주~D-1주", items: [
+          { id: "i70", text: "SNS 카운트다운 콘텐츠 제작 및 업로드 (D-10부터)", tags: ["사전","홍보"] },
+          { id: "i71", text: "동물병원·카페 리플렛 추가 배포", tags: ["사전","홍보"] },
+          { id: "i72", text: "SNS 일별 프로그램 소개 집중 게시", tags: ["사전","홍보"] },
+          { id: "i73", text: "언론 2차 보도자료 배포", tags: ["사전","홍보"] },
+          { id: "i74", text: "SNS 인증 이벤트 사전 안내 게시", tags: ["사전","홍보"] },
+        ]},
+        { id: "s13", title: "당일 현장", items: [
+          { id: "i75", text: "홍보팀 외부인력 2명 관리 (사진·영상 촬영)", tags: ["당일","홍보"] },
+          { id: "i76", text: "SNS·홈페이지 현장 실시간 업로드", tags: ["당일","홍보"] },
+          { id: "i77", text: "언론 보도용 자료 수집 (주요 장면 사진·영상 확보)", tags: ["당일","홍보"] },
+          { id: "i78", text: "행사 종료 후 홍보 콘텐츠 제작 및 최종 업로드", tags: ["당일","홍보"] },
+        ]}
+      ]
+    },
+    {
+      id: "p6", name: "이가은 사원", role: "외부협력 총괄",
+      sections: [
+        { id: "s14", title: "사전", items: [
+          { id: "i79", text: "후원사(안산시·안산시의회) 담당자 연락 및 일정 조율", tags: ["사전"] },
+          { id: "i80", text: "협찬사 키트 물품 수령 일정 확인 (호반건설·ODAC·프로젝트21 등)", tags: ["사전"] },
+          { id: "i81", text: "주관사 역할 분담 협의 (경기매일신문사·애그유니)", tags: ["사전"] },
+          { id: "i82", text: "외부 체험 부스 참여 업체 섭외 및 운영 조건 협의", tags: ["사전"] },
+          { id: "i83", text: "전국 각 지역 순찰대 출범식 참석 확정 및 이동 계획 확인", tags: ["사전"] },
+          { id: "i84", text: "반려견 건강 상담소·세미나 외부 강사·수의사 섭외", tags: ["사전"] },
+          { id: "i85", text: "푸드트럭 업체 섭외 및 배치 위치 협의", tags: ["사전"] },
+        ]},
+        { id: "s15", title: "D-1주", items: [
+          { id: "i86", text: "모든 외부 협력사 최종 참석 여부 재확인", tags: ["사전"] },
+          { id: "i87", text: "협찬 물품 수령 완료 확인 및 보관 장소 안내", tags: ["사전"] },
+        ]},
+        { id: "s16", title: "당일 현장", items: [
+          { id: "i88", text: "후원사·협찬사 담당자 현장 영접 및 안내", tags: ["당일"] },
+          { id: "i89", text: "외부 체험 부스 업체 셋업 확인 및 문의 대응", tags: ["당일"] },
+          { id: "i90", text: "순찰대 각 지역 대표단 현장 안내 및 출범식 동선 안내", tags: ["당일"] },
+          { id: "i91", text: "행사 종료 후 협력사 감사 인사 및 사후 관계 관리", tags: ["당일"] },
+        ]}
+      ]
+    },
+    {
+      id: "p7", name: "윤진 주임", role: "계약",
+      sections: [
+        { id: "s17", title: "사전 — 계약·행정", items: [
+          { id: "i92", text: "협찬사 계약서 작성 및 날인 관리 (호반건설·ODAC·프로젝트21·다빈치독·너즐퍼즐)", tags: ["사전"] },
+          { id: "i93", text: "주관사 업무협약서(MOU) 체결 관리 (경기매일신문사·애그유니)", tags: ["사전"] },
+          { id: "i94", text: "외부 공연·용역 업체 계약서 검토 및 체결 (MC·사운드·무대)", tags: ["사전"] },
+          { id: "i95", text: "행사보험 가입 서류 준비 및 접수", tags: ["사전","긴급"] },
+          { id: "i96", text: "안전관리 신고 서류 작성 및 제출", tags: ["사전","긴급"] },
+          { id: "i97", text: "참가자 개인정보 처리 동의서 양식 준비", tags: ["사전"] },
+          { id: "i98", text: "행사 관련 지자체 허가·신고 서류 처리", tags: ["사전"] },
+        ]},
+        { id: "s18", title: "사전 — 정산 준비", items: [
+          { id: "i99", text: "외부 인력 57명 계약 및 세금계산서·지급 일정 정리", tags: ["사전"] },
+          { id: "i100", text: "협찬 물품 수령증·세금계산서 수취 및 보관", tags: ["사전"] },
+          { id: "i101", text: "행사 예산 집행 내역 실시간 관리", tags: ["사전"] },
+        ]},
+        { id: "s19", title: "당일 및 사후", items: [
+          { id: "i102", text: "현장 계약 관련 문의 대응 및 서류 지원", tags: ["당일"] },
+          { id: "i103", text: "행사 종료 후 정산 서류 취합 및 마감", tags: ["당일"] },
+          { id: "i104", text: "협력사 미지급 비용 정산 처리", tags: ["당일"] },
+          { id: "i105", text: "결과 보고서용 지출 내역 정리", tags: ["당일"] },
+        ]}
+      ]
+    }
+  ]
+};
+
+// ====== STATE ======
+let checked = {};
+let editMode = false;
+let curTab = "all";
+let modalTarget = null; // {personId, sectionId, itemId} or null for add
+let sectionModalTarget = null; // {personId}
+
+function loadState() {
+  try {
+    const s = localStorage.getItem('rr_state_v3');
+    if(s) { const d = JSON.parse(s); checked = d.checked || {}; if(d.appData) appData = d.appData; }
+  } catch(e){}
+}
+function saveState() {
+  try { localStorage.setItem('rr_state_v3', JSON.stringify({checked, appData})); } catch(e){}
+}
+
+// ====== UTILS ======
+function uid() { return 'x' + Math.random().toString(36).slice(2,9); }
+function allItems() {
+  let arr = [];
+  appData.people.forEach(p => p.sections.forEach(s => s.items.forEach(item => arr.push({...item, personId: p.id, sectionId: s.id}))));
+  return arr;
+}
+function personItems(pid) {
+  const p = appData.people.find(x=>x.id===pid);
+  if(!p) return [];
+  let arr = [];
+  p.sections.forEach(s => s.items.forEach(item => arr.push({...item, personId: p.id, sectionId: s.id})));
+  return arr;
+}
+function initials(name) { const parts = name.split(''); return parts.slice(0,2).join(''); }
+
+// ====== RENDER ======
+function render() {
+  renderTabs();
+  renderProgress();
+  renderMain();
+}
+
+function renderTabs() {
+  const all = allItems();
+  const allDone = all.filter(x=>checked[x.id]).length;
+  let html = `<button class="tab${curTab==='all'?' active':''}" onclick="setTab('all')">전체<span class="tab-count">${allDone}/${all.length}</span></button>`;
+  appData.people.forEach(p => {
+    const items = personItems(p.id);
+    const done = items.filter(x=>checked[x.id]).length;
+    html += `<button class="tab${curTab===p.id?' active':''}" onclick="setTab('${p.id}')">${p.name.split(' ')[0]}<span class="tab-count">${done}/${items.length}</span></button>`;
+  });
+  document.getElementById('tabsWrap').innerHTML = html;
+}
+
+function renderProgress() {
+  const all = allItems();
+  const done = all.filter(x=>checked[x.id]).length;
+  const pct = all.length ? Math.round(done/all.length*100) : 0;
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `전체 진행률 (${done}/${all.length} 완료)`;
+}
+
+function renderMain() {
+  const el = document.getElementById('mainContent');
+  if(curTab === 'all') { el.innerHTML = renderAllView(); }
+  else {
+    const p = appData.people.find(x=>x.id===curTab);
+    if(p) el.innerHTML = renderPersonView(p);
+  }
+  if(editMode) el.classList.add('edit-mode-on');
+  else el.classList.remove('edit-mode-on');
+}
+
+function renderAllView() {
+  const all = allItems();
+  const done = all.filter(x=>checked[x.id]).length;
+  const pct = all.length ? Math.round(done/all.length*100) : 0;
+  let statsHtml = `<div class="stats-row">
+    <div class="stat-card highlight"><div class="stat-n">${pct}%</div><div class="stat-l">전체 진행률</div></div>
+    <div class="stat-card"><div class="stat-n">${done}</div><div class="stat-l">완료 항목</div></div>
+    <div class="stat-card"><div class="stat-n">${all.length - done}</div><div class="stat-l">미완료 항목</div></div>
+    <div class="stat-card"><div class="stat-n">${all.length}</div><div class="stat-l">전체 항목</div></div>
+  </div>`;
+
+  let sectionsHtml = '';
+  appData.people.forEach(p => {
+    const items = personItems(p.id);
+    const pdone = items.filter(x=>checked[x.id]).length;
+    sectionsHtml += `<div class="section">
+      <div class="section-header">
+        <div class="section-title">${p.name} · ${p.role}<span class="section-progress">${pdone}/${items.length}</span></div>
+      </div>`;
+    items.forEach(item => { sectionsHtml += renderItem(item, true); });
+    sectionsHtml += `</div>`;
+  });
+  return statsHtml + sectionsHtml;
+}
+
+function renderPersonView(p) {
+  const items = personItems(p.id);
+  const done = items.filter(x=>checked[x.id]).length;
+  const pct = items.length ? Math.round(done/items.length*100) : 0;
+
+  let html = `<div class="person-header">
+    <div class="person-avatar">${initials(p.name)}</div>
+    <div>
+      <div class="person-name" ${editMode?`onclick="editPersonName('${p.id}')" style="cursor:pointer" title="클릭하여 이름 수정"`:''}">${p.name}</div>
+      <div class="person-role" ${editMode?`onclick="editPersonRole('${p.id}')" style="cursor:pointer" title="클릭하여 역할 수정"`:''}">${p.role}</div>
+    </div>
+    <div class="person-stats">
+      <div class="person-pct">${pct}%</div>
+      <div class="person-done">${done} / ${items.length} 완료</div>
+    </div>
+  </div>`;
+
+  p.sections.forEach(s => {
+    const sItems = s.items.map(item=>({...item, personId: p.id, sectionId: s.id}));
+    const sdone = sItems.filter(x=>checked[x.id]).length;
+    html += `<div class="section" data-sid="${s.id}">
+      <div class="section-header">
+        <div class="section-title">
+          <span ${editMode?`onclick="editSectionTitle('${p.id}','${s.id}')" style="cursor:pointer" title="클릭하여 섹션명 수정"`:''}">${s.title}</span>
+          <span class="section-progress">${sdone}/${sItems.length}</span>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center">
+          ${editMode?`<button class="section-add-btn" onclick="openAddItem('${p.id}','${s.id}')">+ 항목 추가</button>
+          <button class="icon-btn del" onclick="deleteSection('${p.id}','${s.id}')" title="섹션 삭제">✕</button>`:''}
+        </div>
+      </div>`;
+    sItems.forEach(item => { html += renderItem(item, false); });
+    html += `</div>`;
+  });
+
+  if(editMode) {
+    html += `<button class="add-section-btn" onclick="openAddSection('${p.id}')">+ 섹션 추가</button>`;
+  }
+  return html;
+}
+
+function renderItem(item, showPerson) {
+  const done = !!checked[item.id];
+  const tags = item.tags.map(t=>`<span class="tag tag-${t}">${t}</span>`).join('');
+  const ptag = showPerson ? `<span class="tag tag-person">${appData.people.find(p=>p.id===item.personId)?.name||''}</span>` : '';
+  return `<div class="item" data-id="${item.id}">
+    <div class="checkbox${done?' checked':''}" onclick="toggleItem('${item.id}')">
+      <svg class="check-icon" width="11" height="11" viewBox="0 0 11 11" fill="none">
+        <polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="item-body" onclick="toggleItem('${item.id}')">
+      <div class="item-text${done?' done':''}">${item.text}</div>
+      <div class="item-tags">${tags}${ptag}</div>
+    </div>
+    <div class="item-actions">
+      <button class="icon-btn" onclick="openEditItem('${item.personId}','${item.sectionId}','${item.id}')" title="수정">✎</button>
+      <button class="icon-btn del" onclick="deleteItem('${item.personId}','${item.sectionId}','${item.id}')" title="삭제">✕</button>
+    </div>
+  </div>`;
+}
+
+// ====== ACTIONS ======
+function setTab(id) { curTab = id; render(); }
+
+function toggleItem(id) {
+  checked[id] = !checked[id];
+  saveState();
+  render();
+}
+
+function toggleEditMode() {
+  editMode = !editMode;
+  const btn = document.getElementById('editBtn');
+  const banner = document.getElementById('editBanner');
+  btn.textContent = editMode ? '✅ 편집 완료' : '✏️ 편집 모드';
+  btn.className = editMode ? 'btn primary' : 'btn edit-mode';
+  banner.className = editMode ? 'edit-banner show' : 'edit-banner';
+  render();
+}
+
+function resetAll() {
+  if(!confirm('모든 체크를 초기화할까요?')) return;
+  checked = {};
+  saveState();
+  render();
+}
+
+// ====== ITEM MODAL ======
+function openAddItem(personId, sectionId) {
+  modalTarget = {personId, sectionId, itemId: null};
+  document.getElementById('modalTitle').textContent = '항목 추가';
+  document.getElementById('modalText').value = '';
+  document.querySelectorAll('#modalTags .checkbox-label').forEach(l=>{ l.classList.remove('selected'); l.querySelector('input').checked = false; });
+  document.getElementById('itemModal').classList.add('show');
+}
+
+function openEditItem(personId, sectionId, itemId) {
+  const p = appData.people.find(x=>x.id===personId);
+  const s = p?.sections.find(x=>x.id===sectionId);
+  const item = s?.items.find(x=>x.id===itemId);
+  if(!item) return;
+  modalTarget = {personId, sectionId, itemId};
+  document.getElementById('modalTitle').textContent = '항목 수정';
+  document.getElementById('modalText').value = item.text;
+  document.querySelectorAll('#modalTags .checkbox-label').forEach(l=>{
+    const val = l.dataset.tag;
+    const sel = item.tags.includes(val);
+    l.classList.toggle('selected', sel);
+    l.querySelector('input').checked = sel;
+  });
+  document.getElementById('itemModal').classList.add('show');
+}
+
+function saveModalItem() {
+  const text = document.getElementById('modalText').value.trim();
+  if(!text) { alert('내용을 입력하세요'); return; }
+  const tags = [];
+  document.querySelectorAll('#modalTags .checkbox-label.selected').forEach(l=>tags.push(l.dataset.tag));
+  const {personId, sectionId, itemId} = modalTarget;
+  const p = appData.people.find(x=>x.id===personId);
+  const s = p?.sections.find(x=>x.id===sectionId);
+  if(!s) return;
+  if(itemId) {
+    const item = s.items.find(x=>x.id===itemId);
+    if(item) { item.text = text; item.tags = tags; }
+  } else {
+    s.items.push({id: uid(), text, tags});
+  }
+  saveState(); closeModal(); render();
+}
+
+function closeModal() { document.getElementById('itemModal').classList.remove('show'); }
+
+function deleteItem(personId, sectionId, itemId) {
+  if(!confirm('이 항목을 삭제할까요?')) return;
+  const p = appData.people.find(x=>x.id===personId);
+  const s = p?.sections.find(x=>x.id===sectionId);
+  if(!s) return;
+  s.items = s.items.filter(x=>x.id!==itemId);
+  delete checked[itemId];
+  saveState(); render();
+}
+
+// ====== SECTION MODAL ======
+function openAddSection(personId) {
+  sectionModalTarget = {personId};
+  document.getElementById('sectionModalText').value = '';
+  document.getElementById('sectionModal').classList.add('show');
+}
+
+function saveSectionModal() {
+  const title = document.getElementById('sectionModalText').value.trim();
+  if(!title) { alert('섹션 이름을 입력하세요'); return; }
+  const p = appData.people.find(x=>x.id===sectionModalTarget.personId);
+  if(!p) return;
+  p.sections.push({id: uid(), title, items: []});
+  saveState(); closeSectionModal(); render();
+}
+
+function closeSectionModal() { document.getElementById('sectionModal').classList.remove('show'); }
+
+function deleteSection(personId, sectionId) {
+  if(!confirm('이 섹션과 포함된 모든 항목을 삭제할까요?')) return;
+  const p = appData.people.find(x=>x.id===personId);
+  if(!p) return;
+  const s = p.sections.find(x=>x.id===sectionId);
+  if(s) s.items.forEach(item=>delete checked[item.id]);
+  p.sections = p.sections.filter(x=>x.id!==sectionId);
+  saveState(); render();
+}
+
+// ====== INLINE EDITS ======
+function editPersonName(pid) {
+  const p = appData.people.find(x=>x.id===pid);
+  if(!p) return;
+  const val = prompt('이름 수정:', p.name);
+  if(val && val.trim()) { p.name = val.trim(); saveState(); render(); }
+}
+function editPersonRole(pid) {
+  const p = appData.people.find(x=>x.id===pid);
+  if(!p) return;
+  const val = prompt('역할 수정:', p.role);
+  if(val && val.trim()) { p.role = val.trim(); saveState(); render(); }
+}
+function editSectionTitle(pid, sid) {
+  const p = appData.people.find(x=>x.id===pid);
+  const s = p?.sections.find(x=>x.id===sid);
+  if(!s) return;
+  const val = prompt('섹션명 수정:', s.title);
+  if(val && val.trim()) { s.title = val.trim(); saveState(); render(); }
+}
+
+// ====== TAG CHECKBOX ======
+document.querySelectorAll('#modalTags .checkbox-label').forEach(label => {
+  label.addEventListener('click', function() {
+    this.classList.toggle('selected');
+    this.querySelector('input').checked = this.classList.contains('selected');
+  });
+});
+
+// ====== MODAL BACKDROP CLOSE ======
+document.getElementById('itemModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.getElementById('sectionModal').addEventListener('click', function(e){ if(e.target===this) closeSectionModal(); });
+
+// ====== INIT ======
+loadState();
+render();
+</script>
+</body>
+</html>
