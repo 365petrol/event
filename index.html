@@ -337,9 +337,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 // ═══════════════════════════════════════════
 // DATA
 // ═══════════════════════════════════════════
-const COLORS = ['#2d6a4f','#1565c0','#b45309','#c62828','#6b21a8','#0e7490','#9a3412','#374151'];
+var COLORS = ['#2d6a4f','#1565c0','#b45309','#c62828','#6b21a8','#0e7490','#9a3412','#374151'];
 
-let db = {
+var db = {
   events: [],
   people: [],
   sections: [],
@@ -347,7 +347,7 @@ let db = {
   checked: {}
 };
 
-const SEED = {
+var SEED = {
   events:[
     {id:'e1',name:'2026 반려견 걷기대회',date:'2026-06-06',place:'안산 호수공원',color:'#2d6a4f',note:'PawSafe World Walk in Ansan'}
   ],
@@ -491,12 +491,16 @@ function buildItems(){
     {s:'s19',p:'p7',t:'협력사 미지급 비용 정산 처리',tags:['당일'],daysB:0},
     {s:'s19',p:'p7',t:'결과 보고서용 지출 내역 정리',tags:['당일'],daysB:0},
   ];
-  return raw.map((r,i)=>{
-    const ev = SEED.events[0];
-    const d = new Date(ev.date);
-    let due = null;
-    if(r.daysB > 0){ d.setDate(d.getDate()-r.daysB); due = d.toISOString().slice(0,10); d.setTime(new Date(ev.date).getTime()); }
-    else if(r.daysB === 0){ due = ev.date; }
+  var eventDate = '2026-06-06';
+  return raw.map(function(r,i){
+    var due = null;
+    if(r.daysB > 0){
+      var d = new Date(eventDate);
+      d.setDate(d.getDate()-r.daysB);
+      due = d.toISOString().slice(0,10);
+    } else if(r.daysB === 0){
+      due = eventDate;
+    }
     return {id:'i'+i,sectionId:r.s,personId:r.p,eventId:'e1',text:r.t,tags:r.tags,due};
   });
 }
@@ -504,21 +508,26 @@ function buildItems(){
 // ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
-let curView = 'dashboard';
-let curEventId = 'e1';
-let curPersonId = null;
-let editMode = false;
-let itemModalCtx = null;
-let sectionModalCtx = null;
-let eventModalCtx = null;
-let personModalCtx = null;
+var curView = 'dashboard';
+var curEventId = 'e1';
+var curPersonId = null;
+var editMode = false;
+var itemModalCtx = null;
+var sectionModalCtx = null;
+var eventModalCtx = null;
+var personModalCtx = null;
 
 function loadDB(){
   try{
-    const s = localStorage.getItem('pms_db_v1');
-    if(s){ const d=JSON.parse(s); db=d; }
-    else { db=JSON.parse(JSON.stringify(SEED)); db.items=buildItems(); db.checked={}; }
-  }catch(e){ db=JSON.parse(JSON.stringify(SEED)); db.items=buildItems(); db.checked={}; }
+    var s = localStorage.getItem('pms_db_v1');
+    if(s){
+      var d = JSON.parse(s);
+      if(d && d.events && d.people) { db = d; return; }
+    }
+  }catch(e){}
+  db = JSON.parse(JSON.stringify(SEED));
+  db.items = buildItems();
+  db.checked = {};
 }
 function saveDB(){ try{localStorage.setItem('pms_db_v1',JSON.stringify(db));}catch(e){} }
 
@@ -1064,26 +1073,14 @@ function editSectionTitle(id){
 function openModal(id){ document.getElementById(id).classList.add('show'); }
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 
-document.querySelectorAll('.backdrop').forEach(b=>{
-  b.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('show'); });
-});
-
 function setColorOpt(containerId, color){
-  document.querySelectorAll('#'+containerId+' .color-opt').forEach(el=>{
+  document.querySelectorAll('#'+containerId+' .color-opt').forEach(function(el){
     el.classList.toggle('sel', el.dataset.color===color);
   });
 }
-document.querySelectorAll('.color-options').forEach(container=>{
-  container.addEventListener('click',function(e){
-    const opt=e.target.closest('.color-opt');
-    if(!opt) return;
-    container.querySelectorAll('.color-opt').forEach(o=>o.classList.remove('sel'));
-    opt.classList.add('sel');
-  });
-});
 
 function attachTagListeners(){
-  document.querySelectorAll('#im_tags .tag-check').forEach(label=>{
+  document.querySelectorAll('#im_tags .tag-check').forEach(function(label){
     label.onclick=function(){
       this.classList.toggle('sel');
       this.querySelector('input').checked=this.classList.contains('sel');
@@ -1108,8 +1105,21 @@ function formatDateFull(d){
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
-loadDB();
-render();
+document.addEventListener('DOMContentLoaded', function(){
+  loadDB();
+  render();
+  document.querySelectorAll('.backdrop').forEach(function(b){
+    b.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('show'); });
+  });
+  document.querySelectorAll('.color-options').forEach(function(container){
+    container.addEventListener('click',function(e){
+      var opt=e.target.closest('.color-opt');
+      if(!opt) return;
+      container.querySelectorAll('.color-opt').forEach(function(o){o.classList.remove('sel');});
+      opt.classList.add('sel');
+    });
+  });
+});
 </script>
 </body>
 </html>
