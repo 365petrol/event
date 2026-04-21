@@ -308,14 +308,25 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 </div>
 </div>
 
-<!-- 섹션 추가 -->
+<!-- 섹션 추가/수정 -->
 <div class="backdrop" id="sectionModal">
-<div class="modal">
-  <h3>섹션 추가</h3>
-  <div class="form-group"><label class="form-label">섹션 이름</label><input class="form-input" id="sm_text" placeholder="예: D-1주, 당일 현장"></div>
+<div class="modal" style="max-width:460px">
+  <h3 id="sectionModalTitle">섹션 추가</h3>
+  <div class="form-group" id="sm_event_group">
+    <label class="form-label">행사</label>
+    <select class="form-select" id="sm_event"></select>
+  </div>
+  <div class="form-group" id="sm_person_group">
+    <label class="form-label">담당자</label>
+    <select class="form-select" id="sm_person"></select>
+  </div>
+  <div class="form-group">
+    <label class="form-label">섹션 이름</label>
+    <input class="form-input" id="sm_text" placeholder="예: D-1주, 당일 현장, 사전 준비">
+  </div>
   <div class="modal-footer">
     <button class="btn" onclick="closeModal('sectionModal')">취소</button>
-    <button class="btn primary" onclick="saveSection()">추가</button>
+    <button class="btn primary" onclick="saveSection()">저장</button>
   </div>
 </div>
 </div>
@@ -496,8 +507,10 @@ function buildItems(){
 // STATE
 // ═══════════════════════════════════════════
 var curView='dashboard', curEventId='e1', editMode=false;
+var curClMode='person'; // 'person' | 'tag'
+var curTagFilter=null;  // null = 전체, string = 특정 태그명
 var itemModalCtx=null, sectionModalCtx=null, eventModalCtx=null, personModalCtx=null;
-var importPending=null; // 가져오기 대기 데이터
+var importPending=null;
 
 function loadDB(){
   try{var s=localStorage.getItem('pms_db_v2');if(s){var d=JSON.parse(s);if(d&&d.events){db=d;if(!db.tags||!db.tags.length)db.tags=JSON.parse(JSON.stringify(DEFAULT_TAGS));return;}}}catch(e){}
@@ -610,7 +623,9 @@ function renderChecklist(){
   var done=evItems.filter(function(i){return db.checked[i.id];}).length;
   var pct=evItems.length?Math.round(done/evItems.length*100):0;
   var r=22,circ=2*Math.PI*r,offset=circ*(1-pct/100);
-  var html='<div class="card" style="margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">'
+
+  // 상단 요약 카드
+  var html='<div class="card" style="margin-bottom:16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">'
     +'<svg width="60" height="60" viewBox="0 0 56 56" style="flex-shrink:0"><circle cx="28" cy="28" r="'+r+'" class="ring-bg"/>'
     +'<circle cx="28" cy="28" r="'+r+'" fill="none" stroke="'+ev.color+'" stroke-width="5" stroke-linecap="round" transform="rotate(-90 28 28)" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/>'
     +'<text x="28" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="'+ev.color+'" font-family="DM Mono,monospace">'+pct+'%</text></svg>'
@@ -620,38 +635,88 @@ function renderChecklist(){
   db.people.forEach(function(p){
     var pit=evItems.filter(function(i){return i.personId===p.id;});
     var pd=pit.filter(function(i){return db.checked[i.id];}).length;
-    html+='<div style="text-align:center;cursor:pointer;padding:6px 10px;border-radius:var(--rs);transition:background .12s" onclick="scrollToPerson(\''+p.id+'\')"'
+    html+='<div style="text-align:center;cursor:pointer;padding:6px 10px;border-radius:var(--rs);transition:background .12s" onclick="setClMode(\'person\');scrollToPerson(\''+p.id+'\')"'
       +' onmouseover="this.style.background=\'var(--surface2)\'" onmouseout="this.style.background=\'transparent\'">'
       +'<div style="width:32px;height:32px;border-radius:50%;background:'+p.color+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;margin:0 auto">'+p.name.slice(0,1)+'</div>'
       +'<div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:\'DM Mono\',monospace">'+pd+'/'+pit.length+'</div></div>';
   });
   html+='</div></div>';
-  if(!db.people.length) return html+'<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">설정에서 담당자를 추가하세요</div></div>';
-  db.people.forEach(function(p){
-    var pit=evItems.filter(function(i){return i.personId===p.id;});
-    var pd=pit.filter(function(i){return db.checked[i.id];}).length;
-    var pp=pit.length?Math.round(pd/pit.length*100):0;
-    var secs=db.sections.filter(function(s){return s.eventId===curEventId&&s.personId===p.id;}).sort(function(a,b){return a.order-b.order;});
-    html+='<div id="person-'+p.id+'" style="margin-bottom:28px"><div class="person-hd">'
-      +'<div class="avatar" style="background:'+p.color+'">'+p.name.slice(0,1)+'</div>'
-      +'<div><div class="person-name-el"'+(editMode?' onclick="openEditPersonModal(\''+p.id+'\')" style="cursor:pointer"':'')+'>'+p.name+' '+p.title+'</div>'
-      +'<div class="person-role-el">'+p.role+'</div></div>'
-      +'<div class="person-stat"><div class="person-pct">'+pp+'%</div><div class="person-cnt">'+pd+' / '+pit.length+' 완료</div></div></div>';
-    secs.forEach(function(s){
-      var sit=pit.filter(function(i){return i.sectionId===s.id;});
-      var sd=sit.filter(function(i){return db.checked[i.id];}).length;
-      html+='<div class="sec"><div class="sec-hd"><div class="sec-title">'
-        +'<span'+(editMode?' onclick="editSectionTitle(\''+s.id+'\')" style="cursor:pointer"':'')+'>'+s.title+'</span>'
-        +'<span class="sec-prog">'+sd+'/'+sit.length+'</span></div>'
-        +'<div class="sec-actions">'+(editMode?'<button class="add-item-btn" onclick="openAddItemModal(\''+curEventId+'\',\''+p.id+'\',\''+s.id+'\')">+ 항목</button>'
-        +'<button class="icon-btn del" onclick="deleteSec(\''+s.id+'\')" title="섹션 삭제">✕</button>':'')+'</div></div>';
-      sit.forEach(function(item){html+=renderClItem(item,false);});
+
+  // 보기 모드 탭
+  html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">'
+    +'<div class="subtabs">'
+    +'<button class="subtab'+(curClMode==='person'?' active':'')+'" onclick="setClMode(\'person\')">👤 담당자별</button>'
+    +'<button class="subtab'+(curClMode==='tag'?' active':'')+'" onclick="setClMode(\'tag\')">🏷️ 태그별</button>'
+    +'</div>';
+
+  // 태그별 모드일 때 태그 필터 버튼
+  if(curClMode==='tag'){
+    html+='<div style="display:flex;gap:5px;flex-wrap:wrap">'
+      +'<button class="btn sm'+(curTagFilter===null?' primary':'')+'" onclick="setTagFilter(null)">전체</button>';
+    getTags().forEach(function(t){
+      var cnt=evItems.filter(function(i){return i.tags.indexOf(t.name)>-1;}).length;
+      var active=curTagFilter===t.name;
+      html+='<button class="btn sm" onclick="setTagFilter(\''+t.name+'\')" style="'+(active?'background:'+t.bg+';color:'+t.color+';border-color:'+t.color:'')+'">'+t.name+' <span style="font-family:\'DM Mono\',monospace;font-size:10px;opacity:0.7">'+cnt+'</span></button>';
+    });
+    html+='</div>';
+  }
+  html+='</div>';
+
+  // ── 담당자별 뷰 ──
+  if(curClMode==='person'){
+    if(!db.people.length) return html+'<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">설정에서 담당자를 추가하세요</div></div>';
+    db.people.forEach(function(p){
+      var pit=evItems.filter(function(i){return i.personId===p.id;});
+      var pd=pit.filter(function(i){return db.checked[i.id];}).length;
+      var pp=pit.length?Math.round(pd/pit.length*100):0;
+      var secs=db.sections.filter(function(s){return s.eventId===curEventId&&s.personId===p.id;}).sort(function(a,b){return a.order-b.order;});
+      html+='<div id="person-'+p.id+'" style="margin-bottom:28px"><div class="person-hd">'
+        +'<div class="avatar" style="background:'+p.color+'">'+p.name.slice(0,1)+'</div>'
+        +'<div><div class="person-name-el"'+(editMode?' onclick="openEditPersonModal(\''+p.id+'\')" style="cursor:pointer"':'')+'>'+p.name+' '+p.title+'</div>'
+        +'<div class="person-role-el">'+p.role+'</div></div>'
+        +'<div class="person-stat"><div class="person-pct">'+pp+'%</div><div class="person-cnt">'+pd+' / '+pit.length+' 완료</div></div></div>';
+      secs.forEach(function(s){
+        var sit=pit.filter(function(i){return i.sectionId===s.id;});
+        var sd=sit.filter(function(i){return db.checked[i.id];}).length;
+        html+='<div class="sec"><div class="sec-hd"><div class="sec-title">'
+          +'<span'+(editMode?' onclick="editSectionTitle(\''+s.id+'\')" style="cursor:pointer"':'')+'>'+s.title+'</span>'
+          +'<span class="sec-prog">'+sd+'/'+sit.length+'</span></div>'
+          +'<div class="sec-actions">'+(editMode?'<button class="add-item-btn" onclick="openAddItemModal(\''+curEventId+'\',\''+p.id+'\',\''+s.id+'\')">+ 항목</button>'
+          +'<button class="icon-btn del" onclick="deleteSec(\''+s.id+'\')" title="섹션 삭제">✕</button>':'')+'</div></div>';
+        sit.forEach(function(item){html+=renderClItem(item,false);});
+        html+='</div>';
+      });
+      if(editMode) html+='<button class="add-sec-btn" onclick="openAddSectionModal(\''+curEventId+'\',\''+p.id+'\')">+ 섹션 추가</button>';
       html+='</div>';
     });
-    if(editMode) html+='<button class="add-sec-btn" onclick="openAddSectionModal(\''+curEventId+'\',\''+p.id+'\')">+ 섹션 추가</button>';
+    if(editMode) html+='<div style="margin-top:8px"><button class="btn primary" onclick="openAddItemModal(\''+curEventId+'\',null,null)">+ 항목 추가 (담당자 선택)</button></div>';
+    return html;
+  }
+
+  // ── 태그별 뷰 ──
+  var targetTags = curTagFilter ? [getTags().find(function(t){return t.name===curTagFilter;})||{name:curTagFilter,bg:'#e8e7e0',color:'#54544e'}] : getTags();
+  if(!targetTags.length) return html+'<div class="empty"><div class="empty-icon">🏷️</div><div class="empty-text">등록된 태그가 없습니다</div></div>';
+
+  var hasAny=false;
+  targetTags.forEach(function(t){
+    var tagItems=evItems.filter(function(i){return i.tags.indexOf(t.name)>-1;});
+    if(!tagItems.length) return;
+    hasAny=true;
+    var td=tagItems.filter(function(i){return db.checked[i.id];}).length;
+    var tp=tagItems.length?Math.round(td/tagItems.length*100):0;
+
+    html+='<div style="margin-bottom:24px">'
+      +'<div class="sec-hd" style="margin-bottom:8px">'
+      +'<div style="display:flex;align-items:center;gap:10px">'
+      +'<span style="padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;background:'+t.bg+';color:'+t.color+'">'+t.name+'</span>'
+      +'<span style="font-size:11px;font-family:\'DM Mono\',monospace;color:var(--text3)">'+td+'/'+tagItems.length+' 완료 · '+tp+'%</span>'
+      +'</div>'
+      +'<div style="width:80px;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+tp+'%;background:'+t.color+';border-radius:2px;transition:width .4s"></div></div>'
+      +'</div>';
+    tagItems.forEach(function(item){html+=renderClItem(item,true);});
     html+='</div>';
   });
-  if(editMode) html+='<div style="margin-top:8px"><button class="btn primary" onclick="openAddItemModal(\''+curEventId+'\',null,null)">+ 항목 추가 (담당자 선택)</button></div>';
+  if(!hasAny) html+='<div class="empty"><div class="empty-icon">🏷️</div><div class="empty-text">해당 태그의 항목이 없습니다</div></div>';
   return html;
 }
 function renderClItem(item,showPerson){
@@ -730,6 +795,38 @@ function renderSettings(){
       +'<button class="btn sm" onclick="openEditPersonModal(\''+p.id+'\')">수정</button>'
       +'<button class="btn sm danger" onclick="deletePerson(\''+p.id+'\')">삭제</button></div>';
   });
+  html+='</div><div class="setting-section"><div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">섹션 관리 <button class="btn sm primary" onclick="openSettingSectionModal()">+ 섹션 추가</button></div>';
+  if(!db.sections.length) html+='<div class="empty"><div class="empty-icon">📂</div><div class="empty-text">등록된 섹션이 없습니다</div></div>';
+  else {
+    // 행사별로 그룹핑
+    db.events.forEach(function(ev){
+      var evSecs=db.sections.filter(function(s){return s.eventId===ev.id;});
+      if(!evSecs.length) return;
+      html+='<div style="margin-bottom:14px">'
+        +'<div style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:0 2px">'
+        +'<span style="width:8px;height:8px;border-radius:50%;background:'+ev.color+';display:inline-block"></span>'+ev.name+'</div>';
+      // 담당자별로 그룹핑
+      db.people.forEach(function(p){
+        var pSecs=evSecs.filter(function(s){return s.personId===p.id;}).sort(function(a,b){return a.order-b.order;});
+        if(!pSecs.length) return;
+        html+='<div style="margin-bottom:8px">'
+          +'<div style="font-size:12px;color:var(--text2);font-weight:500;display:flex;align-items:center;gap:6px;padding:4px 2px 4px 8px;margin-bottom:4px">'
+          +'<div style="width:20px;height:20px;border-radius:50%;background:'+p.color+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">'+p.name.slice(0,1)+'</div>'
+          +p.name+' '+p.title+'</div>';
+        pSecs.forEach(function(s){
+          var itemCnt=db.items.filter(function(i){return i.sectionId===s.id;}).length;
+          html+='<div class="setting-row" style="padding:8px 14px;margin-left:28px">'
+            +'<div style="font-size:18px;color:var(--text3)">☰</div>'
+            +'<div class="setting-row-info"><div class="setting-row-name">'+s.title+'</div>'
+            +'<div class="setting-row-sub">항목 '+itemCnt+'개</div></div>'
+            +'<button class="btn sm" onclick="openEditSectionModal(\''+s.id+'\')">수정</button>'
+            +'<button class="btn sm danger" onclick="deleteSec(\''+s.id+'\')">삭제</button></div>';
+        });
+        html+='</div>';
+      });
+      html+='</div>';
+    });
+  }
   html+='</div><div class="setting-section"><div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">태그 관리 <button class="btn sm primary" onclick="openTagModal()">+ 태그 추가</button></div>';
   if(!getTags().length) html+='<div class="empty"><div class="empty-icon">🏷️</div><div class="empty-text">등록된 태그가 없습니다</div></div>';
   getTags().forEach(function(t){
@@ -1105,6 +1202,8 @@ function downloadTemplate(){
 // ACTIONS
 // ═══════════════════════════════════════════
 function toggleCheck(id){db.checked[id]=!db.checked[id];saveDB();render();}
+function setClMode(mode){curClMode=mode;if(mode==='person') curTagFilter=null;render();}
+function setTagFilter(tag){curTagFilter=tag;render();}
 function resetChecks(){
   if(!confirm('이 행사의 모든 체크를 초기화할까요?')) return;
   db.items.filter(function(i){return i.eventId===curEventId;}).forEach(function(i){delete db.checked[i.id];});
@@ -1252,18 +1351,74 @@ function deleteItem(id){
 // ═══════════════════════════════════════════
 // SECTION MODAL
 // ═══════════════════════════════════════════
-function openAddSectionModal(eventId,personId){
-  sectionModalCtx={eventId,personId};
+function fillSectionModal(eventId, personId, sectionId, title){
+  // 행사 셀렉트
+  var evSel=document.getElementById('sm_event');
+  evSel.innerHTML=db.events.map(function(ev){
+    return '<option value="'+ev.id+'"'+(ev.id===eventId?' selected':'')+'>'+ev.name+'</option>';
+  }).join('');
+  // 담당자 셀렉트
+  var pSel=document.getElementById('sm_person');
+  pSel.innerHTML='<option value="">-- 담당자 선택 --</option>'+db.people.map(function(p){
+    return '<option value="'+p.id+'"'+(p.id===personId?' selected':'')+'>'+p.name+' '+p.title+'</option>';
+  }).join('');
+  document.getElementById('sm_text').value=title||'';
+}
+
+function openAddSectionModal(eventId, personId){
+  // 체크리스트 편집 모드에서 호출 (행사/담당자 고정, 숨김)
+  sectionModalCtx={eventId:eventId, personId:personId, sectionId:null, fromSettings:false};
+  document.getElementById('sectionModalTitle').textContent='섹션 추가';
+  document.getElementById('sm_event_group').style.display='none';
+  document.getElementById('sm_person_group').style.display='none';
   document.getElementById('sm_text').value='';
   openModal('sectionModal');
 }
+
+function openSettingSectionModal(){
+  // 설정 페이지에서 호출 (행사/담당자 직접 선택)
+  sectionModalCtx={eventId:null, personId:null, sectionId:null, fromSettings:true};
+  document.getElementById('sectionModalTitle').textContent='섹션 추가';
+  document.getElementById('sm_event_group').style.display='block';
+  document.getElementById('sm_person_group').style.display='block';
+  fillSectionModal(curEventId||db.events[0]&&db.events[0].id, null, null, '');
+  openModal('sectionModal');
+}
+
+function openEditSectionModal(id){
+  var s=db.sections.find(function(x){return x.id===id;});
+  if(!s) return;
+  sectionModalCtx={eventId:s.eventId, personId:s.personId, sectionId:id, fromSettings:true};
+  document.getElementById('sectionModalTitle').textContent='섹션 수정';
+  document.getElementById('sm_event_group').style.display='block';
+  document.getElementById('sm_person_group').style.display='block';
+  fillSectionModal(s.eventId, s.personId, id, s.title);
+  openModal('sectionModal');
+}
+
 function saveSection(){
   var title=document.getElementById('sm_text').value.trim();
   if(!title){alert('섹션 이름을 입력하세요');return;}
-  var order=db.sections.filter(function(s){return s.eventId===sectionModalCtx.eventId&&s.personId===sectionModalCtx.personId;}).length;
-  db.sections.push({id:uid(),eventId:sectionModalCtx.eventId,personId:sectionModalCtx.personId,title,order});
+  var eventId=sectionModalCtx.fromSettings
+    ? document.getElementById('sm_event').value
+    : sectionModalCtx.eventId;
+  var personId=sectionModalCtx.fromSettings
+    ? document.getElementById('sm_person').value
+    : sectionModalCtx.personId;
+  if(!eventId){alert('행사를 선택하세요');return;}
+  if(!personId){alert('담당자를 선택하세요');return;}
+  if(sectionModalCtx.sectionId){
+    // 수정
+    var s=db.sections.find(function(x){return x.id===sectionModalCtx.sectionId;});
+    if(s){s.title=title;s.eventId=eventId;s.personId=personId;}
+  } else {
+    // 추가
+    var order=db.sections.filter(function(s){return s.eventId===eventId&&s.personId===personId;}).length;
+    db.sections.push({id:uid(),eventId:eventId,personId:personId,title:title,order:order});
+  }
   saveDB();closeModal('sectionModal');render();
 }
+
 function deleteSec(id){
   if(!confirm('섹션과 포함된 항목을 모두 삭제할까요?')) return;
   db.items.filter(function(i){return i.sectionId===id;}).forEach(function(i){delete db.checked[i.id];});
@@ -1271,10 +1426,10 @@ function deleteSec(id){
   db.sections=db.sections.filter(function(s){return s.id!==id;});
   saveDB();render();
 }
+
 function editSectionTitle(id){
-  var s=db.sections.find(function(x){return x.id===id;});if(!s) return;
-  var v=prompt('섹션명 수정:',s.title);
-  if(v&&v.trim()){s.title=v.trim();saveDB();render();}
+  // 편집 모드에서 섹션 제목 클릭 시 → 수정 모달 열기
+  openEditSectionModal(id);
 }
 
 // ═══════════════════════════════════════════
