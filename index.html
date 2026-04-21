@@ -21,8 +21,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh}
-
-/* ── SIDEBAR ── */
 .layout{display:flex;min-height:100vh}
 .sidebar{width:220px;min-width:220px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
 .sidebar-logo{padding:18px 16px 12px;border-bottom:1px solid var(--border)}
@@ -40,16 +38,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .event-item.active{background:var(--accent2);color:var(--accent3);font-weight:500}
 .event-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .sidebar-bottom{margin-top:auto;padding:12px 6px;border-top:1px solid var(--border)}
-
-/* ── MAIN ── */
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
 .topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--sh)}
 .topbar-title{font-size:15px;font-weight:700}
 .topbar-sub{font-size:12px;color:var(--text3);margin-top:1px}
 .topbar-actions{display:flex;gap:8px}
 .content{padding:24px;flex:1}
-
-/* ── BUTTONS ── */
 .btn{padding:7px 14px;font-size:13px;font-weight:500;border-radius:var(--rs);border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .13s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .btn:hover{background:var(--surface2)}
 .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -58,25 +52,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .btn.sm{padding:5px 10px;font-size:12px}
 .btn.ghost{border-color:transparent;color:var(--text3)}
 .btn.ghost:hover{background:var(--surface2);color:var(--text)}
-
-/* ── TABS (sub) ── */
 .subtabs{display:flex;gap:2px;background:var(--surface2);border-radius:var(--rs);padding:3px;margin-bottom:20px;width:fit-content}
 .subtab{padding:6px 14px;font-size:13px;border-radius:5px;border:none;background:transparent;color:var(--text2);cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-weight:500;transition:all .12s}
 .subtab.active{background:var(--surface);color:var(--text);box-shadow:var(--sh)}
-
-/* ── CARDS ── */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh)}
 .card+.card{margin-top:12px}
 .card-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-
-/* ── PROGRESS ── */
 .progress-ring{display:flex;align-items:center;gap:14px}
 .ring-wrap{position:relative;width:56px;height:56px;flex-shrink:0}
 .ring-bg{fill:none;stroke:var(--surface2);stroke-width:5}
 .ring-fill{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .4s}
 .ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)}
-
-/* ── CHECKLIST ITEM ── */
 .cl-item{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:5px;transition:box-shadow .13s,border-color .13s;position:relative}
 .cl-item:hover{box-shadow:var(--sh);border-color:var(--border2)}
 .chkbox{width:20px;height:20px;min-width:20px;border-radius:5px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;margin-top:1px;cursor:pointer;transition:all .13s;flex-shrink:0}
@@ -101,8 +87,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .icon-btn{width:28px;height:28px;border-radius:5px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);transition:all .13s;font-size:13px}
 .icon-btn:hover{background:var(--surface2);color:var(--text)}
 .icon-btn.del:hover{background:var(--red2);color:var(--red)}
-
-/* ── SECTION ── */
 .sec{margin-bottom:20px}
 .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .sec-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
@@ -114,8 +98,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .add-sec-btn{width:100%;padding:9px;border:1.5px dashed var(--border2);border-radius:var(--r);background:transparent;color:var(--text3);font-size:13px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .13s;margin-top:6px;display:none}
 .edit-on .add-sec-btn{display:block}
 .add-sec-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
-
-/* ── PERSON HEADER ── */
 .person-hd{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px}
 .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
 .person-name-el{font-size:16px;font-weight:700}
@@ -123,8 +105,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .person-stat{margin-left:auto;text-align:right}
 .person-pct{font-size:22px;font-weight:700;color:var(--accent);font-family:'DM Mono',monospace}
 .person-cnt{font-size:12px;color:var(--text3)}
-
-/* ── TIMELINE ── */
 .timeline{position:relative;padding-left:28px}
 .tl-line{position:absolute;left:10px;top:0;bottom:0;width:1.5px;background:var(--border)}
 .tl-group{margin-bottom:28px}
@@ -136,15 +116,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .tl-item-text{font-size:14px;color:var(--text);line-height:1.45}
 .tl-item-text.done{text-decoration:line-through;color:var(--text3)}
 .tl-item-meta{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
-
-/* ── STATS ROW ── */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:20px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;text-align:center}
 .stat-n{font-size:26px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text)}
 .stat-l{font-size:11px;color:var(--text3);margin-top:2px}
 .stat-card.hi .stat-n{color:var(--accent)}
-
-/* ── SETTINGS ── */
 .setting-section{margin-bottom:28px}
 .setting-title{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text)}
 .setting-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:6px}
@@ -152,8 +128,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .setting-row-name{font-size:14px;font-weight:500}
 .setting-row-sub{font-size:12px;color:var(--text3);margin-top:1px}
 .color-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-
-/* ── EVENT CARD ── */
 .event-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:box-shadow .13s;cursor:pointer}
 .event-card:hover{box-shadow:var(--sh2);border-color:var(--border2)}
 .event-card-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
@@ -163,8 +137,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .event-card-prog{text-align:right}
 .event-card-pct{font-size:18px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)}
 .event-card-cnt{font-size:11px;color:var(--text3)}
-
-/* ── MODAL ── */
 .backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;padding:16px}
 .backdrop.show{display:flex}
 .modal{background:var(--surface);border-radius:14px;padding:24px;width:100%;max-width:500px;box-shadow:var(--sh2);max-height:90vh;overflow-y:auto}
@@ -183,17 +155,42 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .color-options{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .color-opt{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:all .13s}
 .color-opt.sel{border-color:var(--text)}
-
-/* ── EDIT BANNER ── */
 .edit-banner{display:none;background:var(--amber2);border-bottom:1px solid #fcd34d;padding:9px 24px;font-size:13px;color:var(--amber);align-items:center;gap:8px}
 .edit-banner.show{display:flex}
-
-/* ── EMPTY ── */
 .empty{text-align:center;padding:48px 20px;color:var(--text3)}
 .empty-icon{font-size:36px;margin-bottom:12px}
 .empty-text{font-size:14px}
 
-/* ── RESPONSIVE ── */
+/* ── EXCEL UPLOAD ── */
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--r);padding:32px 24px;text-align:center;transition:all .2s;cursor:pointer;background:var(--surface)}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:var(--accent2)}
+.upload-zone-icon{font-size:36px;margin-bottom:10px}
+.upload-zone-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.upload-zone-sub{font-size:12px;color:var(--text3)}
+.upload-zone input[type=file]{display:none}
+.upload-progress{margin-top:14px}
+.upload-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-top:6px}
+.upload-bar-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s}
+.upload-result{margin-top:12px;padding:12px 14px;border-radius:var(--rs);font-size:13px}
+.upload-result.ok{background:var(--accent2);color:var(--accent3);border:1px solid rgba(45,106,79,.2)}
+.upload-result.err{background:var(--red2);color:var(--red);border:1px solid rgba(198,40,40,.2)}
+.template-box{background:var(--surface2);border-radius:var(--r);padding:16px 18px;margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.template-box-info{flex:1;min-width:0}
+.template-box-title{font-size:13px;font-weight:700}
+.template-box-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.sheet-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.sheet-tab{padding:4px 12px;font-size:12px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .13s}
+.sheet-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.preview-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.preview-table th{background:var(--surface2);padding:6px 10px;text-align:left;font-weight:700;border-bottom:1px solid var(--border2);color:var(--text2);white-space:nowrap}
+.preview-table td{padding:6px 10px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+.preview-table tr:last-child td{border-bottom:none}
+.preview-table tr:hover td{background:var(--surface2)}
+.preview-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--rs);max-height:300px;overflow-y:auto}
+.import-mapping{margin-top:16px}
+.mapping-row{display:grid;grid-template-columns:1fr 24px 1fr;gap:8px;align-items:center;margin-bottom:8px}
+.mapping-arrow{text-align:center;color:var(--text3);font-size:14px}
+
 @media(max-width:700px){
   .sidebar{display:none}
   .content{padding:16px 12px}
@@ -204,7 +201,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 <body>
 <div class="layout">
 
-<!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <div class="sidebar-logo-mark">🐾</div>
@@ -215,6 +211,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <button class="nav-item active" data-view="dashboard" onclick="setView('dashboard')"><span class="nav-icon">🏠</span>대시보드</button>
   <button class="nav-item" data-view="checklist" onclick="setView('checklist')"><span class="nav-icon">✅</span>R&R 체크리스트</button>
   <button class="nav-item" data-view="timeline" onclick="setView('timeline')"><span class="nav-icon">📅</span>타임라인</button>
+  <button class="nav-item" data-view="import" onclick="setView('import')"><span class="nav-icon">📤</span>엑셀 가져오기</button>
   <button class="nav-item" data-view="settings" onclick="setView('settings')"><span class="nav-icon">⚙️</span>설정</button>
   <div class="sidebar-section" style="margin-top:8px">행사 목록</div>
   <div class="event-list" id="sidebarEvents"></div>
@@ -223,7 +220,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   </div>
 </nav>
 
-<!-- MAIN -->
 <div class="main">
   <div class="topbar">
     <div>
@@ -235,10 +231,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <div class="edit-banner" id="editBanner">✏️ 편집 모드 — 항목에 마우스를 올리면 수정·삭제 버튼이 나타납니다</div>
   <div class="content" id="mainContent"></div>
 </div>
-
 </div>
 
-<!-- ─── MODALS ─── -->
 <!-- 행사 추가/수정 -->
 <div class="backdrop" id="eventModal">
 <div class="modal">
@@ -300,9 +294,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <h3 id="itemModalTitle">항목 추가</h3>
   <div class="form-group"><label class="form-label">업무 내용</label><textarea class="form-textarea" id="im_text" rows="3" placeholder="업무 내용을 입력하세요"></textarea></div>
   <div class="form-row">
-    <div class="form-group"><label class="form-label">담당자</label>
-      <select class="form-select" id="im_person"></select>
-    </div>
+    <div class="form-group"><label class="form-label">담당자</label><select class="form-select" id="im_person"></select></div>
     <div class="form-group"><label class="form-label">기한 (선택)</label><input class="form-input" id="im_date" type="date"></div>
   </div>
   <div class="form-group"><label class="form-label">태그</label>
@@ -333,24 +325,30 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 </div>
 </div>
 
+<!-- 엑셀 가져오기 확인 모달 -->
+<div class="backdrop" id="importConfirmModal">
+<div class="modal" style="max-width:560px">
+  <h3>📥 가져오기 확인</h3>
+  <div id="importSummary" style="margin-bottom:16px;font-size:13px;color:var(--text2);line-height:1.8"></div>
+  <div style="padding:12px 14px;background:var(--amber2);border-radius:var(--rs);font-size:12px;color:var(--amber);margin-bottom:16px">
+    ⚠️ 기존 데이터에 항목이 추가됩니다. 담당자가 없으면 자동으로 생성됩니다.
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal('importConfirmModal')">취소</button>
+    <button class="btn primary" onclick="confirmImport()">가져오기</button>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
 // ═══════════════════════════════════════════
 // DATA
 // ═══════════════════════════════════════════
 var COLORS = ['#2d6a4f','#1565c0','#b45309','#c62828','#6b21a8','#0e7490','#9a3412','#374151'];
-
-var db = {
-  events: [],
-  people: [],
-  sections: [],
-  items: [],
-  checked: {}
-};
-
+var db = { events:[], people:[], sections:[], items:[], checked:{} };
 var SEED = {
-  events:[
-    {id:'e1',name:'2026 반려견 걷기대회',date:'2026-06-06',place:'안산 호수공원',color:'#2d6a4f',note:'PawSafe World Walk in Ansan'}
-  ],
+  events:[{id:'e1',name:'2026 반려견 걷기대회',date:'2026-06-06',place:'안산 호수공원',color:'#2d6a4f',note:'PawSafe World Walk in Ansan'}],
   people:[
     {id:'p1',name:'김지민',title:'대표',role:'총괄',color:'#2d6a4f'},
     {id:'p2',name:'백준호',title:'본부장',role:'총괄',color:'#1565c0'},
@@ -386,24 +384,22 @@ var SEED = {
 };
 
 function buildItems(){
-  const raw = [
-    // 김지민 대표
+  var raw=[
     {s:'s1',p:'p1',t:'행사 기획안 최종 승인 및 방향 결정',tags:['사전'],daysB:56},
     {s:'s1',p:'p1',t:'안산시·안산시의회 후원 협의 및 관계 유지',tags:['사전'],daysB:42},
-    {s:'s1',p:'p1',t:'협찬사 계약 최종 확인 (호반건설·ODAC·프로젝트21·다빈치독·너즐퍼즐)',tags:['사전'],daysB:35},
+    {s:'s1',p:'p1',t:'협찬사 계약 최종 확인',tags:['사전'],daysB:35},
     {s:'s1',p:'p1',t:'경기매일신문사·애그유니 주관사 업무 조율',tags:['사전'],daysB:35},
     {s:'s1',p:'p1',t:'행사보험 가입 최종 승인',tags:['사전','긴급'],daysB:28},
     {s:'s1',p:'p1',t:'주차별 진행 보고 수령 및 의사결정',tags:['사전'],daysB:14},
     {s:'s2',p:'p1',t:'전체 운영 매뉴얼 최종 검토 및 승인',tags:['사전'],daysB:7},
-    {s:'s2',p:'p1',t:'내빈(안산시장·시의원) 참석 확정 재확인',tags:['사전'],daysB:5},
+    {s:'s2',p:'p1',t:'내빈 참석 확정 재확인',tags:['사전'],daysB:5},
     {s:'s2',p:'p1',t:'출범식 퍼포먼스 최종 순서 확인',tags:['사전'],daysB:3},
     {s:'s3',p:'p1',t:'총괄본부 상주 — 전체 진행 상황 모니터링',tags:['당일'],daysB:0},
-    {s:'s3',p:'p1',t:'내빈 영접 및 응대 (VIP 대기 공간 확인)',tags:['당일'],daysB:0},
-    {s:'s3',p:'p1',t:'출범식 총괄 — 깃발 입장 / 리드줄 연결 퍼포먼스 / 출범 선언',tags:['당일','긴급'],daysB:0},
+    {s:'s3',p:'p1',t:'내빈 영접 및 응대',tags:['당일'],daysB:0},
+    {s:'s3',p:'p1',t:'출범식 총괄 — 깃발 입장 / 출범 선언',tags:['당일','긴급'],daysB:0},
     {s:'s3',p:'p1',t:'각 지역 순찰대 위촉장 수여 주관',tags:['당일'],daysB:0},
-    {s:'s3',p:'p1',t:'돌발 상황 최종 의사결정권자 역할 수행',tags:['당일','긴급'],daysB:0},
+    {s:'s3',p:'p1',t:'돌발 상황 최종 의사결정권자 역할',tags:['당일','긴급'],daysB:0},
     {s:'s3',p:'p1',t:'행사 종료 후 주최·후원기관 결과 보고',tags:['당일'],daysB:0},
-    // 백준호 본부장
     {s:'s4',p:'p2',t:'행사 기본 계획 수립 및 전체 타임라인 작성',tags:['사전'],daysB:56},
     {s:'s4',p:'p2',t:'협력기관 협의 총괄 일정 조율',tags:['사전'],daysB:42},
     {s:'s4',p:'p2',t:'프로그램 세부 내용 확정 (큐시트 초안)',tags:['사전'],daysB:28},
@@ -411,96 +407,56 @@ function buildItems(){
     {s:'s5',p:'p2',t:'전체 리허설 및 현장 동선 최종 점검',tags:['사전'],daysB:7},
     {s:'s5',p:'p2',t:'운영 매뉴얼 전 직원·외부인력 배포',tags:['사전'],daysB:5},
     {s:'s5',p:'p2',t:'각 섹션 팀장 최종 브리핑 진행',tags:['사전'],daysB:3},
-    {s:'s6',p:'p2',t:'총괄본부 상주 — 각 팀 진행 상황 취합 후 대표 전달',tags:['당일'],daysB:0},
+    {s:'s6',p:'p2',t:'총괄본부 상주 — 각 팀 진행 상황 취합',tags:['당일'],daysB:0},
     {s:'s6',p:'p2',t:'10:00 기념식 출발 신호 조율',tags:['당일'],daysB:0},
     {s:'s6',p:'p2',t:'11:00 걷기대회 출발 확인',tags:['당일'],daysB:0},
     {s:'s6',p:'p2',t:'13:00 세미나·상담 프로그램 개시 확인',tags:['당일'],daysB:0},
     {s:'s6',p:'p2',t:'15:00 펫티켓 운동회 개시 확인',tags:['당일'],daysB:0},
     {s:'s6',p:'p2',t:'진행 지연·돌발 상황 발생 시 즉각 일정 조정',tags:['당일','긴급'],daysB:0},
     {s:'s6',p:'p2',t:'16:00 폐회 후 철수·정산 총괄',tags:['당일'],daysB:0},
-    // 유성현 팀장
     {s:'s7',p:'p3',t:'MC·아나운서·사운드 외부업체 섭외 및 계약',tags:['사전'],daysB:42},
     {s:'s7',p:'p3',t:'기념식·출범식·운동회 큐시트 상세 작성',tags:['사전'],daysB:28},
-    {s:'s7',p:'p3',t:'출범식 퍼포먼스 동선 기획 (리드줄 연결·깃발 입장)',tags:['사전'],daysB:21},
-    {s:'s7',p:'p3',t:'명사 세미나 연사 섭외 및 13:00 일정 확인',tags:['사전'],daysB:21},
-    {s:'s7',p:'p3',t:'무대 장비·음향 사전 점검 일정 수립 및 실행',tags:['사전'],daysB:14},
-    {s:'s7',p:'p3',t:'무대팀 7명 사전 미팅 및 역할 배분',tags:['사전'],daysB:7},
-    {s:'s8',p:'p3',t:'메인 무대 운영팀 7명 총괄 관리',tags:['당일'],daysB:0},
-    {s:'s8',p:'p3',t:'10:00 기념식 — 개회 선언·내빈 소개·축사·기념 촬영',tags:['당일'],daysB:0},
+    {s:'s7',p:'p3',t:'출범식 퍼포먼스 동선 기획',tags:['사전'],daysB:21},
+    {s:'s7',p:'p3',t:'명사 세미나 연사 섭외 및 일정 확인',tags:['사전'],daysB:21},
+    {s:'s7',p:'p3',t:'무대 장비·음향 사전 점검 일정 수립',tags:['사전'],daysB:14},
+    {s:'s8',p:'p3',t:'메인 무대 운영팀 총괄 관리',tags:['당일'],daysB:0},
+    {s:'s8',p:'p3',t:'10:00 기념식 — 개회 선언·내빈 소개·축사',tags:['당일'],daysB:0},
     {s:'s8',p:'p3',t:'13:00 반려견 건강 상담 세미나 무대 운영',tags:['당일'],daysB:0},
-    {s:'s8',p:'p3',t:'15:00 펫티켓 운동회 경기 진행 (소형·중형·대형견 구분)',tags:['당일'],daysB:0},
+    {s:'s8',p:'p3',t:'15:00 펫티켓 운동회 경기 진행',tags:['당일'],daysB:0},
     {s:'s8',p:'p3',t:'16:00 우승자 시상 및 폐회식 무대 진행',tags:['당일'],daysB:0},
-    {s:'s8',p:'p3',t:'음향·조명 돌발 오류 발생 시 즉각 대응',tags:['당일','긴급'],daysB:0},
-    // 박일준 부장
     {s:'s9',p:'p4',t:'외부 운영인력 57명 섭외 및 역할 배정표 작성',tags:['사전'],daysB:42},
-    {s:'s9',p:'p4',t:'홈페이지 사전 접수 시스템 관리 (목표: 3,000명)',tags:['사전'],daysB:35},
-    {s:'s9',p:'p4',t:'참가자 배번호·미션 리플렛·웰컴키트 물량 확보 및 포장',tags:['사전'],daysB:21},
+    {s:'s9',p:'p4',t:'홈페이지 사전 접수 시스템 관리',tags:['사전'],daysB:35},
+    {s:'s9',p:'p4',t:'참가자 배번호·미션 리플렛·웰컴키트 물량 확보',tags:['사전'],daysB:21},
     {s:'s9',p:'p4',t:'걷기 코스 3km 동선 확정 및 8개 미션 지점 지정',tags:['사전'],daysB:21},
-    {s:'s9',p:'p4',t:'배치도에 따른 부스 위치 배정 확정',tags:['사전'],daysB:14},
-    {s:'s9',p:'p4',t:'협찬 웰컴키트 추가 품목 수령 확인',tags:['사전'],daysB:14},
     {s:'s9',p:'p4',t:'안전관리 계획 수립 및 관할기관 서류 제출',tags:['사전','긴급'],daysB:28},
-    {s:'s9',p:'p4',t:'안전요원 사전 시뮬레이션 교육 시행',tags:['사전','긴급'],daysB:14},
-    {s:'s9',p:'p4',t:'인근 의료기관·동물병원·소방서 협력 체계 구축',tags:['사전','긴급'],daysB:21},
-    {s:'s10',p:'p4',t:'현장 접수 데스크 운영 (본부석 명단 확인·배번호 수령)',tags:['당일'],daysB:0},
+    {s:'s10',p:'p4',t:'현장 접수 데스크 운영',tags:['당일'],daysB:0},
     {s:'s10',p:'p4',t:'부스 운영팀 30명 배치 및 관리',tags:['당일'],daysB:0},
-    {s:'s10',p:'p4',t:'체험 부스 운영 — MBIT 행동테스트·건강상담·위생미용',tags:['당일'],daysB:0},
-    {s:'s10',p:'p4',t:'체험 부스 운영 — 장난감·수제간식 만들기·캐리커쳐·견생네컷',tags:['당일'],daysB:0},
-    {s:'s10',p:'p4',t:'안전관리팀 8명 총괄 (안전요원 6명·응급의료인 2명)',tags:['당일','긴급'],daysB:0},
-    {s:'s10',p:'p4',t:'구급차 배치 확인·반려동물 응급센터 운영',tags:['당일','긴급'],daysB:0},
-    {s:'s10',p:'p4',t:'맹견·대형견 입마개 착용 여부 현장 점검',tags:['당일','긴급'],daysB:0},
-    // 임승민 사원
+    {s:'s10',p:'p4',t:'안전관리팀 총괄',tags:['당일','긴급'],daysB:0},
     {s:'s11',p:'p5',t:'행사 포스터·리플렛 디자인 확정',tags:['사전','홍보'],daysB:42},
-    {s:'s11',p:'p5',t:'온라인 사전 안내 게시 (홈페이지·SNS)',tags:['사전','홍보'],daysB:42},
+    {s:'s11',p:'p5',t:'온라인 사전 안내 게시',tags:['사전','홍보'],daysB:42},
     {s:'s11',p:'p5',t:'포스터 배포 시작 및 지자체·동물단체 SNS 게시',tags:['사전','홍보'],daysB:21},
-    {s:'s11',p:'p5',t:'지역 언론 1차 보도자료 배포',tags:['사전','홍보'],daysB:21},
-    {s:'s12',p:'p5',t:'SNS 카운트다운 콘텐츠 제작 및 업로드 (D-10부터)',tags:['사전','홍보'],daysB:10},
-    {s:'s12',p:'p5',t:'동물병원·카페 리플렛 추가 배포',tags:['사전','홍보'],daysB:14},
+    {s:'s12',p:'p5',t:'SNS 카운트다운 콘텐츠 제작 및 업로드',tags:['사전','홍보'],daysB:10},
     {s:'s12',p:'p5',t:'언론 2차 보도자료 배포',tags:['사전','홍보'],daysB:7},
-    {s:'s12',p:'p5',t:'SNS 인증 이벤트 사전 안내 게시',tags:['사전','홍보'],daysB:5},
-    {s:'s13',p:'p5',t:'홍보팀 외부인력 2명 관리 (사진·영상 촬영)',tags:['당일','홍보'],daysB:0},
+    {s:'s13',p:'p5',t:'홍보팀 외부인력 2명 관리',tags:['당일','홍보'],daysB:0},
     {s:'s13',p:'p5',t:'SNS·홈페이지 현장 실시간 업로드',tags:['당일','홍보'],daysB:0},
-    {s:'s13',p:'p5',t:'언론 보도용 자료 수집',tags:['당일','홍보'],daysB:0},
-    {s:'s13',p:'p5',t:'행사 종료 후 홍보 콘텐츠 제작 및 최종 업로드',tags:['당일','홍보'],daysB:0},
-    // 이가은 사원
-    {s:'s14',p:'p6',t:'후원사(안산시·안산시의회) 담당자 연락 및 일정 조율',tags:['사전'],daysB:42},
+    {s:'s14',p:'p6',t:'후원사 담당자 연락 및 일정 조율',tags:['사전'],daysB:42},
     {s:'s14',p:'p6',t:'협찬사 키트 물품 수령 일정 확인',tags:['사전'],daysB:35},
-    {s:'s14',p:'p6',t:'주관사 역할 분담 협의 (경기매일신문사·애그유니)',tags:['사전'],daysB:35},
-    {s:'s14',p:'p6',t:'외부 체험 부스 참여 업체 섭외 및 운영 조건 협의',tags:['사전'],daysB:28},
-    {s:'s14',p:'p6',t:'전국 각 지역 순찰대 출범식 참석 확정 및 이동 계획 확인',tags:['사전'],daysB:21},
-    {s:'s14',p:'p6',t:'반려견 건강 상담소·세미나 외부 강사·수의사 섭외',tags:['사전'],daysB:28},
-    {s:'s14',p:'p6',t:'푸드트럭 업체 섭외 및 배치 위치 협의',tags:['사전'],daysB:28},
+    {s:'s14',p:'p6',t:'외부 체험 부스 참여 업체 섭외',tags:['사전'],daysB:28},
     {s:'s15',p:'p6',t:'모든 외부 협력사 최종 참석 여부 재확인',tags:['사전'],daysB:7},
-    {s:'s15',p:'p6',t:'협찬 물품 수령 완료 확인 및 보관 장소 안내',tags:['사전'],daysB:5},
     {s:'s16',p:'p6',t:'후원사·협찬사 담당자 현장 영접 및 안내',tags:['당일'],daysB:0},
-    {s:'s16',p:'p6',t:'외부 체험 부스 업체 셋업 확인',tags:['당일'],daysB:0},
-    {s:'s16',p:'p6',t:'순찰대 각 지역 대표단 현장 안내 및 출범식 동선 안내',tags:['당일'],daysB:0},
-    {s:'s16',p:'p6',t:'행사 종료 후 협력사 감사 인사 및 사후 관계 관리',tags:['당일'],daysB:0},
-    // 윤진 주임
     {s:'s17',p:'p7',t:'협찬사 계약서 작성 및 날인 관리',tags:['사전','계약'],daysB:42},
-    {s:'s17',p:'p7',t:'주관사 업무협약서(MOU) 체결 관리',tags:['사전','계약'],daysB:42},
-    {s:'s17',p:'p7',t:'외부 공연·용역 업체 계약서 검토 및 체결 (MC·사운드·무대)',tags:['사전','계약'],daysB:35},
+    {s:'s17',p:'p7',t:'외부 공연·용역 업체 계약서 검토 및 체결',tags:['사전','계약'],daysB:35},
     {s:'s17',p:'p7',t:'행사보험 가입 서류 준비 및 접수',tags:['사전','긴급','계약'],daysB:28},
-    {s:'s17',p:'p7',t:'안전관리 신고 서류 작성 및 제출',tags:['사전','긴급','계약'],daysB:28},
-    {s:'s17',p:'p7',t:'참가자 개인정보 처리 동의서 양식 준비',tags:['사전','계약'],daysB:21},
-    {s:'s17',p:'p7',t:'행사 관련 지자체 허가·신고 서류 처리',tags:['사전','계약'],daysB:21},
     {s:'s18',p:'p7',t:'외부 인력 57명 계약 및 지급 일정 정리',tags:['사전','계약'],daysB:28},
-    {s:'s18',p:'p7',t:'협찬 물품 수령증·세금계산서 수취 및 보관',tags:['사전','계약'],daysB:14},
     {s:'s18',p:'p7',t:'행사 예산 집행 내역 실시간 관리',tags:['사전'],daysB:14},
     {s:'s19',p:'p7',t:'현장 계약 관련 문의 대응 및 서류 지원',tags:['당일'],daysB:0},
     {s:'s19',p:'p7',t:'행사 종료 후 정산 서류 취합 및 마감',tags:['당일'],daysB:0},
-    {s:'s19',p:'p7',t:'협력사 미지급 비용 정산 처리',tags:['당일'],daysB:0},
-    {s:'s19',p:'p7',t:'결과 보고서용 지출 내역 정리',tags:['당일'],daysB:0},
   ];
-  var eventDate = '2026-06-06';
+  var eventDate='2026-06-06';
   return raw.map(function(r,i){
-    var due = null;
-    if(r.daysB > 0){
-      var d = new Date(eventDate);
-      d.setDate(d.getDate()-r.daysB);
-      due = d.toISOString().slice(0,10);
-    } else if(r.daysB === 0){
-      due = eventDate;
-    }
+    var due=null;
+    if(r.daysB>0){var d=new Date(eventDate);d.setDate(d.getDate()-r.daysB);due=d.toISOString().slice(0,10);}
+    else if(r.daysB===0){due=eventDate;}
     return {id:'i'+i,sectionId:r.s,personId:r.p,eventId:'e1',text:r.t,tags:r.tags,due};
   });
 }
@@ -508,70 +464,55 @@ function buildItems(){
 // ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
-var curView = 'dashboard';
-var curEventId = 'e1';
-var curPersonId = null;
-var editMode = false;
-var itemModalCtx = null;
-var sectionModalCtx = null;
-var eventModalCtx = null;
-var personModalCtx = null;
+var curView='dashboard', curEventId='e1', editMode=false;
+var itemModalCtx=null, sectionModalCtx=null, eventModalCtx=null, personModalCtx=null;
+var importPending=null; // 가져오기 대기 데이터
 
 function loadDB(){
-  try{
-    var s = localStorage.getItem('pms_db_v1');
-    if(s){
-      var d = JSON.parse(s);
-      if(d && d.events && d.people) { db = d; return; }
-    }
-  }catch(e){}
-  db = JSON.parse(JSON.stringify(SEED));
-  db.items = buildItems();
-  db.checked = {};
+  try{var s=localStorage.getItem('pms_db_v2');if(s){var d=JSON.parse(s);if(d&&d.events){db=d;return;}}}catch(e){}
+  db=JSON.parse(JSON.stringify(SEED));
+  db.items=buildItems();
+  db.checked={};
 }
-function saveDB(){ try{localStorage.setItem('pms_db_v1',JSON.stringify(db));}catch(e){} }
-
-function uid(){ return 'x'+Math.random().toString(36).slice(2,9); }
+function saveDB(){try{localStorage.setItem('pms_db_v2',JSON.stringify(db));}catch(e){}}
+function uid(){return 'x'+Math.random().toString(36).slice(2,9);}
 
 // ═══════════════════════════════════════════
 // NAV
 // ═══════════════════════════════════════════
-function setView(v, eid){
+function setView(v,eid){
   curView=v;
   if(eid) curEventId=eid;
-  document.querySelectorAll('.nav-item').forEach(el=>el.classList.toggle('active',el.dataset.view===v));
-  if(editMode && v!=='checklist') toggleEditMode(false);
+  document.querySelectorAll('.nav-item').forEach(function(el){el.classList.toggle('active',el.dataset.view===v);});
+  if(editMode&&v!=='checklist') toggleEditMode(false);
   render();
 }
-
-function render(){
-  renderSidebarEvents();
-  renderTopbar();
-  renderContent();
-}
+function render(){renderSidebarEvents();renderTopbar();renderContent();}
 
 function renderSidebarEvents(){
-  const el = document.getElementById('sidebarEvents');
-  el.innerHTML = db.events.map(ev=>`
-    <div class="event-item${curEventId===ev.id?' active':''}" onclick="setView('checklist','${ev.id}')">
-      <div class="event-dot" style="background:${ev.color}"></div>
-      <span>${ev.name}</span>
-    </div>`).join('');
+  var el=document.getElementById('sidebarEvents');
+  el.innerHTML=db.events.map(function(ev){
+    return '<div class="event-item'+(curEventId===ev.id?' active':'')+'" onclick="setView(\'checklist\',\''+ev.id+'\')">'
+      +'<div class="event-dot" style="background:'+ev.color+'"></div><span>'+ev.name+'</span></div>';
+  }).join('');
 }
-
 function renderTopbar(){
-  const titles = {dashboard:'대시보드',checklist:'R&R 체크리스트',timeline:'타임라인',settings:'설정'};
-  const subs = {dashboard:'전체 행사 현황',checklist:curEventId?db.events.find(e=>e.id===curEventId)?.name||'':'',timeline:curEventId?db.events.find(e=>e.id===curEventId)?.name||'':'',settings:'행사·담당자 관리'};
-  document.getElementById('topbarTitle').textContent = titles[curView]||'';
-  document.getElementById('topbarSub').textContent = subs[curView]||'';
-  const act = document.getElementById('topbarActions');
+  var titles={dashboard:'대시보드',checklist:'R&R 체크리스트',timeline:'타임라인',import:'엑셀 가져오기',settings:'설정'};
+  var subs={dashboard:'전체 행사 현황',checklist:curEventId?(db.events.find(function(e){return e.id===curEventId;})||{}).name||'':'',
+    timeline:curEventId?(db.events.find(function(e){return e.id===curEventId;})||{}).name||'':'',
+    import:'엑셀 파일에서 항목 가져오기',settings:'행사·담당자 관리'};
+  document.getElementById('topbarTitle').textContent=titles[curView]||'';
+  document.getElementById('topbarSub').textContent=subs[curView]||'';
+  var act=document.getElementById('topbarActions');
   if(curView==='checklist'){
-    act.innerHTML=`<button class="btn${editMode?' primary':' ghost'}" onclick="toggleEditMode()"><span>${editMode?'✅':'✏️'}</span>${editMode?'편집 완료':'편집 모드'}</button>
-    <button class="btn sm" onclick="resetChecks()">초기화</button>`;
+    act.innerHTML='<button class="btn'+(editMode?' primary':' ghost')+'" onclick="toggleEditMode()"><span>'+(editMode?'✅':'✏️')+'</span>'+(editMode?'편집 완료':'편집 모드')+'</button>'
+      +'<button class="btn sm" onclick="resetChecks()">초기화</button>';
   } else if(curView==='dashboard'){
-    act.innerHTML=`<button class="btn primary" onclick="openNewEventModal()">+ 행사 추가</button>`;
+    act.innerHTML='<button class="btn primary" onclick="openNewEventModal()">+ 행사 추가</button>';
   } else if(curView==='settings'){
-    act.innerHTML=`<button class="btn primary" onclick="openPersonModal()">+ 담당자 추가</button>`;
+    act.innerHTML='<button class="btn primary" onclick="openPersonModal()">+ 담당자 추가</button>';
+  } else if(curView==='import'){
+    act.innerHTML='<button class="btn" onclick="downloadTemplate()">📥 템플릿 다운로드</button>';
   } else { act.innerHTML=''; }
 }
 
@@ -579,309 +520,547 @@ function renderTopbar(){
 // VIEWS
 // ═══════════════════════════════════════════
 function renderContent(){
-  const el = document.getElementById('mainContent');
-  const banner = document.getElementById('editBanner');
-  banner.className = (editMode && curView==='checklist') ? 'edit-banner show' : 'edit-banner';
+  var el=document.getElementById('mainContent');
+  var banner=document.getElementById('editBanner');
+  banner.className=(editMode&&curView==='checklist')?'edit-banner show':'edit-banner';
   if(curView==='dashboard') el.innerHTML=renderDashboard();
   else if(curView==='checklist') el.innerHTML=renderChecklist();
   else if(curView==='timeline') el.innerHTML=renderTimeline();
+  else if(curView==='import') el.innerHTML=renderImport();
   else if(curView==='settings') el.innerHTML=renderSettings();
   if(editMode) el.classList.add('edit-on'); else el.classList.remove('edit-on');
   attachTagListeners();
+  if(curView==='import') attachImportListeners();
 }
 
 // ── DASHBOARD ──
 function renderDashboard(){
-  const total = db.items.length;
-  const done = db.items.filter(i=>db.checked[i.id]).length;
-  const pct = total?Math.round(done/total*100):0;
-  let html = `<div class="stats-row">
-    <div class="stat-card hi"><div class="stat-n">${db.events.length}</div><div class="stat-l">총 행사</div></div>
-    <div class="stat-card hi"><div class="stat-n">${pct}%</div><div class="stat-l">전체 진행률</div></div>
-    <div class="stat-card"><div class="stat-n">${done}</div><div class="stat-l">완료 항목</div></div>
-    <div class="stat-card"><div class="stat-n">${total-done}</div><div class="stat-l">미완료 항목</div></div>
-    <div class="stat-card"><div class="stat-n">${db.people.length}</div><div class="stat-l">담당자</div></div>
-  </div>`;
-  html += `<div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text2)">행사 목록</div>`;
-  if(!db.events.length) return html+`<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">등록된 행사가 없습니다</div></div>`;
-  db.events.forEach(ev=>{
-    const items = db.items.filter(i=>i.eventId===ev.id);
-    const d = items.filter(i=>db.checked[i.id]).length;
-    const p = items.length?Math.round(d/items.length*100):0;
-    const evDate = ev.date ? new Date(ev.date).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}) : '';
-    const r = 22; const circ = 2*Math.PI*r;
-    const offset = circ*(1-p/100);
-    html+=`<div class="event-card" onclick="setView('checklist','${ev.id}')">
-      <div style="width:56px;height:56px;flex-shrink:0;position:relative">
-        <svg width="56" height="56" viewBox="0 0 56 56">
-          <circle cx="28" cy="28" r="${r}" class="ring-bg"/>
-          <circle cx="28" cy="28" r="${r}" fill="none" stroke="${ev.color}" stroke-width="5" stroke-linecap="round"
-            transform="rotate(-90 28 28)" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" style="transition:stroke-dashoffset .4s"/>
-        </svg>
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;color:${ev.color}">${p}%</div>
-      </div>
-      <div class="event-card-info">
-        <div class="event-card-name">${ev.name}</div>
-        <div class="event-card-meta">${evDate}${ev.place?' · '+ev.place:''}</div>
-        ${ev.note?`<div style="font-size:12px;color:var(--text3);margin-top:2px">${ev.note}</div>`:''}
-      </div>
-      <div class="event-card-prog">
-        <div class="event-card-pct">${d}/${items.length}</div>
-        <div class="event-card-cnt">완료</div>
-      </div>
-      ${editMode?`<button class="btn sm ghost" onclick="event.stopPropagation();openEditEventModal('${ev.id}')">수정</button>
-      <button class="btn sm danger" onclick="event.stopPropagation();deleteEvent('${ev.id}')">삭제</button>`:''}
-    </div>`;
+  var total=db.items.length, done=db.items.filter(function(i){return db.checked[i.id];}).length;
+  var pct=total?Math.round(done/total*100):0;
+  var html='<div class="stats-row">'
+    +'<div class="stat-card hi"><div class="stat-n">'+db.events.length+'</div><div class="stat-l">총 행사</div></div>'
+    +'<div class="stat-card hi"><div class="stat-n">'+pct+'%</div><div class="stat-l">전체 진행률</div></div>'
+    +'<div class="stat-card"><div class="stat-n">'+done+'</div><div class="stat-l">완료 항목</div></div>'
+    +'<div class="stat-card"><div class="stat-n">'+(total-done)+'</div><div class="stat-l">미완료 항목</div></div>'
+    +'<div class="stat-card"><div class="stat-n">'+db.people.length+'</div><div class="stat-l">담당자</div></div>'
+    +'</div>';
+  html+='<div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text2)">행사 목록</div>';
+  if(!db.events.length) return html+'<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">등록된 행사가 없습니다</div></div>';
+  db.events.forEach(function(ev){
+    var items=db.items.filter(function(i){return i.eventId===ev.id;});
+    var d=items.filter(function(i){return db.checked[i.id];}).length;
+    var p=items.length?Math.round(d/items.length*100):0;
+    var evDate=ev.date?new Date(ev.date).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}):'';
+    var r=22,circ=2*Math.PI*r,offset=circ*(1-p/100);
+    html+='<div class="event-card" onclick="setView(\'checklist\',\''+ev.id+'\')">'
+      +'<div style="width:56px;height:56px;flex-shrink:0;position:relative">'
+      +'<svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="'+r+'" class="ring-bg"/>'
+      +'<circle cx="28" cy="28" r="'+r+'" fill="none" stroke="'+ev.color+'" stroke-width="5" stroke-linecap="round" transform="rotate(-90 28 28)" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/></svg>'
+      +'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:\'DM Mono\',monospace;color:'+ev.color+'">'+p+'%</div></div>'
+      +'<div class="event-card-info"><div class="event-card-name">'+ev.name+'</div>'
+      +'<div class="event-card-meta">'+evDate+(ev.place?' · '+ev.place:'')+'</div>'
+      +(ev.note?'<div style="font-size:12px;color:var(--text3);margin-top:2px">'+ev.note+'</div>':'')
+      +'</div><div class="event-card-prog"><div class="event-card-pct">'+d+'/'+items.length+'</div><div class="event-card-cnt">완료</div></div></div>';
   });
   return html;
 }
 
 // ── CHECKLIST ──
 function renderChecklist(){
-  const ev = db.events.find(e=>e.id===curEventId);
-  if(!ev) return `<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">왼쪽에서 행사를 선택하거나 새 행사를 추가하세요</div></div>`;
-
-  const evItems = db.items.filter(i=>i.eventId===curEventId);
-  const done = evItems.filter(i=>db.checked[i.id]).length;
-  const pct = evItems.length?Math.round(done/evItems.length*100):0;
-  const r=22,circ=2*Math.PI*r,offset=circ*(1-pct/100);
-
-  let html = `<div class="card" style="margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
-    <svg width="60" height="60" viewBox="0 0 56 56" style="flex-shrink:0">
-      <circle cx="28" cy="28" r="${r}" class="ring-bg"/>
-      <circle cx="28" cy="28" r="${r}" fill="none" stroke="${ev.color}" stroke-width="5" stroke-linecap="round"
-        transform="rotate(-90 28 28)" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"/>
-      <text x="28" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="${ev.color}" font-family="DM Mono,monospace">${pct}%</text>
-    </svg>
-    <div style="flex:1;min-width:0">
-      <div style="font-size:16px;font-weight:700">${ev.name}</div>
-      <div style="font-size:13px;color:var(--text3);margin-top:2px">${ev.date?new Date(ev.date).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}):''} ${ev.place?'· '+ev.place:''}</div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">`;
-  db.people.forEach(p=>{
-    const pit=evItems.filter(i=>i.personId===p.id);
-    const pd=pit.filter(i=>db.checked[i.id]).length;
-    html+=`<div style="text-align:center;cursor:pointer;padding:6px 10px;border-radius:var(--rs);transition:background .12s" onclick="scrollToPerson('${p.id}')"
-      onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='transparent'">
-      <div style="width:32px;height:32px;border-radius:50%;background:${p.color};display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;margin:0 auto">${p.name.slice(0,1)}</div>
-      <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace">${pd}/${pit.length}</div>
-    </div>`;
+  var ev=db.events.find(function(e){return e.id===curEventId;});
+  if(!ev) return '<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">왼쪽에서 행사를 선택하거나 새 행사를 추가하세요</div></div>';
+  var evItems=db.items.filter(function(i){return i.eventId===curEventId;});
+  var done=evItems.filter(function(i){return db.checked[i.id];}).length;
+  var pct=evItems.length?Math.round(done/evItems.length*100):0;
+  var r=22,circ=2*Math.PI*r,offset=circ*(1-pct/100);
+  var html='<div class="card" style="margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">'
+    +'<svg width="60" height="60" viewBox="0 0 56 56" style="flex-shrink:0"><circle cx="28" cy="28" r="'+r+'" class="ring-bg"/>'
+    +'<circle cx="28" cy="28" r="'+r+'" fill="none" stroke="'+ev.color+'" stroke-width="5" stroke-linecap="round" transform="rotate(-90 28 28)" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/>'
+    +'<text x="28" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="'+ev.color+'" font-family="DM Mono,monospace">'+pct+'%</text></svg>'
+    +'<div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:700">'+ev.name+'</div>'
+    +'<div style="font-size:13px;color:var(--text3);margin-top:2px">'+(ev.date?new Date(ev.date).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}):'')+' '+(ev.place?'· '+ev.place:'')+'</div></div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  db.people.forEach(function(p){
+    var pit=evItems.filter(function(i){return i.personId===p.id;});
+    var pd=pit.filter(function(i){return db.checked[i.id];}).length;
+    html+='<div style="text-align:center;cursor:pointer;padding:6px 10px;border-radius:var(--rs);transition:background .12s" onclick="scrollToPerson(\''+p.id+'\')"'
+      +' onmouseover="this.style.background=\'var(--surface2)\'" onmouseout="this.style.background=\'transparent\'">'
+      +'<div style="width:32px;height:32px;border-radius:50%;background:'+p.color+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;margin:0 auto">'+p.name.slice(0,1)+'</div>'
+      +'<div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:\'DM Mono\',monospace">'+pd+'/'+pit.length+'</div></div>';
   });
-  html+=`</div></div>`;
-
-  // 담당자별 섹션
-  if(!db.people.length) return html+`<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">설정에서 담당자를 추가하세요</div></div>`;
-
-  db.people.forEach(p=>{
-    const pit = evItems.filter(i=>i.personId===p.id);
-    const pd = pit.filter(i=>db.checked[i.id]).length;
-    const pp = pit.length?Math.round(pd/pit.length*100):0;
-    const secs = db.sections.filter(s=>s.eventId===curEventId&&s.personId===p.id).sort((a,b)=>a.order-b.order);
-
-    html+=`<div id="person-${p.id}" style="margin-bottom:28px">
-      <div class="person-hd">
-        <div class="avatar" style="background:${p.color}">${p.name.slice(0,1)}</div>
-        <div>
-          <div class="person-name-el" ${editMode?`onclick="openEditPersonModal('${p.id}')" style="cursor:pointer" title="클릭하여 수정"`:''}>${p.name} ${p.title}</div>
-          <div class="person-role-el">${p.role}</div>
-        </div>
-        <div class="person-stat">
-          <div class="person-pct">${pp}%</div>
-          <div class="person-cnt">${pd} / ${pit.length} 완료</div>
-        </div>
-      </div>`;
-
-    secs.forEach(s=>{
-      const sit = pit.filter(i=>i.sectionId===s.id);
-      const sd = sit.filter(i=>db.checked[i.id]).length;
-      html+=`<div class="sec">
-        <div class="sec-hd">
-          <div class="sec-title">
-            <span ${editMode?`onclick="editSectionTitle('${s.id}')" style="cursor:pointer" title="클릭하여 수정"`:''}>${s.title}</span>
-            <span class="sec-prog">${sd}/${sit.length}</span>
-          </div>
-          <div class="sec-actions">
-            ${editMode?`<button class="add-item-btn" onclick="openAddItemModal('${curEventId}','${p.id}','${s.id}')">+ 항목</button>
-            <button class="icon-btn del" onclick="deleteSec('${s.id}')" title="섹션 삭제">✕</button>`:''}
-          </div>
-        </div>`;
-      sit.forEach(item=>{
-        html+=renderClItem(item,false);
-      });
-      html+=`</div>`;
+  html+='</div></div>';
+  if(!db.people.length) return html+'<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">설정에서 담당자를 추가하세요</div></div>';
+  db.people.forEach(function(p){
+    var pit=evItems.filter(function(i){return i.personId===p.id;});
+    var pd=pit.filter(function(i){return db.checked[i.id];}).length;
+    var pp=pit.length?Math.round(pd/pit.length*100):0;
+    var secs=db.sections.filter(function(s){return s.eventId===curEventId&&s.personId===p.id;}).sort(function(a,b){return a.order-b.order;});
+    html+='<div id="person-'+p.id+'" style="margin-bottom:28px"><div class="person-hd">'
+      +'<div class="avatar" style="background:'+p.color+'">'+p.name.slice(0,1)+'</div>'
+      +'<div><div class="person-name-el"'+(editMode?' onclick="openEditPersonModal(\''+p.id+'\')" style="cursor:pointer"':'')+'>'+p.name+' '+p.title+'</div>'
+      +'<div class="person-role-el">'+p.role+'</div></div>'
+      +'<div class="person-stat"><div class="person-pct">'+pp+'%</div><div class="person-cnt">'+pd+' / '+pit.length+' 완료</div></div></div>';
+    secs.forEach(function(s){
+      var sit=pit.filter(function(i){return i.sectionId===s.id;});
+      var sd=sit.filter(function(i){return db.checked[i.id];}).length;
+      html+='<div class="sec"><div class="sec-hd"><div class="sec-title">'
+        +'<span'+(editMode?' onclick="editSectionTitle(\''+s.id+'\')" style="cursor:pointer"':'')+'>'+s.title+'</span>'
+        +'<span class="sec-prog">'+sd+'/'+sit.length+'</span></div>'
+        +'<div class="sec-actions">'+(editMode?'<button class="add-item-btn" onclick="openAddItemModal(\''+curEventId+'\',\''+p.id+'\',\''+s.id+'\')">+ 항목</button>'
+        +'<button class="icon-btn del" onclick="deleteSec(\''+s.id+'\')" title="섹션 삭제">✕</button>':'')+'</div></div>';
+      sit.forEach(function(item){html+=renderClItem(item,false);});
+      html+='</div>';
     });
-
-    if(editMode) html+=`<button class="add-sec-btn" onclick="openAddSectionModal('${curEventId}','${p.id}')">+ 섹션 추가</button>`;
-    html+=`</div>`;
+    if(editMode) html+='<button class="add-sec-btn" onclick="openAddSectionModal(\''+curEventId+'\',\''+p.id+'\')">+ 섹션 추가</button>';
+    html+='</div>';
   });
-
-  if(editMode) html+=`<div style="margin-top:8px"><button class="btn primary" onclick="openAddItemModal('${curEventId}',null,null)">+ 항목 추가 (담당자 선택)</button></div>`;
+  if(editMode) html+='<div style="margin-top:8px"><button class="btn primary" onclick="openAddItemModal(\''+curEventId+'\',null,null)">+ 항목 추가 (담당자 선택)</button></div>';
   return html;
 }
-
-function renderClItem(item, showPerson){
-  const done=!!db.checked[item.id];
-  const p=db.people.find(x=>x.id===item.personId);
-  const tags=item.tags.map(t=>`<span class="tag tag-${t}">${t}</span>`).join('');
-  const ptag=showPerson&&p?`<span class="tag tag-person">${p.name} ${p.title}</span>`:'';
-  const dtag=item.due?`<span class="tag tag-date">${formatDate(item.due)}</span>`:'';
-  return `<div class="cl-item">
-    <div class="chkbox${done?' on':''}" onclick="toggleCheck('${item.id}')">
-      <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <div class="cl-body" onclick="toggleCheck('${item.id}')">
-      <div class="cl-text${done?' done':''}">${item.text}</div>
-      <div class="cl-meta">${tags}${ptag}${dtag}</div>
-    </div>
-    <div class="cl-actions">
-      <button class="icon-btn" onclick="openEditItemModal('${item.id}')" title="수정">✎</button>
-      <button class="icon-btn del" onclick="deleteItem('${item.id}')" title="삭제">✕</button>
-    </div>
-  </div>`;
+function renderClItem(item,showPerson){
+  var done=!!db.checked[item.id];
+  var p=db.people.find(function(x){return x.id===item.personId;});
+  var tags=item.tags.map(function(t){return '<span class="tag tag-'+t+'">'+t+'</span>';}).join('');
+  var ptag=showPerson&&p?'<span class="tag tag-person">'+p.name+' '+p.title+'</span>':'';
+  var dtag=item.due?'<span class="tag tag-date">'+formatDate(item.due)+'</span>':'';
+  return '<div class="cl-item"><div class="chkbox'+(done?' on':'')+'" onclick="toggleCheck(\''+item.id+'\')">'
+    +'<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+    +'<div class="cl-body" onclick="toggleCheck(\''+item.id+'\')">'
+    +'<div class="cl-text'+(done?' done':'')+'">'+item.text+'</div>'
+    +'<div class="cl-meta">'+tags+ptag+dtag+'</div></div>'
+    +'<div class="cl-actions"><button class="icon-btn" onclick="openEditItemModal(\''+item.id+'\')" title="수정">✎</button>'
+    +'<button class="icon-btn del" onclick="deleteItem(\''+item.id+'\')" title="삭제">✕</button></div></div>';
 }
 
 // ── TIMELINE ──
 function renderTimeline(){
-  const ev = db.events.find(e=>e.id===curEventId);
-  if(!ev) return `<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">왼쪽에서 행사를 선택하세요</div></div>`;
-
-  let html=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
-    <div style="display:flex;gap:8px;flex-wrap:wrap">`;
-  db.events.forEach(ev2=>{
-    html+=`<button class="btn sm${curEventId===ev2.id?' primary':''}" onclick="curEventId='${ev2.id}';render()" style="${curEventId===ev2.id?'':'border-color:'+ev2.color+';color:'+ev2.color}">${ev2.name}</button>`;
+  var ev=db.events.find(function(e){return e.id===curEventId;});
+  if(!ev) return '<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">왼쪽에서 행사를 선택하세요</div></div>';
+  var html='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">';
+  db.events.forEach(function(ev2){
+    html+='<button class="btn sm'+(curEventId===ev2.id?' primary':'')+'" onclick="curEventId=\''+ev2.id+'\';render()"'
+      +(curEventId===ev2.id?'':' style="border-color:'+ev2.color+';color:'+ev2.color+'"')+'>'+ev2.name+'</button>';
   });
-  html+=`</div></div>`;
-
-  const evItems = db.items.filter(i=>i.eventId===curEventId&&i.due);
-  if(!evItems.length) return html+`<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">기한이 설정된 항목이 없습니다</div></div>`;
-
-  // group by due date
-  const groups={};
-  evItems.forEach(i=>{
-    const d=i.due||'미정';
-    if(!groups[d]) groups[d]=[];
-    groups[d].push(i);
-  });
-  const sorted=Object.keys(groups).sort();
-
-  html+=`<div class="timeline"><div class="tl-line"></div>`;
-  sorted.forEach(date=>{
-    const items=groups[date];
-    const label=date==='미정'?'기한 미정':formatDateFull(date);
-    const isToday=date===new Date().toISOString().slice(0,10);
-    const isPast=date<new Date().toISOString().slice(0,10)&&date!=='미정';
-    html+=`<div class="tl-group">
-      <div class="tl-dot" style="background:${isPast?'var(--text3)':isToday?'var(--red)':ev.color}"></div>
-      <div class="tl-date-label" style="color:${isPast?'var(--text3)':isToday?'var(--red)':'var(--text)'}">
-        ${label}${isToday?' 🔴 오늘':''}
-        <span style="font-size:11px;font-weight:400;color:var(--text3);font-family:'DM Mono',monospace">${items.length}건</span>
-      </div>`;
-    items.forEach(item=>{
-      const done=!!db.checked[item.id];
-      const p=db.people.find(x=>x.id===item.personId);
-      const tags=item.tags.map(t=>`<span class="tag tag-${t}">${t}</span>`).join('');
-      html+=`<div class="tl-item" onclick="toggleCheck('${item.id}')">
-        <div class="chkbox${done?' on':''}" onclick="event.stopPropagation();toggleCheck('${item.id}')">
-          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="tl-item-body">
-          <div class="tl-item-text${done?' done':''}">${item.text}</div>
-          <div class="tl-item-meta">
-            ${tags}
-            ${p?`<span class="tag tag-person" style="border-left:2.5px solid ${p.color}">${p.name} ${p.title}</span>`:''}
-          </div>
-        </div>
-      </div>`;
+  html+='</div>';
+  var evItems=db.items.filter(function(i){return i.eventId===curEventId&&i.due;});
+  if(!evItems.length) return html+'<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">기한이 설정된 항목이 없습니다</div></div>';
+  var groups={};
+  evItems.forEach(function(i){var d=i.due||'미정';if(!groups[d])groups[d]=[];groups[d].push(i);});
+  var sorted=Object.keys(groups).sort();
+  html+='<div class="timeline"><div class="tl-line"></div>';
+  var today=new Date().toISOString().slice(0,10);
+  sorted.forEach(function(date){
+    var items=groups[date];
+    var label=date==='미정'?'기한 미정':formatDateFull(date);
+    var isToday=date===today, isPast=date<today&&date!=='미정';
+    html+='<div class="tl-group"><div class="tl-dot" style="background:'+(isPast?'var(--text3)':isToday?'var(--red)':ev.color)+'"></div>'
+      +'<div class="tl-date-label" style="color:'+(isPast?'var(--text3)':isToday?'var(--red)':'var(--text)')+'">'+label+(isToday?' 🔴 오늘':'')
+      +'<span style="font-size:11px;font-weight:400;color:var(--text3);font-family:\'DM Mono\',monospace">'+items.length+'건</span></div>';
+    items.forEach(function(item){
+      var done=!!db.checked[item.id];
+      var p=db.people.find(function(x){return x.id===item.personId;});
+      var tags=item.tags.map(function(t){return '<span class="tag tag-'+t+'">'+t+'</span>';}).join('');
+      html+='<div class="tl-item" onclick="toggleCheck(\''+item.id+'\')">'
+        +'<div class="chkbox'+(done?' on':'')+'" onclick="event.stopPropagation();toggleCheck(\''+item.id+'\')">'
+        +'<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+        +'<div class="tl-item-body"><div class="tl-item-text'+(done?' done':'')+'">'+item.text+'</div>'
+        +'<div class="tl-item-meta">'+tags+(p?'<span class="tag tag-person" style="border-left:2.5px solid '+p.color+'">'+p.name+' '+p.title+'</span>':'')+'</div></div></div>';
     });
-    html+=`</div>`;
+    html+='</div>';
   });
-  html+=`</div>`;
+  html+='</div>';
   return html;
 }
 
 // ── SETTINGS ──
 function renderSettings(){
-  let html=`
-  <div class="setting-section">
-    <div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">
-      행사 관리
-      <button class="btn sm primary" onclick="openNewEventModal()">+ 행사 추가</button>
-    </div>`;
-  if(!db.events.length) html+=`<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">등록된 행사가 없습니다</div></div>`;
-  db.events.forEach(ev=>{
-    const items=db.items.filter(i=>i.eventId===ev.id);
-    const d=items.filter(i=>db.checked[i.id]).length;
-    html+=`<div class="setting-row">
-      <div class="color-dot" style="background:${ev.color}"></div>
-      <div class="setting-row-info">
-        <div class="setting-row-name">${ev.name}</div>
-        <div class="setting-row-sub">${ev.date?formatDateFull(ev.date):''} ${ev.place?'· '+ev.place:''} · ${d}/${items.length} 완료</div>
-      </div>
-      <button class="btn sm" onclick="openEditEventModal('${ev.id}')">수정</button>
-      <button class="btn sm danger" onclick="deleteEvent('${ev.id}')">삭제</button>
-    </div>`;
+  var html='<div class="setting-section"><div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">행사 관리 <button class="btn sm primary" onclick="openNewEventModal()">+ 행사 추가</button></div>';
+  if(!db.events.length) html+='<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">등록된 행사가 없습니다</div></div>';
+  db.events.forEach(function(ev){
+    var items=db.items.filter(function(i){return i.eventId===ev.id;});
+    var d=items.filter(function(i){return db.checked[i.id];}).length;
+    html+='<div class="setting-row"><div class="color-dot" style="background:'+ev.color+'"></div>'
+      +'<div class="setting-row-info"><div class="setting-row-name">'+ev.name+'</div>'
+      +'<div class="setting-row-sub">'+(ev.date?formatDateFull(ev.date):'')+' '+(ev.place?'· '+ev.place:'')+' · '+d+'/'+items.length+' 완료</div></div>'
+      +'<button class="btn sm" onclick="openEditEventModal(\''+ev.id+'\')">수정</button>'
+      +'<button class="btn sm danger" onclick="deleteEvent(\''+ev.id+'\')">삭제</button></div>';
   });
-  html+=`</div>
-  <div class="setting-section">
-    <div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">
-      담당자 관리
-      <button class="btn sm primary" onclick="openPersonModal()">+ 담당자 추가</button>
-    </div>`;
-  if(!db.people.length) html+=`<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">등록된 담당자가 없습니다</div></div>`;
-  db.people.forEach(p=>{
-    html+=`<div class="setting-row">
-      <div class="avatar" style="background:${p.color};width:36px;height:36px;font-size:13px">${p.name.slice(0,1)}</div>
-      <div class="setting-row-info">
-        <div class="setting-row-name">${p.name} ${p.title}</div>
-        <div class="setting-row-sub">${p.role}</div>
-      </div>
-      <button class="btn sm" onclick="openEditPersonModal('${p.id}')">수정</button>
-      <button class="btn sm danger" onclick="deletePerson('${p.id}')">삭제</button>
-    </div>`;
+  html+='</div><div class="setting-section"><div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">담당자 관리 <button class="btn sm primary" onclick="openPersonModal()">+ 담당자 추가</button></div>';
+  if(!db.people.length) html+='<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">등록된 담당자가 없습니다</div></div>';
+  db.people.forEach(function(p){
+    html+='<div class="setting-row"><div class="avatar" style="background:'+p.color+';width:36px;height:36px;font-size:13px">'+p.name.slice(0,1)+'</div>'
+      +'<div class="setting-row-info"><div class="setting-row-name">'+p.name+' '+p.title+'</div><div class="setting-row-sub">'+p.role+'</div></div>'
+      +'<button class="btn sm" onclick="openEditPersonModal(\''+p.id+'\')">수정</button>'
+      +'<button class="btn sm danger" onclick="deletePerson(\''+p.id+'\')">삭제</button></div>';
   });
-  html+=`</div>
-  <div class="setting-section">
-    <div class="setting-title">데이터 관리</div>
-    <div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-      <div>
-        <div style="font-size:14px;font-weight:500">전체 초기화</div>
-        <div style="font-size:12px;color:var(--text3);margin-top:2px">모든 체크 및 데이터를 초기 상태로 되돌립니다</div>
-      </div>
-      <button class="btn danger" onclick="hardReset()">초기화</button>
-    </div>
-  </div>`;
+  html+='</div><div class="setting-section"><div class="setting-title">데이터 관리</div>'
+    +'<div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">'
+    +'<div><div style="font-size:14px;font-weight:500">전체 초기화</div>'
+    +'<div style="font-size:12px;color:var(--text3);margin-top:2px">모든 체크 및 데이터를 초기 상태로 되돌립니다</div></div>'
+    +'<button class="btn danger" onclick="hardReset()">초기화</button></div></div>';
   return html;
+}
+
+// ═══════════════════════════════════════════
+// EXCEL IMPORT VIEW
+// ═══════════════════════════════════════════
+function renderImport(){
+  var eventOptions=db.events.map(function(ev){
+    return '<option value="'+ev.id+'"'+(ev.id===curEventId?' selected':'')+'>'+ev.name+'</option>';
+  }).join('');
+
+  return '<div style="max-width:720px">'
+
+    // 업로드 존
+    +'<div class="upload-zone" id="uploadZone" onclick="document.getElementById(\'fileInput\').click()">'
+    +'<input type="file" id="fileInput" accept=".xlsx,.xls,.csv">'
+    +'<div class="upload-zone-icon">📊</div>'
+    +'<div class="upload-zone-title">엑셀 파일을 클릭하거나 드래그하여 업로드</div>'
+    +'<div class="upload-zone-sub">.xlsx · .xls · .csv 파일 지원</div>'
+    +'</div>'
+
+    // 미리보기 영역
+    +'<div id="previewArea" style="margin-top:20px"></div>'
+
+    // 템플릿 안내
+    +'<div class="template-box">'
+    +'<div style="font-size:28px">📋</div>'
+    +'<div class="template-box-info">'
+    +'<div class="template-box-title">엑셀 템플릿 형식</div>'
+    +'<div class="template-box-sub" style="margin-top:6px;line-height:1.8">'
+    +'열 순서: <strong>섹션명</strong> · <strong>담당자</strong> · <strong>업무내용</strong> · <strong>기한</strong> · <strong>태그</strong><br>'
+    +'• 태그는 쉼표로 구분 (예: 사전,긴급)<br>'
+    +'• 기한은 날짜 형식 (예: 2026-05-10)<br>'
+    +'• 담당자는 이미 등록된 이름과 일치하면 자동 연결, 없으면 새로 생성'
+    +'</div></div>'
+    +'<button class="btn primary" onclick="downloadTemplate()">📥 템플릿 받기</button>'
+    +'</div>'
+
+    // 행사 선택
+    +'<div style="margin-top:20px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+    +'<span style="font-size:13px;font-weight:700;color:var(--text2);white-space:nowrap">가져올 행사:</span>'
+    +'<select class="form-select" id="importEventSel" style="max-width:280px">'+eventOptions+'</select>'
+    +'</div>'
+
+    +'</div>';
+}
+
+function attachImportListeners(){
+  var zone=document.getElementById('uploadZone');
+  var input=document.getElementById('fileInput');
+  if(!zone||!input) return;
+
+  input.addEventListener('change',function(){
+    if(this.files&&this.files[0]) handleExcelFile(this.files[0]);
+  });
+  zone.addEventListener('dragover',function(e){e.preventDefault();this.classList.add('drag');});
+  zone.addEventListener('dragleave',function(){this.classList.remove('drag');});
+  zone.addEventListener('drop',function(e){
+    e.preventDefault();this.classList.remove('drag');
+    var f=e.dataTransfer.files[0];
+    if(f) handleExcelFile(f);
+  });
+}
+
+function handleExcelFile(file){
+  var allowed=['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-excel','text/csv','application/csv'];
+  var ext=file.name.split('.').pop().toLowerCase();
+  if(!['xlsx','xls','csv'].includes(ext)){
+    showPreviewError('지원하지 않는 파일 형식입니다. .xlsx, .xls, .csv 파일을 사용해주세요.');
+    return;
+  }
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=new Uint8Array(e.target.result);
+      var wb=XLSX.read(data,{type:'array',cellDates:true});
+      showSheetPreview(wb, file.name);
+    }catch(err){
+      showPreviewError('파일을 읽을 수 없습니다: '+err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function showSheetPreview(wb, filename){
+  var area=document.getElementById('previewArea');
+  if(!area) return;
+
+  // 시트 탭
+  var sheetTabsHtml=wb.SheetNames.map(function(name,i){
+    return '<div class="sheet-tab'+(i===0?' active':'')+'" data-sheet="'+name+'" onclick="switchSheet(this,\''+name+'\')">'+name+'</div>';
+  }).join('');
+
+  area.innerHTML='<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px">'
+    +'<div style="font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px">'
+    +'<span style="color:var(--accent)">✓</span> '+filename+' 파일 읽기 완료</div>'
+    +'<div class="sheet-tabs" id="sheetTabs">'+sheetTabsHtml+'</div>'
+    +'<div id="sheetContent"></div>'
+    +'</div>';
+
+  area._wb=wb;
+  renderSheetPreview(wb, wb.SheetNames[0]);
+}
+
+function switchSheet(el, name){
+  document.querySelectorAll('.sheet-tab').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+  var area=document.getElementById('previewArea');
+  if(area&&area._wb) renderSheetPreview(area._wb, name);
+}
+
+function renderSheetPreview(wb, sheetName){
+  var ws=wb.Sheets[sheetName];
+  var rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+  var sc=document.getElementById('sheetContent');
+  if(!sc) return;
+
+  if(!rows||rows.length<2){
+    sc.innerHTML='<div class="upload-result err">데이터가 없거나 헤더만 있습니다.</div>';
+    return;
+  }
+
+  // 헤더 자동 감지
+  var header=rows[0].map(function(h){return String(h).trim();});
+  var dataRows=rows.slice(1).filter(function(r){return r.some(function(c){return String(c).trim();});});
+
+  // 컬럼 인덱스 자동 매핑
+  var colMap=autoMapColumns(header);
+
+  // 미리보기 테이블 (최대 8행)
+  var previewRows=dataRows.slice(0,8);
+  var thHtml=header.map(function(h,i){
+    var mapped=Object.keys(colMap).find(function(k){return colMap[k]===i;});
+    return '<th>'+h+(mapped?'<br><span style="font-size:10px;font-weight:400;color:var(--accent)">→ '+mapped+'</span>':'')+'</th>';
+  }).join('');
+
+  var tdHtml=previewRows.map(function(row){
+    return '<tr>'+header.map(function(h,i){return '<td>'+(row[i]!==undefined&&row[i]!==null?String(row[i]).slice(0,40):'')+'</td>';}).join('')+'</tr>';
+  }).join('');
+
+  var mappedCount=Object.keys(colMap).length;
+  var importHtml='';
+  if(mappedCount>0){
+    importHtml='<div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">'
+      +'<div style="font-size:13px;color:var(--text2)">총 <strong>'+dataRows.length+'행</strong> 감지 · 매핑된 열: <strong>'+mappedCount+'개</strong></div>'
+      +'<button class="btn primary" onclick="prepareImport(\''+sheetName+'\')">이 시트 가져오기 →</button></div>';
+  } else {
+    importHtml='<div class="upload-result err" style="margin-top:10px">인식 가능한 열을 찾지 못했습니다. 아래 템플릿 형식을 확인해주세요.</div>';
+  }
+
+  sc.innerHTML='<div class="preview-scroll"><table class="preview-table"><thead><tr>'+thHtml+'</tr></thead><tbody>'+tdHtml+'</tbody></table></div>'
+    +(dataRows.length>8?'<div style="font-size:12px;color:var(--text3);margin-top:6px;text-align:right">…외 '+(dataRows.length-8)+'행 더 있음</div>':'')
+    +importHtml;
+
+  sc._sheetName=sheetName;
+  sc._wb=document.getElementById('previewArea')._wb;
+}
+
+// 컬럼 자동 매핑
+function autoMapColumns(header){
+  var map={};
+  var rules={
+    '업무내용':['업무내용','업무 내용','task','내용','할일','할 일','업무'],
+    '담당자':['담당자','담당','person','이름','name','담당자명'],
+    '섹션':['섹션','section','구분','카테고리','분류','그룹'],
+    '기한':['기한','마감','due','날짜','date','마감일','기한일'],
+    '태그':['태그','tag','tags','분류','카테고리','유형']
+  };
+  Object.keys(rules).forEach(function(key){
+    rules[key].forEach(function(kw){
+      if(map[key]!==undefined) return;
+      header.forEach(function(h,i){
+        if(map[key]!==undefined) return;
+        if(h.toLowerCase().replace(/\s/g,'')===kw.toLowerCase().replace(/\s/g,'')) map[key]=i;
+      });
+    });
+  });
+  return map;
+}
+
+function prepareImport(sheetName){
+  var area=document.getElementById('previewArea');
+  if(!area||!area._wb) return;
+  var wb=area._wb;
+  var ws=wb.Sheets[sheetName];
+  var rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+  if(!rows||rows.length<2){alert('데이터가 없습니다.');return;}
+  var header=rows[0].map(function(h){return String(h).trim();});
+  var dataRows=rows.slice(1).filter(function(r){return r.some(function(c){return String(c).trim();});});
+  var colMap=autoMapColumns(header);
+
+  if(colMap['업무내용']===undefined){
+    alert('업무내용 열을 찾을 수 없습니다.\n헤더에 "업무내용" 또는 "업무 내용" 열이 있는지 확인해주세요.');
+    return;
+  }
+
+  var eventId=document.getElementById('importEventSel').value;
+  if(!eventId){alert('가져올 행사를 선택해주세요.');return;}
+
+  // 파싱
+  var parsed=dataRows.map(function(row){
+    var text=colMap['업무내용']!==undefined?String(row[colMap['업무내용']]||'').trim():'';
+    var person=colMap['담당자']!==undefined?String(row[colMap['담당자']]||'').trim():'';
+    var section=colMap['섹션']!==undefined?String(row[colMap['섹션']]||'').trim():'';
+    var due=colMap['기한']!==undefined?parseExcelDate(row[colMap['기한']]):'';
+    var tagsRaw=colMap['태그']!==undefined?String(row[colMap['태그']]||'').trim():'';
+    var tags=tagsRaw?tagsRaw.split(/[,，、]/).map(function(t){return t.trim();}).filter(Boolean):[];
+    return {text,person,section,due,tags};
+  }).filter(function(r){return r.text;});
+
+  if(!parsed.length){alert('가져올 수 있는 항목이 없습니다.');return;}
+
+  // 새 담당자, 섹션 예측
+  var newPersons=[],newSections=[];
+  var personMap={};
+  parsed.forEach(function(r){
+    if(!r.person) return;
+    var found=db.people.find(function(p){return p.name===r.person||p.name+p.title===r.person;});
+    if(!found&&!personMap[r.person]){personMap[r.person]=true;newPersons.push(r.person);}
+  });
+  var sectionMap={};
+  parsed.forEach(function(r){
+    if(!r.section) return;
+    var key=(r.person||'')+'__'+r.section;
+    if(!sectionMap[key]){sectionMap[key]=true;newSections.push({person:r.person||'',section:r.section});}
+  });
+
+  importPending={parsed,eventId};
+  var summaryHtml='<table style="width:100%;border-collapse:collapse;font-size:13px">'
+    +'<tr><td style="padding:5px 0;color:var(--text2);width:50%">가져올 항목 수</td><td style="font-weight:700">'+parsed.length+'개</td></tr>'
+    +(newPersons.length?'<tr><td style="padding:5px 0;color:var(--text2)">새로 생성될 담당자</td><td style="font-weight:700;color:var(--blue)">'+newPersons.join(', ')+'</td></tr>':'')
+    +(newSections.length?'<tr><td style="padding:5px 0;color:var(--text2)">새로 생성될 섹션</td><td style="font-weight:700;color:var(--amber)">'+newSections.length+'개</td></tr>':'')
+    +'<tr><td style="padding:5px 0;color:var(--text2)">가져올 행사</td><td style="font-weight:700">'+(db.events.find(function(e){return e.id===eventId;})||{}).name||eventId+'</td></tr>'
+    +'</table>';
+  document.getElementById('importSummary').innerHTML=summaryHtml;
+  openModal('importConfirmModal');
+}
+
+function confirmImport(){
+  if(!importPending) return;
+  var parsed=importPending.parsed, eventId=importPending.eventId;
+  var colorIdx=0;
+  var now=Date.now();
+
+  parsed.forEach(function(r,i){
+    // 담당자 찾거나 생성
+    var person=null;
+    if(r.person){
+      person=db.people.find(function(p){return p.name===r.person;});
+      if(!person){
+        person={id:uid(),name:r.person,title:'',role:'',color:COLORS[colorIdx%COLORS.length]};
+        db.people.push(person);
+        colorIdx++;
+      }
+    }
+
+    // 섹션 찾거나 생성
+    var section=null;
+    var sectionTitle=r.section||'기타';
+    if(person){
+      section=db.sections.find(function(s){return s.eventId===eventId&&s.personId===person.id&&s.title===sectionTitle;});
+      if(!section){
+        var order=db.sections.filter(function(s){return s.eventId===eventId&&s.personId===person.id;}).length;
+        section={id:uid(),eventId,personId:person.id,title:sectionTitle,order};
+        db.sections.push(section);
+      }
+    }
+
+    db.items.push({
+      id:uid(),
+      eventId,
+      personId:person?person.id:'',
+      sectionId:section?section.id:'',
+      text:r.text,
+      tags:r.tags,
+      due:r.due||null
+    });
+  });
+
+  saveDB();
+  closeModal('importConfirmModal');
+  importPending=null;
+
+  // 완료 알림 표시
+  var area=document.getElementById('previewArea');
+  if(area){
+    area.innerHTML='<div class="upload-result ok" style="padding:16px 18px;font-size:14px">'
+      +'✅ <strong>'+parsed.length+'개 항목</strong>을 성공적으로 가져왔습니다! '
+      +'<button class="btn sm primary" style="margin-left:12px" onclick="setView(\'checklist\',\''+eventId+'\')">체크리스트 보기 →</button></div>';
+  }
+  render();
+}
+
+function parseExcelDate(val){
+  if(!val) return '';
+  if(val instanceof Date){
+    return val.toISOString().slice(0,10);
+  }
+  if(typeof val==='number'&&val>10000){
+    // Excel serial date
+    var d=new Date(Math.round((val-25569)*86400*1000));
+    return d.toISOString().slice(0,10);
+  }
+  var s=String(val).trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  if(/^\d{4}\/\d{2}\/\d{2}$/.test(s)) return s.replace(/\//g,'-');
+  if(/^\d{4}\.\d{2}\.\d{2}$/.test(s)) return s.replace(/\./g,'-');
+  var d2=new Date(s);
+  if(!isNaN(d2)) return d2.toISOString().slice(0,10);
+  return '';
+}
+
+function showPreviewError(msg){
+  var area=document.getElementById('previewArea');
+  if(area) area.innerHTML='<div class="upload-result err">⚠️ '+msg+'</div>';
+}
+
+// ── 템플릿 다운로드 ──
+function downloadTemplate(){
+  var wb=XLSX.utils.book_new();
+
+  // 시트 1: 업무 목록 템플릿
+  var sampleData=[
+    ['섹션','담당자','업무내용','기한','태그'],
+    ['사전 준비','김지민','행사 기획안 최종 승인','2026-04-15','사전,긴급'],
+    ['사전 준비','김지민','후원사 협의 및 관계 유지','2026-04-25','사전'],
+    ['D-1주','백준호','전체 리허설 및 현장 동선 점검','2026-05-30','사전'],
+    ['당일 현장','유성현','메인 무대 운영팀 총괄 관리','2026-06-06','당일'],
+    ['당일 현장','임승민','SNS 현장 실시간 업로드','2026-06-06','당일,홍보'],
+  ];
+  var ws1=XLSX.utils.aoa_to_sheet(sampleData);
+  ws1['!cols']=[{wch:20},{wch:12},{wch:40},{wch:14},{wch:18}];
+  XLSX.utils.book_append_sheet(wb,ws1,'업무목록');
+
+  // 시트 2: 작성 가이드
+  var guide=[
+    ['열 이름','설명','예시'],
+    ['섹션','업무를 묶는 그룹명. 없으면 "기타"로 분류','사전 준비 / D-1주 / 당일 현장'],
+    ['담당자','담당자 이름. 기존 등록된 이름과 같으면 자동 연결','김지민 / 백준호'],
+    ['업무내용','(필수) 실제 업무 내용','행사 기획안 최종 승인'],
+    ['기한','날짜 형식 입력 (없어도 무방)','2026-05-10 또는 2026/05/10'],
+    ['태그','쉼표로 구분. 사용 가능: 사전,당일,긴급,홍보,계약','사전,긴급'],
+  ];
+  var ws2=XLSX.utils.aoa_to_sheet(guide);
+  ws2['!cols']=[{wch:14},{wch:42},{wch:36}];
+  XLSX.utils.book_append_sheet(wb,ws2,'작성가이드');
+
+  XLSX.writeFile(wb,'pawsafe_업무목록_템플릿.xlsx');
 }
 
 // ═══════════════════════════════════════════
 // ACTIONS
 // ═══════════════════════════════════════════
-function toggleCheck(id){
-  db.checked[id]=!db.checked[id];
-  saveDB(); render();
-}
-
+function toggleCheck(id){db.checked[id]=!db.checked[id];saveDB();render();}
 function resetChecks(){
   if(!confirm('이 행사의 모든 체크를 초기화할까요?')) return;
-  db.items.filter(i=>i.eventId===curEventId).forEach(i=>delete db.checked[i.id]);
-  saveDB(); render();
+  db.items.filter(function(i){return i.eventId===curEventId;}).forEach(function(i){delete db.checked[i.id];});
+  saveDB();render();
 }
-
-function toggleEditMode(val){
-  editMode = val!==undefined ? val : !editMode;
-  render();
-}
-
-function scrollToPerson(pid){
-  const el=document.getElementById('person-'+pid);
-  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function hardReset(){
-  if(!confirm('모든 데이터를 초기화할까요? 되돌릴 수 없습니다.')) return;
-  localStorage.removeItem('pms_db_v1');
-  location.reload();
-}
+function toggleEditMode(val){editMode=val!==undefined?val:!editMode;render();}
+function scrollToPerson(pid){var el=document.getElementById('person-'+pid);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+function hardReset(){if(!confirm('모든 데이터를 초기화할까요?')) return;localStorage.removeItem('pms_db_v2');location.reload();}
 
 // ═══════════════════════════════════════════
 // EVENT MODAL
@@ -897,8 +1076,7 @@ function openNewEventModal(){
   openModal('eventModal');
 }
 function openEditEventModal(id){
-  const ev=db.events.find(e=>e.id===id);
-  if(!ev) return;
+  var ev=db.events.find(function(e){return e.id===id;});if(!ev) return;
   eventModalCtx=id;
   document.getElementById('eventModalTitle').textContent='행사 수정';
   document.getElementById('em_name').value=ev.name;
@@ -909,27 +1087,21 @@ function openEditEventModal(id){
   openModal('eventModal');
 }
 function saveEvent(){
-  const name=document.getElementById('em_name').value.trim();
+  var name=document.getElementById('em_name').value.trim();
   if(!name){alert('행사명을 입력하세요');return;}
-  const color=document.querySelector('#em_colors .color-opt.sel')?.dataset.color||'#2d6a4f';
-  const obj={name,date:document.getElementById('em_date').value,place:document.getElementById('em_place').value.trim(),color,note:document.getElementById('em_note').value.trim()};
-  if(eventModalCtx){
-    const ev=db.events.find(e=>e.id===eventModalCtx);
-    if(ev) Object.assign(ev,obj);
-  } else {
-    obj.id=uid();
-    db.events.push(obj);
-    curEventId=obj.id;
-  }
-  saveDB(); closeModal('eventModal'); render();
+  var color=document.querySelector('#em_colors .color-opt.sel')?.dataset.color||'#2d6a4f';
+  var obj={name,date:document.getElementById('em_date').value,place:document.getElementById('em_place').value.trim(),color,note:document.getElementById('em_note').value.trim()};
+  if(eventModalCtx){var ev=db.events.find(function(e){return e.id===eventModalCtx;});if(ev) Object.assign(ev,obj);}
+  else{obj.id=uid();db.events.push(obj);curEventId=obj.id;}
+  saveDB();closeModal('eventModal');render();
 }
 function deleteEvent(id){
   if(!confirm('이 행사와 모든 항목을 삭제할까요?')) return;
-  db.events=db.events.filter(e=>e.id!==id);
-  db.items=db.items.filter(i=>i.eventId!==id);
-  db.sections=db.sections.filter(s=>s.eventId!==id);
-  if(curEventId===id) curEventId=db.events[0]?.id||null;
-  saveDB(); render();
+  db.events=db.events.filter(function(e){return e.id!==id;});
+  db.items=db.items.filter(function(i){return i.eventId!==id;});
+  db.sections=db.sections.filter(function(s){return s.eventId!==id;});
+  if(curEventId===id) curEventId=(db.events[0]||{}).id||null;
+  saveDB();render();
 }
 
 // ═══════════════════════════════════════════
@@ -938,15 +1110,12 @@ function deleteEvent(id){
 function openPersonModal(){
   personModalCtx=null;
   document.getElementById('personModalTitle').textContent='담당자 추가';
-  document.getElementById('pm_name').value='';
-  document.getElementById('pm_title').value='';
-  document.getElementById('pm_role').value='';
+  ['pm_name','pm_title','pm_role'].forEach(function(id){document.getElementById(id).value='';});
   setColorOpt('pm_colors','#2d6a4f');
   openModal('personModal');
 }
 function openEditPersonModal(id){
-  const p=db.people.find(x=>x.id===id);
-  if(!p) return;
+  var p=db.people.find(function(x){return x.id===id;});if(!p) return;
   personModalCtx=id;
   document.getElementById('personModalTitle').textContent='담당자 수정';
   document.getElementById('pm_name').value=p.name;
@@ -956,84 +1125,78 @@ function openEditPersonModal(id){
   openModal('personModal');
 }
 function savePerson(){
-  const name=document.getElementById('pm_name').value.trim();
+  var name=document.getElementById('pm_name').value.trim();
   if(!name){alert('이름을 입력하세요');return;}
-  const color=document.querySelector('#pm_colors .color-opt.sel')?.dataset.color||'#2d6a4f';
-  const obj={name,title:document.getElementById('pm_title').value.trim(),role:document.getElementById('pm_role').value.trim(),color};
-  if(personModalCtx){
-    const p=db.people.find(x=>x.id===personModalCtx);
-    if(p) Object.assign(p,obj);
-  } else {
-    obj.id=uid();
-    db.people.push(obj);
-  }
-  saveDB(); closeModal('personModal'); render();
+  var color=document.querySelector('#pm_colors .color-opt.sel')?.dataset.color||'#2d6a4f';
+  var obj={name,title:document.getElementById('pm_title').value.trim(),role:document.getElementById('pm_role').value.trim(),color};
+  if(personModalCtx){var p=db.people.find(function(x){return x.id===personModalCtx;});if(p) Object.assign(p,obj);}
+  else{obj.id=uid();db.people.push(obj);}
+  saveDB();closeModal('personModal');render();
 }
 function deletePerson(id){
   if(!confirm('이 담당자와 관련 항목을 삭제할까요?')) return;
-  db.people=db.people.filter(p=>p.id!==id);
-  db.items=db.items.filter(i=>i.personId!==id);
-  db.sections=db.sections.filter(s=>s.personId!==id);
-  saveDB(); render();
+  db.people=db.people.filter(function(p){return p.id!==id;});
+  db.items=db.items.filter(function(i){return i.personId!==id;});
+  db.sections=db.sections.filter(function(s){return s.personId!==id;});
+  saveDB();render();
 }
 
 // ═══════════════════════════════════════════
 // ITEM MODAL
 // ═══════════════════════════════════════════
-function openAddItemModal(eventId, personId, sectionId){
+function openAddItemModal(eventId,personId,sectionId){
   itemModalCtx={eventId,personId,sectionId,itemId:null};
   document.getElementById('itemModalTitle').textContent='항목 추가';
   document.getElementById('im_text').value='';
   document.getElementById('im_date').value='';
   fillPersonSelect(personId);
-  document.querySelectorAll('#im_tags .tag-check').forEach(l=>{l.classList.remove('sel');l.querySelector('input').checked=false;});
+  document.querySelectorAll('#im_tags .tag-check').forEach(function(l){l.classList.remove('sel');l.querySelector('input').checked=false;});
   openModal('itemModal');
 }
 function openEditItemModal(itemId){
-  const item=db.items.find(i=>i.id===itemId);
-  if(!item) return;
+  var item=db.items.find(function(i){return i.id===itemId;});if(!item) return;
   itemModalCtx={eventId:item.eventId,personId:item.personId,sectionId:item.sectionId,itemId};
   document.getElementById('itemModalTitle').textContent='항목 수정';
   document.getElementById('im_text').value=item.text;
   document.getElementById('im_date').value=item.due||'';
   fillPersonSelect(item.personId);
-  document.querySelectorAll('#im_tags .tag-check').forEach(l=>{
-    const sel=item.tags.includes(l.dataset.tag);
-    l.classList.toggle('sel',sel);
-    l.querySelector('input').checked=sel;
+  document.querySelectorAll('#im_tags .tag-check').forEach(function(l){
+    var sel=item.tags.includes(l.dataset.tag);l.classList.toggle('sel',sel);l.querySelector('input').checked=sel;
   });
   openModal('itemModal');
 }
 function fillPersonSelect(selectedId){
-  const sel=document.getElementById('im_person');
-  sel.innerHTML=`<option value="">-- 선택 --</option>`+db.people.map(p=>`<option value="${p.id}"${p.id===selectedId?' selected':''}>${p.name} ${p.title}</option>`).join('');
+  var sel=document.getElementById('im_person');
+  sel.innerHTML='<option value="">-- 선택 --</option>'+db.people.map(function(p){
+    return '<option value="'+p.id+'"'+(p.id===selectedId?' selected':'')+'>'+p.name+' '+p.title+'</option>';
+  }).join('');
 }
 function saveItem(){
-  const text=document.getElementById('im_text').value.trim();
+  var text=document.getElementById('im_text').value.trim();
   if(!text){alert('내용을 입력하세요');return;}
-  const personId=document.getElementById('im_person').value;
-  const due=document.getElementById('im_date').value||null;
-  const tags=[...document.querySelectorAll('#im_tags .tag-check.sel')].map(l=>l.dataset.tag);
-  const {eventId,sectionId,itemId}=itemModalCtx;
+  var personId=document.getElementById('im_person').value;
+  var due=document.getElementById('im_date').value||null;
+  var tags=[...document.querySelectorAll('#im_tags .tag-check.sel')].map(function(l){return l.dataset.tag;});
+  var _=itemModalCtx, eventId=_.eventId, sectionId=_.sectionId, itemId=_.itemId;
   if(itemId){
-    const item=db.items.find(i=>i.id===itemId);
+    var item=db.items.find(function(i){return i.id===itemId;});
     if(item){item.text=text;item.personId=personId;item.due=due;item.tags=tags;}
   } else {
-    let secId=sectionId;
+    var secId=sectionId;
     if(!secId&&personId){
-      let sec=db.sections.find(s=>s.eventId===eventId&&s.personId===personId&&s.title==='기타');
+      var sec=db.sections.find(function(s){return s.eventId===eventId&&s.personId===personId&&s.title==='기타';});
       if(!sec){sec={id:uid(),eventId,personId,title:'기타',order:999};db.sections.push(sec);}
       secId=sec.id;
     }
     db.items.push({id:uid(),eventId,personId,sectionId:secId,text,tags,due});
   }
-  saveDB(); closeModal('itemModal'); render();
+  saveDB();closeModal('itemModal');render();
 }
 function deleteItem(id){
   if(!confirm('이 항목을 삭제할까요?')) return;
-  db.items=db.items.filter(i=>i.id!==id);
+  db.items=db.items.filter(function(i){return i.id!==id;});
   delete db.checked[id];
-  saveDB(); render();
+  saveDB();render();
 }
 
 // ═══════════════════════════════════════════
@@ -1045,76 +1208,57 @@ function openAddSectionModal(eventId,personId){
   openModal('sectionModal');
 }
 function saveSection(){
-  const title=document.getElementById('sm_text').value.trim();
+  var title=document.getElementById('sm_text').value.trim();
   if(!title){alert('섹션 이름을 입력하세요');return;}
-  const {eventId,personId}=sectionModalCtx;
-  const order=db.sections.filter(s=>s.eventId===eventId&&s.personId===personId).length;
-  db.sections.push({id:uid(),eventId,personId,title,order});
-  saveDB(); closeModal('sectionModal'); render();
+  var order=db.sections.filter(function(s){return s.eventId===sectionModalCtx.eventId&&s.personId===sectionModalCtx.personId;}).length;
+  db.sections.push({id:uid(),eventId:sectionModalCtx.eventId,personId:sectionModalCtx.personId,title,order});
+  saveDB();closeModal('sectionModal');render();
 }
 function deleteSec(id){
   if(!confirm('섹션과 포함된 항목을 모두 삭제할까요?')) return;
-  const items=db.items.filter(i=>i.sectionId===id);
-  items.forEach(i=>delete db.checked[i.id]);
-  db.items=db.items.filter(i=>i.sectionId!==id);
-  db.sections=db.sections.filter(s=>s.id!==id);
-  saveDB(); render();
+  db.items.filter(function(i){return i.sectionId===id;}).forEach(function(i){delete db.checked[i.id];});
+  db.items=db.items.filter(function(i){return i.sectionId!==id;});
+  db.sections=db.sections.filter(function(s){return s.id!==id;});
+  saveDB();render();
 }
 function editSectionTitle(id){
-  const s=db.sections.find(x=>x.id===id);
-  if(!s) return;
-  const v=prompt('섹션명 수정:',s.title);
+  var s=db.sections.find(function(x){return x.id===id;});if(!s) return;
+  var v=prompt('섹션명 수정:',s.title);
   if(v&&v.trim()){s.title=v.trim();saveDB();render();}
 }
 
 // ═══════════════════════════════════════════
 // MODAL HELPERS
 // ═══════════════════════════════════════════
-function openModal(id){ document.getElementById(id).classList.add('show'); }
-function closeModal(id){ document.getElementById(id).classList.remove('show'); }
-
-function setColorOpt(containerId, color){
-  document.querySelectorAll('#'+containerId+' .color-opt').forEach(function(el){
-    el.classList.toggle('sel', el.dataset.color===color);
-  });
+function openModal(id){document.getElementById(id).classList.add('show');}
+function closeModal(id){document.getElementById(id).classList.remove('show');}
+function setColorOpt(containerId,color){
+  document.querySelectorAll('#'+containerId+' .color-opt').forEach(function(el){el.classList.toggle('sel',el.dataset.color===color);});
 }
-
 function attachTagListeners(){
   document.querySelectorAll('#im_tags .tag-check').forEach(function(label){
-    label.onclick=function(){
-      this.classList.toggle('sel');
-      this.querySelector('input').checked=this.classList.contains('sel');
-    };
+    label.onclick=function(){this.classList.toggle('sel');this.querySelector('input').checked=this.classList.contains('sel');};
   });
 }
 
 // ═══════════════════════════════════════════
 // UTILS
 // ═══════════════════════════════════════════
-function formatDate(d){
-  if(!d) return '';
-  const dt=new Date(d);
-  return `${dt.getMonth()+1}/${dt.getDate()}`;
-}
-function formatDateFull(d){
-  if(!d) return '';
-  const dt=new Date(d);
-  return dt.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'short'});
-}
+function formatDate(d){if(!d) return '';var dt=new Date(d);return (dt.getMonth()+1)+'/'+(dt.getDate());}
+function formatDateFull(d){if(!d) return '';return new Date(d).toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'short'});}
 
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded',function(){
   loadDB();
   render();
   document.querySelectorAll('.backdrop').forEach(function(b){
-    b.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('show'); });
+    b.addEventListener('click',function(e){if(e.target===this) this.classList.remove('show');});
   });
   document.querySelectorAll('.color-options').forEach(function(container){
     container.addEventListener('click',function(e){
-      var opt=e.target.closest('.color-opt');
-      if(!opt) return;
+      var opt=e.target.closest('.color-opt');if(!opt) return;
       container.querySelectorAll('.color-opt').forEach(function(o){o.classList.remove('sel');});
       opt.classList.add('sel');
     });
