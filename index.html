@@ -296,8 +296,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <div class="form-group"><label class="form-label">업무 내용</label><textarea class="form-textarea" id="im_text" rows="3" placeholder="업무 내용을 입력하세요"></textarea></div>
   <div class="form-row">
     <div class="form-group"><label class="form-label">담당자</label><select class="form-select" id="im_person"></select></div>
-    <div class="form-group"><label class="form-label">기한 (선택)</label><input class="form-input" id="im_date" type="date"></div>
+    <div class="form-group"><label class="form-label">섹션</label><select class="form-select" id="im_section"></select></div>
   </div>
+  <div class="form-group"><label class="form-label">기한 (선택)</label><input class="form-input" id="im_date" type="date"></div>
   <div class="form-group"><label class="form-label">태그</label>
     <div class="tag-group" id="im_tags"></div>
   </div>
@@ -310,23 +311,15 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
 <!-- 섹션 추가/수정 -->
 <div class="backdrop" id="sectionModal">
-<div class="modal" style="max-width:460px">
+<div class="modal" style="max-width:400px">
   <h3 id="sectionModalTitle">섹션 추가</h3>
-  <div class="form-group" id="sm_event_group">
-    <label class="form-label">행사</label>
-    <select class="form-select" id="sm_event"></select>
-  </div>
-  <div class="form-group" id="sm_person_group">
-    <label class="form-label">담당자</label>
-    <select class="form-select" id="sm_person"></select>
-  </div>
   <div class="form-group">
     <label class="form-label">섹션 이름</label>
-    <input class="form-input" id="sm_text" placeholder="예: D-1주, 당일 현장, 사전 준비">
+    <input class="form-input" id="sm_text" placeholder="예: 사전, D-2주, 당일, 사후">
   </div>
   <div class="modal-footer">
     <button class="btn" onclick="closeModal('sectionModal')">취소</button>
-    <button class="btn primary" onclick="saveSection()">저장</button>
+    <button class="btn primary" onclick="saveSecTpl()">저장</button>
   </div>
 </div>
 </div>
@@ -388,6 +381,14 @@ var DEFAULT_TAGS = [
   {id:'t4',name:'홍보',color:'#b45309',bg:'#fef3c7'},
   {id:'t5',name:'계약',color:'#6b21a8',bg:'#f3e8ff'}
 ];
+var DEFAULT_SECTION_TEMPLATES = [
+  {id:'st1', title:'사전',  order:0},
+  {id:'st2', title:'D-4주', order:1},
+  {id:'st3', title:'D-1주', order:2},
+  {id:'st4', title:'당일',  order:3},
+  {id:'st5', title:'사후',  order:4}
+];
+
 var SEED = {
   events:[{id:'e1',name:'2026 반려견 걷기대회',date:'2026-06-06',place:'안산 호수공원',color:'#2d6a4f',note:'PawSafe World Walk in Ansan'}],
   people:[
@@ -399,27 +400,9 @@ var SEED = {
     {id:'p6',name:'이가은',title:'사원',role:'외부협력 총괄',color:'#0e7490'},
     {id:'p7',name:'윤진',title:'주임',role:'계약',color:'#9a3412'}
   ],
-  sections:[
-    {id:'s1',eventId:'e1',personId:'p1',title:'사전 — D-8주~D-2주',order:0},
-    {id:'s2',eventId:'e1',personId:'p1',title:'D-1주',order:1},
-    {id:'s3',eventId:'e1',personId:'p1',title:'당일 현장',order:2},
-    {id:'s4',eventId:'e1',personId:'p2',title:'사전 — D-8주~D-4주',order:0},
-    {id:'s5',eventId:'e1',personId:'p2',title:'D-1주',order:1},
-    {id:'s6',eventId:'e1',personId:'p2',title:'당일 현장',order:2},
-    {id:'s7',eventId:'e1',personId:'p3',title:'사전',order:0},
-    {id:'s8',eventId:'e1',personId:'p3',title:'당일 현장',order:1},
-    {id:'s9',eventId:'e1',personId:'p4',title:'사전',order:0},
-    {id:'s10',eventId:'e1',personId:'p4',title:'당일 현장',order:1},
-    {id:'s11',eventId:'e1',personId:'p5',title:'사전 — D-6주~D-3주',order:0},
-    {id:'s12',eventId:'e1',personId:'p5',title:'사전 — D-2주~D-1주',order:1},
-    {id:'s13',eventId:'e1',personId:'p5',title:'당일 현장',order:2},
-    {id:'s14',eventId:'e1',personId:'p6',title:'사전',order:0},
-    {id:'s15',eventId:'e1',personId:'p6',title:'D-1주',order:1},
-    {id:'s16',eventId:'e1',personId:'p6',title:'당일 현장',order:2},
-    {id:'s17',eventId:'e1',personId:'p7',title:'사전 — 계약·행정',order:0},
-    {id:'s18',eventId:'e1',personId:'p7',title:'사전 — 정산 준비',order:1},
-    {id:'s19',eventId:'e1',personId:'p7',title:'당일 및 사후',order:2}
-  ],
+  sectionTemplates:{
+    'e1': JSON.parse(JSON.stringify(DEFAULT_SECTION_TEMPLATES))
+  },
   items: buildItems(),
   checked:{},
   tags: JSON.parse(JSON.stringify(DEFAULT_TAGS))
@@ -494,12 +477,16 @@ function buildItems(){
     {s:'s19',p:'p7',t:'현장 계약 관련 문의 대응 및 서류 지원',tags:['당일'],daysB:0},
     {s:'s19',p:'p7',t:'행사 종료 후 정산 서류 취합 및 마감',tags:['당일'],daysB:0},
   ];
+  // 기존 s코드 → 섹션 타이틀 매핑
+  var sMap={s1:'사전',s2:'D-1주',s3:'당일',s4:'사전',s5:'D-1주',s6:'당일',
+    s7:'사전',s8:'당일',s9:'사전',s10:'당일',s11:'사전',s12:'D-4주',
+    s13:'당일',s14:'사전',s15:'D-1주',s16:'당일',s17:'사전',s18:'D-4주',s19:'당일'};
   var eventDate='2026-06-06';
   return raw.map(function(r,i){
     var due=null;
     if(r.daysB>0){var d=new Date(eventDate);d.setDate(d.getDate()-r.daysB);due=d.toISOString().slice(0,10);}
     else if(r.daysB===0){due=eventDate;}
-    return {id:'i'+i,sectionId:r.s,personId:r.p,eventId:'e1',text:r.t,tags:r.tags,due};
+    return {id:'i'+i,sectionTitle:sMap[r.s]||'사전',personId:r.p,eventId:'e1',text:r.t,tags:r.tags,due};
   });
 }
 
@@ -513,11 +500,37 @@ var itemModalCtx=null, sectionModalCtx=null, eventModalCtx=null, personModalCtx=
 var importPending=null;
 
 function loadDB(){
-  try{var s=localStorage.getItem('pms_db_v2');if(s){var d=JSON.parse(s);if(d&&d.events){db=d;if(!db.tags||!db.tags.length)db.tags=JSON.parse(JSON.stringify(DEFAULT_TAGS));return;}}}catch(e){}
+  try{
+    var s=localStorage.getItem('pms_db_v3');
+    if(s){
+      var d=JSON.parse(s);
+      if(d&&d.events){
+        db=d;
+        if(!db.tags||!db.tags.length) db.tags=JSON.parse(JSON.stringify(DEFAULT_TAGS));
+        if(!db.sectionTemplates) db.sectionTemplates={};
+        // 기존 items에 sectionId만 있고 sectionTitle 없으면 마이그레이션
+        db.items.forEach(function(item){
+          if(!item.sectionTitle) item.sectionTitle='사전';
+        });
+        return;
+      }
+    }
+  }catch(e){}
   db=JSON.parse(JSON.stringify(SEED));
   db.items=buildItems();
   db.checked={};
   db.tags=JSON.parse(JSON.stringify(DEFAULT_TAGS));
+  db.sectionTemplates={'e1':JSON.parse(JSON.stringify(DEFAULT_SECTION_TEMPLATES))};
+}
+function getSectionTemplates(eventId){
+  if(db.sectionTemplates&&db.sectionTemplates[eventId]&&db.sectionTemplates[eventId].length)
+    return db.sectionTemplates[eventId].slice().sort(function(a,b){return a.order-b.order;});
+  return JSON.parse(JSON.stringify(DEFAULT_SECTION_TEMPLATES));
+}
+function ensureSectionTemplates(eventId){
+  if(!db.sectionTemplates) db.sectionTemplates={};
+  if(!db.sectionTemplates[eventId])
+    db.sectionTemplates[eventId]=JSON.parse(JSON.stringify(DEFAULT_SECTION_TEMPLATES));
 }
 function getTags(){return db.tags&&db.tags.length?db.tags:DEFAULT_TAGS;}
 function getTagStyle(name){
@@ -665,28 +678,37 @@ function renderChecklist(){
   // ── 담당자별 뷰 ──
   if(curClMode==='person'){
     if(!db.people.length) return html+'<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">설정에서 담당자를 추가하세요</div></div>';
+    var secTemplates=getSectionTemplates(curEventId);
     db.people.forEach(function(p){
       var pit=evItems.filter(function(i){return i.personId===p.id;});
       var pd=pit.filter(function(i){return db.checked[i.id];}).length;
       var pp=pit.length?Math.round(pd/pit.length*100):0;
-      var secs=db.sections.filter(function(s){return s.eventId===curEventId&&s.personId===p.id;}).sort(function(a,b){return a.order-b.order;});
       html+='<div id="person-'+p.id+'" style="margin-bottom:28px"><div class="person-hd">'
         +'<div class="avatar" style="background:'+p.color+'">'+p.name.slice(0,1)+'</div>'
         +'<div><div class="person-name-el"'+(editMode?' onclick="openEditPersonModal(\''+p.id+'\')" style="cursor:pointer"':'')+'>'+p.name+' '+p.title+'</div>'
         +'<div class="person-role-el">'+p.role+'</div></div>'
         +'<div class="person-stat"><div class="person-pct">'+pp+'%</div><div class="person-cnt">'+pd+' / '+pit.length+' 완료</div></div></div>';
-      secs.forEach(function(s){
-        var sit=pit.filter(function(i){return i.sectionId===s.id;});
+      secTemplates.forEach(function(st){
+        var sit=pit.filter(function(i){return i.sectionTitle===st.title;});
+        if(!sit.length&&!editMode) return;
         var sd=sit.filter(function(i){return db.checked[i.id];}).length;
         html+='<div class="sec"><div class="sec-hd"><div class="sec-title">'
-          +'<span'+(editMode?' onclick="editSectionTitle(\''+s.id+'\')" style="cursor:pointer"':'')+'>'+s.title+'</span>'
+          +'<span>'+st.title+'</span>'
           +'<span class="sec-prog">'+sd+'/'+sit.length+'</span></div>'
-          +'<div class="sec-actions">'+(editMode?'<button class="add-item-btn" onclick="openAddItemModal(\''+curEventId+'\',\''+p.id+'\',\''+s.id+'\')">+ 항목</button>'
-          +'<button class="icon-btn del" onclick="deleteSec(\''+s.id+'\')" title="섹션 삭제">✕</button>':'')+'</div></div>';
+          +'<div class="sec-actions">'+(editMode?'<button class="add-item-btn" onclick="openAddItemModal(\''+curEventId+'\',\''+p.id+'\',\''+st.title+'\')">+ 항목</button>':'')+'</div></div>';
         sit.forEach(function(item){html+=renderClItem(item,false);});
         html+='</div>';
       });
-      if(editMode) html+='<button class="add-sec-btn" onclick="openAddSectionModal(\''+curEventId+'\',\''+p.id+'\')">+ 섹션 추가</button>';
+      // 섹션 템플릿에 없는 기타 항목
+      var otherItems=pit.filter(function(i){
+        return !secTemplates.find(function(st){return st.title===i.sectionTitle;});
+      });
+      if(otherItems.length){
+        var od=otherItems.filter(function(i){return db.checked[i.id];}).length;
+        html+='<div class="sec"><div class="sec-hd"><div class="sec-title"><span>기타</span><span class="sec-prog">'+od+'/'+otherItems.length+'</span></div></div>';
+        otherItems.forEach(function(item){html+=renderClItem(item,false);});
+        html+='</div>';
+      }
       html+='</div>';
     });
     if(editMode) html+='<div style="margin-top:8px"><button class="btn primary" onclick="openAddItemModal(\''+curEventId+'\',null,null)">+ 항목 추가 (담당자 선택)</button></div>';
@@ -795,34 +817,26 @@ function renderSettings(){
       +'<button class="btn sm" onclick="openEditPersonModal(\''+p.id+'\')">수정</button>'
       +'<button class="btn sm danger" onclick="deletePerson(\''+p.id+'\')">삭제</button></div>';
   });
-  html+='</div><div class="setting-section"><div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">섹션 관리 <button class="btn sm primary" onclick="openSettingSectionModal()">+ 섹션 추가</button></div>';
-  if(!db.sections.length) html+='<div class="empty"><div class="empty-icon">📂</div><div class="empty-text">등록된 섹션이 없습니다</div></div>';
-  else {
-    // 행사별로 그룹핑
+  html+='</div><div class="setting-section"><div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">섹션 관리 <span style="font-size:11px;font-weight:400;color:var(--text3)">모든 담당자에게 공통 적용</span></div>';
+  if(!db.events.length){
+    html+='<div class="empty"><div class="empty-icon">📂</div><div class="empty-text">먼저 행사를 추가하세요</div></div>';
+  } else {
     db.events.forEach(function(ev){
-      var evSecs=db.sections.filter(function(s){return s.eventId===ev.id;});
-      if(!evSecs.length) return;
-      html+='<div style="margin-bottom:14px">'
-        +'<div style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:0 2px">'
-        +'<span style="width:8px;height:8px;border-radius:50%;background:'+ev.color+';display:inline-block"></span>'+ev.name+'</div>';
-      // 담당자별로 그룹핑
-      db.people.forEach(function(p){
-        var pSecs=evSecs.filter(function(s){return s.personId===p.id;}).sort(function(a,b){return a.order-b.order;});
-        if(!pSecs.length) return;
-        html+='<div style="margin-bottom:8px">'
-          +'<div style="font-size:12px;color:var(--text2);font-weight:500;display:flex;align-items:center;gap:6px;padding:4px 2px 4px 8px;margin-bottom:4px">'
-          +'<div style="width:20px;height:20px;border-radius:50%;background:'+p.color+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">'+p.name.slice(0,1)+'</div>'
-          +p.name+' '+p.title+'</div>';
-        pSecs.forEach(function(s){
-          var itemCnt=db.items.filter(function(i){return i.sectionId===s.id;}).length;
-          html+='<div class="setting-row" style="padding:8px 14px;margin-left:28px">'
-            +'<div style="font-size:18px;color:var(--text3)">☰</div>'
-            +'<div class="setting-row-info"><div class="setting-row-name">'+s.title+'</div>'
-            +'<div class="setting-row-sub">항목 '+itemCnt+'개</div></div>'
-            +'<button class="btn sm" onclick="openEditSectionModal(\''+s.id+'\')">수정</button>'
-            +'<button class="btn sm danger" onclick="deleteSec(\''+s.id+'\')">삭제</button></div>';
-        });
-        html+='</div>';
+      var tpls=getSectionTemplates(ev.id);
+      html+='<div style="margin-bottom:18px">'
+        +'<div style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:8px">'
+        +'<span style="width:8px;height:8px;border-radius:50%;background:'+ev.color+';display:inline-block"></span>'+ev.name
+        +'<button class="btn sm primary" onclick="openAddSecTplModal(\''+ev.id+'\')">+ 섹션 추가</button></div>';
+      tpls.forEach(function(st,idx){
+        var itemCnt=db.items.filter(function(i){return i.eventId===ev.id&&i.sectionTitle===st.title;}).length;
+        html+='<div class="setting-row" style="padding:8px 14px">'
+          +'<div style="display:flex;align-items:center;gap:6px;color:var(--text3);font-size:12px;font-family:\'DM Mono\',monospace;min-width:24px">'+(idx+1)+'</div>'
+          +'<div class="setting-row-info"><div class="setting-row-name">'+st.title+'</div>'
+          +'<div class="setting-row-sub">항목 '+itemCnt+'개</div></div>'
+          +(idx>0?'<button class="btn sm ghost" onclick="moveSecTpl(\''+ev.id+'\',\''+st.id+'\',\'up\')">↑</button>':'<span style="width:52px"></span>')
+          +(idx<tpls.length-1?'<button class="btn sm ghost" onclick="moveSecTpl(\''+ev.id+'\',\''+st.id+'\',\'down\')">↓</button>':'<span style="width:52px"></span>')
+          +'<button class="btn sm" onclick="openEditSecTplModal(\''+ev.id+'\',\''+st.id+'\')">수정</button>'
+          +'<button class="btn sm danger" onclick="deleteSecTpl(\''+ev.id+'\',\''+st.id+'\')">삭제</button></div>';
       });
       html+='</div>';
     });
@@ -1349,88 +1363,81 @@ function deleteItem(id){
 }
 
 // ═══════════════════════════════════════════
-// SECTION MODAL
+// SECTION TEMPLATE CRUD
 // ═══════════════════════════════════════════
-function fillSectionModal(eventId, personId, sectionId, title){
-  // 행사 셀렉트
-  var evSel=document.getElementById('sm_event');
-  evSel.innerHTML=db.events.map(function(ev){
-    return '<option value="'+ev.id+'"'+(ev.id===eventId?' selected':'')+'>'+ev.name+'</option>';
-  }).join('');
-  // 담당자 셀렉트
-  var pSel=document.getElementById('sm_person');
-  pSel.innerHTML='<option value="">-- 담당자 선택 --</option>'+db.people.map(function(p){
-    return '<option value="'+p.id+'"'+(p.id===personId?' selected':'')+'>'+p.name+' '+p.title+'</option>';
-  }).join('');
-  document.getElementById('sm_text').value=title||'';
-}
+var secTplCtx=null; // {eventId, stId}
 
-function openAddSectionModal(eventId, personId){
-  // 체크리스트 편집 모드에서 호출 (행사/담당자 고정, 숨김)
-  sectionModalCtx={eventId:eventId, personId:personId, sectionId:null, fromSettings:false};
+function openAddSecTplModal(eventId){
+  secTplCtx={eventId:eventId, stId:null};
   document.getElementById('sectionModalTitle').textContent='섹션 추가';
-  document.getElementById('sm_event_group').style.display='none';
-  document.getElementById('sm_person_group').style.display='none';
   document.getElementById('sm_text').value='';
   openModal('sectionModal');
 }
-
-function openSettingSectionModal(){
-  // 설정 페이지에서 호출 (행사/담당자 직접 선택)
-  sectionModalCtx={eventId:null, personId:null, sectionId:null, fromSettings:true};
-  document.getElementById('sectionModalTitle').textContent='섹션 추가';
-  document.getElementById('sm_event_group').style.display='block';
-  document.getElementById('sm_person_group').style.display='block';
-  fillSectionModal(curEventId||db.events[0]&&db.events[0].id, null, null, '');
-  openModal('sectionModal');
-}
-
-function openEditSectionModal(id){
-  var s=db.sections.find(function(x){return x.id===id;});
-  if(!s) return;
-  sectionModalCtx={eventId:s.eventId, personId:s.personId, sectionId:id, fromSettings:true};
+function openEditSecTplModal(eventId, stId){
+  var tpls=getSectionTemplates(eventId);
+  var st=tpls.find(function(x){return x.id===stId;});
+  if(!st) return;
+  secTplCtx={eventId:eventId, stId:stId};
   document.getElementById('sectionModalTitle').textContent='섹션 수정';
-  document.getElementById('sm_event_group').style.display='block';
-  document.getElementById('sm_person_group').style.display='block';
-  fillSectionModal(s.eventId, s.personId, id, s.title);
+  document.getElementById('sm_text').value=st.title;
   openModal('sectionModal');
 }
-
-function saveSection(){
+function saveSecTpl(){
   var title=document.getElementById('sm_text').value.trim();
   if(!title){alert('섹션 이름을 입력하세요');return;}
-  var eventId=sectionModalCtx.fromSettings
-    ? document.getElementById('sm_event').value
-    : sectionModalCtx.eventId;
-  var personId=sectionModalCtx.fromSettings
-    ? document.getElementById('sm_person').value
-    : sectionModalCtx.personId;
-  if(!eventId){alert('행사를 선택하세요');return;}
-  if(!personId){alert('담당자를 선택하세요');return;}
-  if(sectionModalCtx.sectionId){
-    // 수정
-    var s=db.sections.find(function(x){return x.id===sectionModalCtx.sectionId;});
-    if(s){s.title=title;s.eventId=eventId;s.personId=personId;}
+  var eventId=secTplCtx.eventId;
+  ensureSectionTemplates(eventId);
+  if(secTplCtx.stId){
+    // 수정: 제목 변경 시 items도 함께 업데이트
+    var tpls=db.sectionTemplates[eventId];
+    var st=tpls.find(function(x){return x.id===secTplCtx.stId;});
+    if(st){
+      var oldTitle=st.title;
+      st.title=title;
+      // 해당 행사의 items sectionTitle도 일괄 변경
+      db.items.forEach(function(item){
+        if(item.eventId===eventId&&item.sectionTitle===oldTitle) item.sectionTitle=title;
+      });
+    }
   } else {
     // 추가
-    var order=db.sections.filter(function(s){return s.eventId===eventId&&s.personId===personId;}).length;
-    db.sections.push({id:uid(),eventId:eventId,personId:personId,title:title,order:order});
+    var order=db.sectionTemplates[eventId].length;
+    db.sectionTemplates[eventId].push({id:uid(),title:title,order:order});
   }
   saveDB();closeModal('sectionModal');render();
 }
-
-function deleteSec(id){
-  if(!confirm('섹션과 포함된 항목을 모두 삭제할까요?')) return;
-  db.items.filter(function(i){return i.sectionId===id;}).forEach(function(i){delete db.checked[i.id];});
-  db.items=db.items.filter(function(i){return i.sectionId!==id;});
-  db.sections=db.sections.filter(function(s){return s.id!==id;});
+function deleteSecTpl(eventId, stId){
+  var tpls=getSectionTemplates(eventId);
+  var st=tpls.find(function(x){return x.id===stId;});
+  if(!st) return;
+  var itemCnt=db.items.filter(function(i){return i.eventId===eventId&&i.sectionTitle===st.title;}).length;
+  var msg='"'+st.title+'" 섹션을 삭제할까요?'+(itemCnt?'\n이 섹션의 항목 '+itemCnt+'개는 "기타"로 이동합니다.':'');
+  if(!confirm(msg)) return;
+  // 항목은 삭제하지 않고 sectionTitle을 '기타'로 변경
+  db.items.forEach(function(item){
+    if(item.eventId===eventId&&item.sectionTitle===st.title) item.sectionTitle='기타';
+  });
+  ensureSectionTemplates(eventId);
+  db.sectionTemplates[eventId]=db.sectionTemplates[eventId].filter(function(x){return x.id!==stId;});
+  saveDB();render();
+}
+function moveSecTpl(eventId, stId, dir){
+  ensureSectionTemplates(eventId);
+  var tpls=db.sectionTemplates[eventId].slice().sort(function(a,b){return a.order-b.order;});
+  var idx=tpls.findIndex(function(x){return x.id===stId;});
+  if(idx<0) return;
+  var swapIdx=dir==='up'?idx-1:idx+1;
+  if(swapIdx<0||swapIdx>=tpls.length) return;
+  var tmp=tpls[idx].order; tpls[idx].order=tpls[swapIdx].order; tpls[swapIdx].order=tmp;
+  db.sectionTemplates[eventId]=tpls;
   saveDB();render();
 }
 
-function editSectionTitle(id){
-  // 편집 모드에서 섹션 제목 클릭 시 → 수정 모달 열기
-  openEditSectionModal(id);
-}
+// 체크리스트 편집 모드에서 항목 추가 시 섹션 선택용 (하위 호환)
+function openAddSectionModal(eventId, personId){ /* deprecated - 섹션은 설정에서 관리 */ }
+function editSectionTitle(id){ /* deprecated */ }
+function deleteSec(id){ /* deprecated */ }
+function saveSection(){ saveSecTpl(); }
 
 // ═══════════════════════════════════════════
 // MODAL HELPERS
