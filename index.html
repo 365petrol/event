@@ -537,7 +537,7 @@ function getTagStyle(name){
   var t=getTags().find(function(x){return x.name===name;});
   return t?'background:'+t.bg+';color:'+t.color:'background:#e8e7e0;color:#54544e';
 }
-function saveDB(){try{localStorage.setItem('pms_db_v2',JSON.stringify(db));}catch(e){}}
+function saveDB(){try{localStorage.setItem('pms_db_v3',JSON.stringify(db));}catch(e){}}
 function uid(){return 'x'+Math.random().toString(36).slice(2,9);}
 
 // ═══════════════════════════════════════════
@@ -1104,9 +1104,19 @@ function confirmImport(){
   if(!importPending) return;
   var parsed=importPending.parsed, eventId=importPending.eventId;
   var colorIdx=0;
-  var now=Date.now();
 
-  parsed.forEach(function(r,i){
+  // 엑셀에 새 섹션명이 있으면 sectionTemplates에 자동 추가
+  ensureSectionTemplates(eventId);
+  var existingTitles=db.sectionTemplates[eventId].map(function(s){return s.title;});
+  parsed.forEach(function(r){
+    var title=r.section||'기타';
+    if(title&&title!=='기타'&&existingTitles.indexOf(title)<0){
+      db.sectionTemplates[eventId].push({id:uid(),title:title,order:db.sectionTemplates[eventId].length});
+      existingTitles.push(title);
+    }
+  });
+
+  parsed.forEach(function(r){
     // 담당자 찾거나 생성
     var person=null;
     if(r.person){
@@ -1117,24 +1127,11 @@ function confirmImport(){
         colorIdx++;
       }
     }
-
-    // 섹션 찾거나 생성
-    var section=null;
-    var sectionTitle=r.section||'기타';
-    if(person){
-      section=db.sections.find(function(s){return s.eventId===eventId&&s.personId===person.id&&s.title===sectionTitle;});
-      if(!section){
-        var order=db.sections.filter(function(s){return s.eventId===eventId&&s.personId===person.id;}).length;
-        section={id:uid(),eventId,personId:person.id,title:sectionTitle,order};
-        db.sections.push(section);
-      }
-    }
-
     db.items.push({
       id:uid(),
-      eventId,
+      eventId:eventId,
       personId:person?person.id:'',
-      sectionId:section?section.id:'',
+      sectionTitle:r.section||'기타',
       text:r.text,
       tags:r.tags,
       due:r.due||null
@@ -1145,7 +1142,6 @@ function confirmImport(){
   closeModal('importConfirmModal');
   importPending=null;
 
-  // 완료 알림 표시
   var area=document.getElementById('previewArea');
   if(area){
     area.innerHTML='<div class="upload-result ok" style="padding:16px 18px;font-size:14px">'
@@ -1225,7 +1221,7 @@ function resetChecks(){
 }
 function toggleEditMode(val){editMode=val!==undefined?val:!editMode;render();}
 function scrollToPerson(pid){var el=document.getElementById('person-'+pid);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
-function hardReset(){if(!confirm('모든 데이터를 초기화할까요?')) return;localStorage.removeItem('pms_db_v2');location.reload();}
+function hardReset(){if(!confirm('모든 데이터를 초기화할까요?')) return;localStorage.removeItem('pms_db_v3');location.reload();}
 
 // ═══════════════════════════════════════════
 // EVENT MODAL
@@ -1264,7 +1260,7 @@ function deleteEvent(id){
   if(!confirm('이 행사와 모든 항목을 삭제할까요?')) return;
   db.events=db.events.filter(function(e){return e.id!==id;});
   db.items=db.items.filter(function(i){return i.eventId!==id;});
-  db.sections=db.sections.filter(function(s){return s.eventId!==id;});
+  if(db.sectionTemplates) delete db.sectionTemplates[id];
   if(curEventId===id) curEventId=(db.events[0]||{}).id||null;
   saveDB();render();
 }
@@ -1302,29 +1298,32 @@ function deletePerson(id){
   if(!confirm('이 담당자와 관련 항목을 삭제할까요?')) return;
   db.people=db.people.filter(function(p){return p.id!==id;});
   db.items=db.items.filter(function(i){return i.personId!==id;});
-  db.sections=db.sections.filter(function(s){return s.personId!==id;});
   saveDB();render();
 }
 
 // ═══════════════════════════════════════════
 // ITEM MODAL
 // ═══════════════════════════════════════════
-function openAddItemModal(eventId,personId,sectionId){
-  itemModalCtx={eventId,personId,sectionId,itemId:null};
+// ITEM MODAL
+// ═══════════════════════════════════════════
+function openAddItemModal(eventId, personId, sectionTitle){
+  itemModalCtx={eventId:eventId, personId:personId, sectionTitle:sectionTitle||null, itemId:null};
   document.getElementById('itemModalTitle').textContent='항목 추가';
   document.getElementById('im_text').value='';
   document.getElementById('im_date').value='';
   fillPersonSelect(personId);
+  fillSectionSelect(eventId, sectionTitle);
   renderTagButtons([]);
   openModal('itemModal');
 }
 function openEditItemModal(itemId){
   var item=db.items.find(function(i){return i.id===itemId;});if(!item) return;
-  itemModalCtx={eventId:item.eventId,personId:item.personId,sectionId:item.sectionId,itemId};
+  itemModalCtx={eventId:item.eventId, personId:item.personId, sectionTitle:item.sectionTitle||null, itemId:itemId};
   document.getElementById('itemModalTitle').textContent='항목 수정';
   document.getElementById('im_text').value=item.text;
   document.getElementById('im_date').value=item.due||'';
   fillPersonSelect(item.personId);
+  fillSectionSelect(item.eventId, item.sectionTitle);
   renderTagButtons(item.tags);
   openModal('itemModal');
 }
@@ -1334,24 +1333,29 @@ function fillPersonSelect(selectedId){
     return '<option value="'+p.id+'"'+(p.id===selectedId?' selected':'')+'>'+p.name+' '+p.title+'</option>';
   }).join('');
 }
+function fillSectionSelect(eventId, selectedTitle){
+  var sel=document.getElementById('im_section');
+  if(!sel) return;
+  var tpls=getSectionTemplates(eventId||curEventId);
+  sel.innerHTML=tpls.map(function(st){
+    return '<option value="'+st.title+'"'+(st.title===selectedTitle?' selected':'')+'>'+st.title+'</option>';
+  }).join('');
+  // 기타 옵션
+  sel.innerHTML+='<option value="기타"'+('기타'===selectedTitle?' selected':'')+'>기타</option>';
+}
 function saveItem(){
   var text=document.getElementById('im_text').value.trim();
   if(!text){alert('내용을 입력하세요');return;}
   var personId=document.getElementById('im_person').value;
+  var sectionTitle=document.getElementById('im_section').value||itemModalCtx.sectionTitle||'사전';
   var due=document.getElementById('im_date').value||null;
   var tags=[].slice.call(document.querySelectorAll('#im_tags .tag-check.sel')).map(function(l){return l.dataset.tag;});
-  var _=itemModalCtx, eventId=_.eventId, sectionId=_.sectionId, itemId=_.itemId;
+  var eventId=itemModalCtx.eventId, itemId=itemModalCtx.itemId;
   if(itemId){
     var item=db.items.find(function(i){return i.id===itemId;});
-    if(item){item.text=text;item.personId=personId;item.due=due;item.tags=tags;}
+    if(item){item.text=text;item.personId=personId;item.sectionTitle=sectionTitle;item.due=due;item.tags=tags;}
   } else {
-    var secId=sectionId;
-    if(!secId&&personId){
-      var sec=db.sections.find(function(s){return s.eventId===eventId&&s.personId===personId&&s.title==='기타';});
-      if(!sec){sec={id:uid(),eventId,personId,title:'기타',order:999};db.sections.push(sec);}
-      secId=sec.id;
-    }
-    db.items.push({id:uid(),eventId,personId,sectionId:secId,text,tags,due});
+    db.items.push({id:uid(),eventId:eventId,personId:personId,sectionTitle:sectionTitle,text:text,tags:tags,due:due});
   }
   saveDB();closeModal('itemModal');render();
 }
