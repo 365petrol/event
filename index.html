@@ -57,12 +57,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .subtab.active{background:var(--surface);color:var(--text);box-shadow:var(--sh)}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh)}
 .card+.card{margin-top:12px}
-.card-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.progress-ring{display:flex;align-items:center;gap:14px}
-.ring-wrap{position:relative;width:56px;height:56px;flex-shrink:0}
-.ring-bg{fill:none;stroke:var(--surface2);stroke-width:5}
-.ring-fill{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .4s}
-.ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)}
 .cl-item{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:5px;transition:box-shadow .13s,border-color .13s;position:relative}
 .cl-item:hover{box-shadow:var(--sh);border-color:var(--border2)}
 .chkbox{width:20px;height:20px;min-width:20px;border-radius:5px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;margin-top:1px;cursor:pointer;transition:all .13s;flex-shrink:0}
@@ -73,16 +67,25 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .cl-body{flex:1;min-width:0;cursor:pointer}
 .cl-text{font-size:14px;color:var(--text);line-height:1.45;transition:all .2s}
 .cl-text.done{text-decoration:line-through;text-decoration-color:var(--text3);color:var(--text3)}
-.cl-meta{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;align-items:center}
+.cl-meta{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;align-items:center}
 .tag{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
-.tag-사전{background:var(--accent2);color:var(--accent3)}
-.tag-당일{background:var(--blue2);color:var(--blue)}
-.tag-긴급{background:var(--red2);color:var(--red)}
-.tag-홍보{background:var(--amber2);color:var(--amber)}
-.tag-계약{background:var(--purple2);color:var(--purple)}
-.tag-custom{background:#f0efe9;color:#54544e}
-.tag-person{background:var(--surface2);color:var(--text2)}
 .tag-date{background:var(--surface2);color:var(--text2);font-family:'DM Mono',monospace}
+/* 담당자 아바타 뱃지 */
+.person-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:2px 8px 2px 4px;border-radius:20px;font-weight:500;background:var(--surface2);color:var(--text2)}
+.person-badge-dot{width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+/* 담당자 다중선택 체크박스 */
+.person-check-list{display:flex;flex-direction:column;gap:5px;max-height:220px;overflow-y:auto;padding:2px}
+.person-check-row{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--rs);cursor:pointer;transition:all .13s;user-select:none;-webkit-user-select:none}
+.person-check-row:hover{background:var(--surface2);border-color:var(--border2)}
+.person-check-row.sel{background:var(--accent2);border-color:var(--accent)}
+.person-check-row input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
+.person-check-avatar{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.person-check-name{font-size:13px;font-weight:500;flex:1}
+.person-check-role{font-size:11px;color:var(--text3)}
+.check-mark{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .13s}
+.person-check-row.sel .check-mark{background:var(--accent);border-color:var(--accent)}
+.check-mark svg{display:none}
+.person-check-row.sel .check-mark svg{display:block}
 .cl-actions{display:none;gap:3px;flex-shrink:0}
 .edit-on .cl-item:hover .cl-actions{display:flex}
 .icon-btn{width:28px;height:28px;border-radius:5px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);transition:all .13s;font-size:13px}
@@ -96,9 +99,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .add-item-btn{font-size:12px;color:var(--accent);background:none;border:none;cursor:pointer;padding:2px 6px;border-radius:4px;font-family:'Noto Sans KR',sans-serif;opacity:0;transition:opacity .13s}
 .sec:hover .add-item-btn{opacity:1}
 .add-item-btn:hover{background:var(--accent2)}
-.add-sec-btn{width:100%;padding:9px;border:1.5px dashed var(--border2);border-radius:var(--r);background:transparent;color:var(--text3);font-size:13px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .13s;margin-top:6px;display:none}
-.edit-on .add-sec-btn{display:block}
-.add-sec-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
 .person-hd{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px}
 .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
 .person-name-el{font-size:16px;font-weight:700}
@@ -116,7 +116,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .tl-item-body{flex:1;min-width:0}
 .tl-item-text{font-size:14px;color:var(--text);line-height:1.45}
 .tl-item-text.done{text-decoration:line-through;color:var(--text3)}
-.tl-item-meta{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.tl-item-meta{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;align-items:center}
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:20px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;text-align:center}
 .stat-n{font-size:26px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text)}
@@ -131,7 +131,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .color-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
 .event-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:box-shadow .13s;cursor:pointer}
 .event-card:hover{box-shadow:var(--sh2);border-color:var(--border2)}
-.event-card-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .event-card-info{flex:1}
 .event-card-name{font-size:15px;font-weight:700}
 .event-card-meta{font-size:12px;color:var(--text3);margin-top:3px}
@@ -140,7 +139,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .event-card-cnt{font-size:11px;color:var(--text3)}
 .backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;padding:16px}
 .backdrop.show{display:flex}
-.modal{background:var(--surface);border-radius:14px;padding:24px;width:100%;max-width:500px;box-shadow:var(--sh2);max-height:90vh;overflow-y:auto}
+.modal{background:var(--surface);border-radius:14px;padding:24px;width:100%;max-width:520px;box-shadow:var(--sh2);max-height:90vh;overflow-y:auto}
 .modal h3{font-size:16px;font-weight:700;margin-bottom:18px}
 .form-group{margin-bottom:14px}
 .form-label{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.04em}
@@ -150,7 +149,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .tag-group{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
 .tag-check{display:inline-flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;padding:4px 10px;border:1px solid var(--border2);border-radius:20px;transition:all .13s;user-select:none;-webkit-user-select:none}
-.tag-check input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
 .tag-check.sel{border-color:var(--accent);background:var(--accent2);color:var(--accent3)}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
 .color-options{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
@@ -161,17 +159,13 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .empty{text-align:center;padding:48px 20px;color:var(--text3)}
 .empty-icon{font-size:36px;margin-bottom:12px}
 .empty-text{font-size:14px}
-
-/* ── EXCEL UPLOAD ── */
+/* EXCEL UPLOAD */
 .upload-zone{border:2px dashed var(--border2);border-radius:var(--r);padding:32px 24px;text-align:center;transition:all .2s;cursor:pointer;background:var(--surface)}
 .upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:var(--accent2)}
 .upload-zone-icon{font-size:36px;margin-bottom:10px}
 .upload-zone-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
 .upload-zone-sub{font-size:12px;color:var(--text3)}
 .upload-zone input[type=file]{display:none}
-.upload-progress{margin-top:14px}
-.upload-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-top:6px}
-.upload-bar-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s}
 .upload-result{margin-top:12px;padding:12px 14px;border-radius:var(--rs);font-size:13px}
 .upload-result.ok{background:var(--accent2);color:var(--accent3);border:1px solid rgba(45,106,79,.2)}
 .upload-result.err{background:var(--red2);color:var(--red);border:1px solid rgba(198,40,40,.2)}
@@ -188,10 +182,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .preview-table tr:last-child td{border-bottom:none}
 .preview-table tr:hover td{background:var(--surface2)}
 .preview-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--rs);max-height:300px;overflow-y:auto}
-.import-mapping{margin-top:16px}
-.mapping-row{display:grid;grid-template-columns:1fr 24px 1fr;gap:8px;align-items:center;margin-bottom:8px}
-.mapping-arrow{text-align:center;color:var(--text3);font-size:14px}
-
 @media(max-width:700px){
   .sidebar{display:none}
   .content{padding:16px 12px}
@@ -201,11 +191,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 </head>
 <body>
 <div class="layout">
-
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <div class="sidebar-logo-mark">🐾</div>
-    <div class="sidebar-org">반려견순찰대연합회</div>
+    <div class="sidebar-org">2026 동감문화제</div>
     <div class="sidebar-name">행사 운영 관리</div>
   </div>
   <div class="sidebar-section">메뉴</div>
@@ -289,16 +278,24 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 </div>
 </div>
 
-<!-- 항목 추가/수정 -->
+<!-- 항목 추가/수정 (다중 담당자) -->
 <div class="backdrop" id="itemModal">
 <div class="modal">
   <h3 id="itemModalTitle">항목 추가</h3>
   <div class="form-group"><label class="form-label">업무 내용</label><textarea class="form-textarea" id="im_text" rows="3" placeholder="업무 내용을 입력하세요"></textarea></div>
   <div class="form-row">
-    <div class="form-group"><label class="form-label">담당자</label><select class="form-select" id="im_person"></select></div>
-    <div class="form-group"><label class="form-label">섹션</label><select class="form-select" id="im_section"></select></div>
+    <div class="form-group">
+      <label class="form-label">섹션</label>
+      <select class="form-select" id="im_section"></select>
+    </div>
+    <div class="form-group"><label class="form-label">기한 (선택)</label><input class="form-input" id="im_date" type="date"></div>
   </div>
-  <div class="form-group"><label class="form-label">기한 (선택)</label><input class="form-input" id="im_date" type="date"></div>
+  <!-- 담당자 다중 선택 -->
+  <div class="form-group">
+    <label class="form-label">담당자 <span style="font-size:10px;font-weight:400;color:var(--text3);text-transform:none;letter-spacing:0">(복수 선택 가능)</span></label>
+    <div class="person-check-list" id="im_persons"></div>
+    <div id="im_persons_empty" style="display:none;font-size:12px;color:var(--text3);padding:8px 0">설정에서 담당자를 먼저 추가하세요</div>
+  </div>
   <div class="form-group"><label class="form-label">태그</label>
     <div class="tag-group" id="im_tags"></div>
   </div>
@@ -352,7 +349,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 </div>
 </div>
 
-<!-- 엑셀 가져오기 확인 모달 -->
+<!-- 엑셀 가져오기 확인 -->
 <div class="backdrop" id="importConfirmModal">
 <div class="modal" style="max-width:560px">
   <h3>📥 가져오기 확인</h3>
@@ -372,155 +369,67 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 // ═══════════════════════════════════════════
 // DATA
 // ═══════════════════════════════════════════
-var COLORS = ['#2d6a4f','#1565c0','#b45309','#c62828','#6b21a8','#0e7490','#9a3412','#374151'];
-var db = { events:[], people:[], sections:[], items:[], checked:{}, tags:[] };
-var DEFAULT_TAGS = [
+var COLORS=['#2d6a4f','#1565c0','#b45309','#c62828','#6b21a8','#0e7490','#9a3412','#374151'];
+var db={events:[],people:[],items:[],checked:{},tags:[],sectionTemplates:{}};
+var DEFAULT_TAGS=[
   {id:'t1',name:'사전',color:'#2d6a4f',bg:'#d8f3e3'},
   {id:'t2',name:'당일',color:'#1565c0',bg:'#e3f2fd'},
   {id:'t3',name:'긴급',color:'#c62828',bg:'#ffebee'},
   {id:'t4',name:'홍보',color:'#b45309',bg:'#fef3c7'},
   {id:'t5',name:'계약',color:'#6b21a8',bg:'#f3e8ff'}
 ];
-var DEFAULT_SECTION_TEMPLATES = [
-  {id:'st1', title:'사전',  order:0},
-  {id:'st2', title:'D-4주', order:1},
-  {id:'st3', title:'D-1주', order:2},
-  {id:'st4', title:'당일',  order:3},
-  {id:'st5', title:'사후',  order:4}
+var DEFAULT_SECTION_TEMPLATES=[
+  {id:'st1',title:'사전',order:0},
+  {id:'st2',title:'D-4주',order:1},
+  {id:'st3',title:'D-1주',order:2},
+  {id:'st4',title:'당일',order:3},
+  {id:'st5',title:'사후',order:4}
 ];
 
-var SEED = {
-  events:[{id:'e1',name:'2026 반려견 걷기대회',date:'2026-06-06',place:'안산 호수공원',color:'#2d6a4f',note:'PawSafe World Walk in Ansan'}],
-  people:[
-    {id:'p1',name:'김지민',title:'대표',role:'총괄',color:'#2d6a4f'},
-    {id:'p2',name:'백준호',title:'본부장',role:'총괄',color:'#1565c0'},
-    {id:'p3',name:'유성현',title:'팀장',role:'행사 진행 총괄',color:'#b45309'},
-    {id:'p4',name:'박일준',title:'부장',role:'현장 인력 총괄',color:'#c62828'},
-    {id:'p5',name:'임승민',title:'사원',role:'마케팅 총괄',color:'#6b21a8'},
-    {id:'p6',name:'이가은',title:'사원',role:'외부협력 총괄',color:'#0e7490'},
-    {id:'p7',name:'윤진',title:'주임',role:'계약',color:'#9a3412'}
-  ],
-  sectionTemplates:{
-    'e1': JSON.parse(JSON.stringify(DEFAULT_SECTION_TEMPLATES))
-  },
-  items: buildItems(),
-  checked:{},
-  tags: JSON.parse(JSON.stringify(DEFAULT_TAGS))
-};
-
-function buildItems(){
-  var raw=[
-    {s:'s1',p:'p1',t:'행사 기획안 최종 승인 및 방향 결정',tags:['사전'],daysB:56},
-    {s:'s1',p:'p1',t:'안산시·안산시의회 후원 협의 및 관계 유지',tags:['사전'],daysB:42},
-    {s:'s1',p:'p1',t:'협찬사 계약 최종 확인',tags:['사전'],daysB:35},
-    {s:'s1',p:'p1',t:'경기매일신문사·애그유니 주관사 업무 조율',tags:['사전'],daysB:35},
-    {s:'s1',p:'p1',t:'행사보험 가입 최종 승인',tags:['사전','긴급'],daysB:28},
-    {s:'s1',p:'p1',t:'주차별 진행 보고 수령 및 의사결정',tags:['사전'],daysB:14},
-    {s:'s2',p:'p1',t:'전체 운영 매뉴얼 최종 검토 및 승인',tags:['사전'],daysB:7},
-    {s:'s2',p:'p1',t:'내빈 참석 확정 재확인',tags:['사전'],daysB:5},
-    {s:'s2',p:'p1',t:'출범식 퍼포먼스 최종 순서 확인',tags:['사전'],daysB:3},
-    {s:'s3',p:'p1',t:'총괄본부 상주 — 전체 진행 상황 모니터링',tags:['당일'],daysB:0},
-    {s:'s3',p:'p1',t:'내빈 영접 및 응대',tags:['당일'],daysB:0},
-    {s:'s3',p:'p1',t:'출범식 총괄 — 깃발 입장 / 출범 선언',tags:['당일','긴급'],daysB:0},
-    {s:'s3',p:'p1',t:'각 지역 순찰대 위촉장 수여 주관',tags:['당일'],daysB:0},
-    {s:'s3',p:'p1',t:'돌발 상황 최종 의사결정권자 역할',tags:['당일','긴급'],daysB:0},
-    {s:'s3',p:'p1',t:'행사 종료 후 주최·후원기관 결과 보고',tags:['당일'],daysB:0},
-    {s:'s4',p:'p2',t:'행사 기본 계획 수립 및 전체 타임라인 작성',tags:['사전'],daysB:56},
-    {s:'s4',p:'p2',t:'협력기관 협의 총괄 일정 조율',tags:['사전'],daysB:42},
-    {s:'s4',p:'p2',t:'프로그램 세부 내용 확정 (큐시트 초안)',tags:['사전'],daysB:28},
-    {s:'s4',p:'p2',t:'각 팀 담당자 비상연락망 작성 및 배포',tags:['사전','긴급'],daysB:14},
-    {s:'s5',p:'p2',t:'전체 리허설 및 현장 동선 최종 점검',tags:['사전'],daysB:7},
-    {s:'s5',p:'p2',t:'운영 매뉴얼 전 직원·외부인력 배포',tags:['사전'],daysB:5},
-    {s:'s5',p:'p2',t:'각 섹션 팀장 최종 브리핑 진행',tags:['사전'],daysB:3},
-    {s:'s6',p:'p2',t:'총괄본부 상주 — 각 팀 진행 상황 취합',tags:['당일'],daysB:0},
-    {s:'s6',p:'p2',t:'10:00 기념식 출발 신호 조율',tags:['당일'],daysB:0},
-    {s:'s6',p:'p2',t:'11:00 걷기대회 출발 확인',tags:['당일'],daysB:0},
-    {s:'s6',p:'p2',t:'13:00 세미나·상담 프로그램 개시 확인',tags:['당일'],daysB:0},
-    {s:'s6',p:'p2',t:'15:00 펫티켓 운동회 개시 확인',tags:['당일'],daysB:0},
-    {s:'s6',p:'p2',t:'진행 지연·돌발 상황 발생 시 즉각 일정 조정',tags:['당일','긴급'],daysB:0},
-    {s:'s6',p:'p2',t:'16:00 폐회 후 철수·정산 총괄',tags:['당일'],daysB:0},
-    {s:'s7',p:'p3',t:'MC·아나운서·사운드 외부업체 섭외 및 계약',tags:['사전'],daysB:42},
-    {s:'s7',p:'p3',t:'기념식·출범식·운동회 큐시트 상세 작성',tags:['사전'],daysB:28},
-    {s:'s7',p:'p3',t:'출범식 퍼포먼스 동선 기획',tags:['사전'],daysB:21},
-    {s:'s7',p:'p3',t:'명사 세미나 연사 섭외 및 일정 확인',tags:['사전'],daysB:21},
-    {s:'s7',p:'p3',t:'무대 장비·음향 사전 점검 일정 수립',tags:['사전'],daysB:14},
-    {s:'s8',p:'p3',t:'메인 무대 운영팀 총괄 관리',tags:['당일'],daysB:0},
-    {s:'s8',p:'p3',t:'10:00 기념식 — 개회 선언·내빈 소개·축사',tags:['당일'],daysB:0},
-    {s:'s8',p:'p3',t:'13:00 반려견 건강 상담 세미나 무대 운영',tags:['당일'],daysB:0},
-    {s:'s8',p:'p3',t:'15:00 펫티켓 운동회 경기 진행',tags:['당일'],daysB:0},
-    {s:'s8',p:'p3',t:'16:00 우승자 시상 및 폐회식 무대 진행',tags:['당일'],daysB:0},
-    {s:'s9',p:'p4',t:'외부 운영인력 57명 섭외 및 역할 배정표 작성',tags:['사전'],daysB:42},
-    {s:'s9',p:'p4',t:'홈페이지 사전 접수 시스템 관리',tags:['사전'],daysB:35},
-    {s:'s9',p:'p4',t:'참가자 배번호·미션 리플렛·웰컴키트 물량 확보',tags:['사전'],daysB:21},
-    {s:'s9',p:'p4',t:'걷기 코스 3km 동선 확정 및 8개 미션 지점 지정',tags:['사전'],daysB:21},
-    {s:'s9',p:'p4',t:'안전관리 계획 수립 및 관할기관 서류 제출',tags:['사전','긴급'],daysB:28},
-    {s:'s10',p:'p4',t:'현장 접수 데스크 운영',tags:['당일'],daysB:0},
-    {s:'s10',p:'p4',t:'부스 운영팀 30명 배치 및 관리',tags:['당일'],daysB:0},
-    {s:'s10',p:'p4',t:'안전관리팀 총괄',tags:['당일','긴급'],daysB:0},
-    {s:'s11',p:'p5',t:'행사 포스터·리플렛 디자인 확정',tags:['사전','홍보'],daysB:42},
-    {s:'s11',p:'p5',t:'온라인 사전 안내 게시',tags:['사전','홍보'],daysB:42},
-    {s:'s11',p:'p5',t:'포스터 배포 시작 및 지자체·동물단체 SNS 게시',tags:['사전','홍보'],daysB:21},
-    {s:'s12',p:'p5',t:'SNS 카운트다운 콘텐츠 제작 및 업로드',tags:['사전','홍보'],daysB:10},
-    {s:'s12',p:'p5',t:'언론 2차 보도자료 배포',tags:['사전','홍보'],daysB:7},
-    {s:'s13',p:'p5',t:'홍보팀 외부인력 2명 관리',tags:['당일','홍보'],daysB:0},
-    {s:'s13',p:'p5',t:'SNS·홈페이지 현장 실시간 업로드',tags:['당일','홍보'],daysB:0},
-    {s:'s14',p:'p6',t:'후원사 담당자 연락 및 일정 조율',tags:['사전'],daysB:42},
-    {s:'s14',p:'p6',t:'협찬사 키트 물품 수령 일정 확인',tags:['사전'],daysB:35},
-    {s:'s14',p:'p6',t:'외부 체험 부스 참여 업체 섭외',tags:['사전'],daysB:28},
-    {s:'s15',p:'p6',t:'모든 외부 협력사 최종 참석 여부 재확인',tags:['사전'],daysB:7},
-    {s:'s16',p:'p6',t:'후원사·협찬사 담당자 현장 영접 및 안내',tags:['당일'],daysB:0},
-    {s:'s17',p:'p7',t:'협찬사 계약서 작성 및 날인 관리',tags:['사전','계약'],daysB:42},
-    {s:'s17',p:'p7',t:'외부 공연·용역 업체 계약서 검토 및 체결',tags:['사전','계약'],daysB:35},
-    {s:'s17',p:'p7',t:'행사보험 가입 서류 준비 및 접수',tags:['사전','긴급','계약'],daysB:28},
-    {s:'s18',p:'p7',t:'외부 인력 57명 계약 및 지급 일정 정리',tags:['사전','계약'],daysB:28},
-    {s:'s18',p:'p7',t:'행사 예산 집행 내역 실시간 관리',tags:['사전'],daysB:14},
-    {s:'s19',p:'p7',t:'현장 계약 관련 문의 대응 및 서류 지원',tags:['당일'],daysB:0},
-    {s:'s19',p:'p7',t:'행사 종료 후 정산 서류 취합 및 마감',tags:['당일'],daysB:0},
-  ];
-  // 기존 s코드 → 섹션 타이틀 매핑
-  var sMap={s1:'사전',s2:'D-1주',s3:'당일',s4:'사전',s5:'D-1주',s6:'당일',
-    s7:'사전',s8:'당일',s9:'사전',s10:'당일',s11:'사전',s12:'D-4주',
-    s13:'당일',s14:'사전',s15:'D-1주',s16:'당일',s17:'사전',s18:'D-4주',s19:'당일'};
-  var eventDate='2026-06-06';
-  return raw.map(function(r,i){
-    var due=null;
-    if(r.daysB>0){var d=new Date(eventDate);d.setDate(d.getDate()-r.daysB);due=d.toISOString().slice(0,10);}
-    else if(r.daysB===0){due=eventDate;}
-    return {id:'i'+i,sectionTitle:sMap[r.s]||'사전',personId:r.p,eventId:'e1',text:r.t,tags:r.tags,due};
-  });
+// ── 헬퍼: item.personIds 정규화 (구버전 personId → personIds 마이그레이션) ──
+function getPersonIds(item){
+  if(item.personIds&&Array.isArray(item.personIds)) return item.personIds;
+  if(item.personId) return [item.personId]; // 구버전 호환
+  return [];
 }
 
 // ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
-var curView='dashboard', curEventId='e1', editMode=false;
-var curClMode='person'; // 'person' | 'tag'
-var curTagFilter=null;  // null = 전체, string = 특정 태그명
-var itemModalCtx=null, sectionModalCtx=null, eventModalCtx=null, personModalCtx=null;
+var curView='dashboard',curEventId=null,editMode=false;
+var curClMode='person';
+var curTagFilter=null;
+var itemModalCtx=null,sectionModalCtx=null,eventModalCtx=null,personModalCtx=null;
 var importPending=null;
 
 function loadDB(){
   try{
-    var s=localStorage.getItem('pms_db_v3');
+    var s=localStorage.getItem('pms_db_v4');
     if(s){
       var d=JSON.parse(s);
       if(d&&d.events){
         db=d;
         if(!db.tags||!db.tags.length) db.tags=JSON.parse(JSON.stringify(DEFAULT_TAGS));
         if(!db.sectionTemplates) db.sectionTemplates={};
-        // 기존 items에 sectionId만 있고 sectionTitle 없으면 마이그레이션
+        // 마이그레이션: personId → personIds
         db.items.forEach(function(item){
           if(!item.sectionTitle) item.sectionTitle='사전';
+          if(!item.personIds){
+            item.personIds=item.personId?[item.personId]:[];
+            delete item.personId;
+          }
+          if(!item.tags) item.tags=[];
         });
         return;
       }
     }
   }catch(e){}
-  db=JSON.parse(JSON.stringify(SEED));
-  db.items=buildItems();
-  db.checked={};
-  db.tags=JSON.parse(JSON.stringify(DEFAULT_TAGS));
-  db.sectionTemplates={'e1':JSON.parse(JSON.stringify(DEFAULT_SECTION_TEMPLATES))};
+  db={events:[],people:[],items:[],checked:{},tags:JSON.parse(JSON.stringify(DEFAULT_TAGS)),sectionTemplates:{}};
+}
+function getTags(){return db.tags&&db.tags.length?db.tags:DEFAULT_TAGS;}
+function getTagStyle(name){
+  var t=getTags().find(function(x){return x.name===name;});
+  return t?'background:'+t.bg+';color:'+t.color:'background:#e8e7e0;color:#54544e';
 }
 function getSectionTemplates(eventId){
   if(db.sectionTemplates&&db.sectionTemplates[eventId]&&db.sectionTemplates[eventId].length)
@@ -532,12 +441,7 @@ function ensureSectionTemplates(eventId){
   if(!db.sectionTemplates[eventId])
     db.sectionTemplates[eventId]=JSON.parse(JSON.stringify(DEFAULT_SECTION_TEMPLATES));
 }
-function getTags(){return db.tags&&db.tags.length?db.tags:DEFAULT_TAGS;}
-function getTagStyle(name){
-  var t=getTags().find(function(x){return x.name===name;});
-  return t?'background:'+t.bg+';color:'+t.color:'background:#e8e7e0;color:#54544e';
-}
-function saveDB(){try{localStorage.setItem('pms_db_v3',JSON.stringify(db));}catch(e){}}
+function saveDB(){try{localStorage.setItem('pms_db_v4',JSON.stringify(db));}catch(e){}}
 function uid(){return 'x'+Math.random().toString(36).slice(2,9);}
 
 // ═══════════════════════════════════════════
@@ -561,22 +465,36 @@ function renderSidebarEvents(){
 }
 function renderTopbar(){
   var titles={dashboard:'대시보드',checklist:'R&R 체크리스트',timeline:'타임라인',import:'엑셀 가져오기',settings:'설정'};
-  var subs={dashboard:'전체 행사 현황',checklist:curEventId?(db.events.find(function(e){return e.id===curEventId;})||{}).name||'':'',
-    timeline:curEventId?(db.events.find(function(e){return e.id===curEventId;})||{}).name||'':'',
-    import:'엑셀 파일에서 항목 가져오기',settings:'행사·담당자 관리'};
+  var ev=curEventId?db.events.find(function(e){return e.id===curEventId;}):null;
+  var subs={dashboard:'전체 행사 현황',checklist:ev?ev.name:'',timeline:ev?ev.name:'',import:'엑셀 파일에서 항목 가져오기',settings:'행사·담당자 관리'};
   document.getElementById('topbarTitle').textContent=titles[curView]||'';
   document.getElementById('topbarSub').textContent=subs[curView]||'';
   var act=document.getElementById('topbarActions');
   if(curView==='checklist'){
-    act.innerHTML='<button class="btn'+(editMode?' primary':' ghost')+'" onclick="toggleEditMode()"><span>'+(editMode?'✅':'✏️')+'</span>'+(editMode?'편집 완료':'편집 모드')+'</button>'
-      +'<button class="btn sm" onclick="resetChecks()">초기화</button>';
+    act.innerHTML=(curEventId?'<button class="btn primary" onclick="openAddItemModal(\''+curEventId+'\',null,null)">+ 항목 추가</button>':'')
+      +'<button class="btn'+(editMode?' primary':' ghost')+'" onclick="toggleEditMode()">'+(editMode?'✅ 편집 완료':'✏️ 편집 모드')+'</button>'
+      +'<button class="btn sm ghost" onclick="resetChecks()">초기화</button>';
   } else if(curView==='dashboard'){
     act.innerHTML='<button class="btn primary" onclick="openNewEventModal()">+ 행사 추가</button>';
   } else if(curView==='settings'){
     act.innerHTML='<button class="btn primary" onclick="openPersonModal()">+ 담당자 추가</button>';
   } else if(curView==='import'){
     act.innerHTML='<button class="btn" onclick="downloadTemplate()">📥 템플릿 다운로드</button>';
-  } else { act.innerHTML=''; }
+  } else {act.innerHTML='';}
+}
+
+// ═══════════════════════════════════════════
+// 담당자 뱃지 렌더 헬퍼
+// ═══════════════════════════════════════════
+function renderPersonBadges(personIds){
+  if(!personIds||!personIds.length) return '<span style="font-size:11px;color:var(--text3)">담당자 없음</span>';
+  return personIds.map(function(pid){
+    var p=db.people.find(function(x){return x.id===pid;});
+    if(!p) return '';
+    return '<span class="person-badge">'
+      +'<span class="person-badge-dot" style="background:'+p.color+'">'+p.name.slice(0,1)+'</span>'
+      +p.name+(p.title?' '+p.title:'')+'</span>';
+  }).filter(Boolean).join('');
 }
 
 // ═══════════════════════════════════════════
@@ -598,7 +516,7 @@ function renderContent(){
 
 // ── DASHBOARD ──
 function renderDashboard(){
-  var total=db.items.length, done=db.items.filter(function(i){return db.checked[i.id];}).length;
+  var total=db.items.length,done=db.items.filter(function(i){return db.checked[i.id];}).length;
   var pct=total?Math.round(done/total*100):0;
   var html='<div class="stats-row">'
     +'<div class="stat-card hi"><div class="stat-n">'+db.events.length+'</div><div class="stat-l">총 행사</div></div>'
@@ -608,7 +526,7 @@ function renderDashboard(){
     +'<div class="stat-card"><div class="stat-n">'+db.people.length+'</div><div class="stat-l">담당자</div></div>'
     +'</div>';
   html+='<div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text2)">행사 목록</div>';
-  if(!db.events.length) return html+'<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">등록된 행사가 없습니다</div></div>';
+  if(!db.events.length) return html+'<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">아직 등록된 행사가 없습니다<br><br><button class="btn primary" onclick="openNewEventModal()" style="margin-top:8px">+ 첫 행사 추가하기</button></div></div>';
   db.events.forEach(function(ev){
     var items=db.items.filter(function(i){return i.eventId===ev.id;});
     var d=items.filter(function(i){return db.checked[i.id];}).length;
@@ -617,13 +535,14 @@ function renderDashboard(){
     var r=22,circ=2*Math.PI*r,offset=circ*(1-p/100);
     html+='<div class="event-card" onclick="setView(\'checklist\',\''+ev.id+'\')">'
       +'<div style="width:56px;height:56px;flex-shrink:0;position:relative">'
-      +'<svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="'+r+'" class="ring-bg"/>'
+      +'<svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="'+r+'" fill="none" stroke="var(--surface2)" stroke-width="5"/>'
       +'<circle cx="28" cy="28" r="'+r+'" fill="none" stroke="'+ev.color+'" stroke-width="5" stroke-linecap="round" transform="rotate(-90 28 28)" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/></svg>'
       +'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:\'DM Mono\',monospace;color:'+ev.color+'">'+p+'%</div></div>'
       +'<div class="event-card-info"><div class="event-card-name">'+ev.name+'</div>'
       +'<div class="event-card-meta">'+evDate+(ev.place?' · '+ev.place:'')+'</div>'
       +(ev.note?'<div style="font-size:12px;color:var(--text3);margin-top:2px">'+ev.note+'</div>':'')
-      +'</div><div class="event-card-prog"><div class="event-card-pct">'+d+'/'+items.length+'</div><div class="event-card-cnt">완료</div></div></div>';
+      +'</div>'
+      +'<div class="event-card-prog"><div class="event-card-pct">'+d+'/'+items.length+'</div><div class="event-card-cnt">완료</div></div></div>';
   });
   return html;
 }
@@ -637,39 +556,43 @@ function renderChecklist(){
   var pct=evItems.length?Math.round(done/evItems.length*100):0;
   var r=22,circ=2*Math.PI*r,offset=circ*(1-pct/100);
 
-  // 상단 요약 카드
+  // 헤더 카드
   var html='<div class="card" style="margin-bottom:16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">'
-    +'<svg width="60" height="60" viewBox="0 0 56 56" style="flex-shrink:0"><circle cx="28" cy="28" r="'+r+'" class="ring-bg"/>'
+    +'<svg width="60" height="60" viewBox="0 0 56 56" style="flex-shrink:0">'
+    +'<circle cx="28" cy="28" r="'+r+'" fill="none" stroke="var(--surface2)" stroke-width="5"/>'
     +'<circle cx="28" cy="28" r="'+r+'" fill="none" stroke="'+ev.color+'" stroke-width="5" stroke-linecap="round" transform="rotate(-90 28 28)" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/>'
     +'<text x="28" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="'+ev.color+'" font-family="DM Mono,monospace">'+pct+'%</text></svg>'
     +'<div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:700">'+ev.name+'</div>'
-    +'<div style="font-size:13px;color:var(--text3);margin-top:2px">'+(ev.date?new Date(ev.date).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}):'')+' '+(ev.place?'· '+ev.place:'')+'</div></div>'
-    +'<div style="display:flex;gap:8px;flex-wrap:wrap">';
+    +'<div style="font-size:13px;color:var(--text3);margin-top:2px">'
+    +(ev.date?new Date(ev.date).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}):'')+' '+(ev.place?'· '+ev.place:'')+'</div></div>'
+    // 담당자 아바타 요약
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
   db.people.forEach(function(p){
-    var pit=evItems.filter(function(i){return i.personId===p.id;});
+    // 이 담당자가 포함된 항목 수
+    var pit=evItems.filter(function(i){return getPersonIds(i).indexOf(p.id)>-1;});
     var pd=pit.filter(function(i){return db.checked[i.id];}).length;
-    html+='<div style="text-align:center;cursor:pointer;padding:6px 10px;border-radius:var(--rs);transition:background .12s" onclick="setClMode(\'person\');scrollToPerson(\''+p.id+'\')"'
+    html+='<div style="text-align:center;cursor:pointer;padding:6px 8px;border-radius:var(--rs);transition:background .12s"'
+      +' onclick="setClMode(\'person\');scrollToPerson(\''+p.id+'\')"'
       +' onmouseover="this.style.background=\'var(--surface2)\'" onmouseout="this.style.background=\'transparent\'">'
       +'<div style="width:32px;height:32px;border-radius:50%;background:'+p.color+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;margin:0 auto">'+p.name.slice(0,1)+'</div>'
       +'<div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:\'DM Mono\',monospace">'+pd+'/'+pit.length+'</div></div>';
   });
   html+='</div></div>';
 
-  // 보기 모드 탭
+  // 뷰 탭
   html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">'
     +'<div class="subtabs">'
     +'<button class="subtab'+(curClMode==='person'?' active':'')+'" onclick="setClMode(\'person\')">👤 담당자별</button>'
+    +'<button class="subtab'+(curClMode==='section'?' active':'')+'" onclick="setClMode(\'section\')">📂 섹션별</button>'
     +'<button class="subtab'+(curClMode==='tag'?' active':'')+'" onclick="setClMode(\'tag\')">🏷️ 태그별</button>'
     +'</div>';
 
-  // 태그별 모드일 때 태그 필터 버튼
   if(curClMode==='tag'){
     html+='<div style="display:flex;gap:5px;flex-wrap:wrap">'
       +'<button class="btn sm'+(curTagFilter===null?' primary':'')+'" onclick="setTagFilter(null)">전체</button>';
     getTags().forEach(function(t){
       var cnt=evItems.filter(function(i){return i.tags.indexOf(t.name)>-1;}).length;
-      var active=curTagFilter===t.name;
-      html+='<button class="btn sm" onclick="setTagFilter(\''+t.name+'\')" style="'+(active?'background:'+t.bg+';color:'+t.color+';border-color:'+t.color:'')+'">'+t.name+' <span style="font-family:\'DM Mono\',monospace;font-size:10px;opacity:0.7">'+cnt+'</span></button>';
+      html+='<button class="btn sm" onclick="setTagFilter(\''+t.name+'\')" style="'+(curTagFilter===t.name?'background:'+t.bg+';color:'+t.color+';border-color:'+t.color:'')+'">'+t.name+' <span style="font-family:\'DM Mono\',monospace;font-size:10px;opacity:.7">'+cnt+'</span></button>';
     });
     html+='</div>';
   }
@@ -680,10 +603,12 @@ function renderChecklist(){
     if(!db.people.length) return html+'<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">설정에서 담당자를 추가하세요</div></div>';
     var secTemplates=getSectionTemplates(curEventId);
     db.people.forEach(function(p){
-      var pit=evItems.filter(function(i){return i.personId===p.id;});
+      // 이 담당자가 personIds에 포함된 항목
+      var pit=evItems.filter(function(i){return getPersonIds(i).indexOf(p.id)>-1;});
       var pd=pit.filter(function(i){return db.checked[i.id];}).length;
       var pp=pit.length?Math.round(pd/pit.length*100):0;
-      html+='<div id="person-'+p.id+'" style="margin-bottom:28px"><div class="person-hd">'
+      html+='<div id="person-'+p.id+'" style="margin-bottom:28px">'
+        +'<div class="person-hd">'
         +'<div class="avatar" style="background:'+p.color+'">'+p.name.slice(0,1)+'</div>'
         +'<div><div class="person-name-el"'+(editMode?' onclick="openEditPersonModal(\''+p.id+'\')" style="cursor:pointer"':'')+'>'+p.name+' '+p.title+'</div>'
         +'<div class="person-role-el">'+p.role+'</div></div>'
@@ -692,17 +617,14 @@ function renderChecklist(){
         var sit=pit.filter(function(i){return i.sectionTitle===st.title;});
         if(!sit.length&&!editMode) return;
         var sd=sit.filter(function(i){return db.checked[i.id];}).length;
-        html+='<div class="sec"><div class="sec-hd"><div class="sec-title">'
-          +'<span>'+st.title+'</span>'
-          +'<span class="sec-prog">'+sd+'/'+sit.length+'</span></div>'
+        html+='<div class="sec"><div class="sec-hd">'
+          +'<div class="sec-title"><span>'+st.title+'</span><span class="sec-prog">'+sd+'/'+sit.length+'</span></div>'
           +'<div class="sec-actions">'+(editMode?'<button class="add-item-btn" onclick="openAddItemModal(\''+curEventId+'\',\''+p.id+'\',\''+st.title+'\')">+ 항목</button>':'')+'</div></div>';
         sit.forEach(function(item){html+=renderClItem(item,false);});
         html+='</div>';
       });
-      // 섹션 템플릿에 없는 기타 항목
-      var otherItems=pit.filter(function(i){
-        return !secTemplates.find(function(st){return st.title===i.sectionTitle;});
-      });
+      // 템플릿 밖 기타
+      var otherItems=pit.filter(function(i){return !secTemplates.find(function(st){return st.title===i.sectionTitle;});});
       if(otherItems.length){
         var od=otherItems.filter(function(i){return db.checked[i.id];}).length;
         html+='<div class="sec"><div class="sec-hd"><div class="sec-title"><span>기타</span><span class="sec-prog">'+od+'/'+otherItems.length+'</span></div></div>';
@@ -711,29 +633,63 @@ function renderChecklist(){
       }
       html+='</div>';
     });
-    if(editMode) html+='<div style="margin-top:8px"><button class="btn primary" onclick="openAddItemModal(\''+curEventId+'\',null,null)">+ 항목 추가 (담당자 선택)</button></div>';
+    // 담당자 없는 항목
+    var noPersonItems=evItems.filter(function(i){return !getPersonIds(i).length;});
+    if(noPersonItems.length){
+      var npd=noPersonItems.filter(function(i){return db.checked[i.id];}).length;
+      html+='<div style="margin-bottom:28px">'
+        +'<div class="person-hd" style="opacity:.7">'
+        +'<div class="avatar" style="background:var(--text3)">?</div>'
+        +'<div><div class="person-name-el">미배정</div><div class="person-role-el">담당자가 지정되지 않은 항목</div></div>'
+        +'<div class="person-stat"><div class="person-pct" style="color:var(--text3)">'+npd+'/'+noPersonItems.length+'</div></div></div>';
+      noPersonItems.forEach(function(item){html+=renderClItem(item,false);});
+      html+='</div>';
+    }
+    if(editMode) html+='<div style="margin-top:8px"><button class="btn primary" onclick="openAddItemModal(\''+curEventId+'\',null,null)">+ 항목 추가</button></div>';
+    return html;
+  }
+
+  // ── 섹션별 뷰 ──
+  if(curClMode==='section'){
+    var secTemplates2=getSectionTemplates(curEventId);
+    var allSections=secTemplates2.slice();
+    // 기타 섹션
+    var knownTitles=allSections.map(function(s){return s.title;});
+    evItems.forEach(function(i){if(knownTitles.indexOf(i.sectionTitle)<0&&allSections.findIndex(function(s){return s.title==='기타';})<0) allSections.push({id:'other',title:'기타',order:999});});
+
+    allSections.forEach(function(st){
+      var sit=evItems.filter(function(i){return i.sectionTitle===st.title;});
+      if(!sit.length) return;
+      var sd=sit.filter(function(i){return db.checked[i.id];}).length;
+      html+='<div class="sec"><div class="sec-hd">'
+        +'<div class="sec-title"><span>'+st.title+'</span><span class="sec-prog">'+sd+'/'+sit.length+'</span></div>'
+        +'<div class="sec-actions">'+(editMode?'<button class="add-item-btn" onclick="openAddItemModal(\''+curEventId+'\',null,\''+st.title+'\')">+ 항목</button>':'')+'</div></div>';
+      sit.forEach(function(item){html+=renderClItem(item,true);});
+      html+='</div>';
+    });
+    if(editMode) html+='<div style="margin-top:8px"><button class="btn primary" onclick="openAddItemModal(\''+curEventId+'\',null,null)">+ 항목 추가</button></div>';
+    if(!evItems.length) html+='<div class="empty"><div class="empty-icon">📂</div><div class="empty-text">항목이 없습니다. 편집 모드에서 추가하세요</div></div>';
     return html;
   }
 
   // ── 태그별 뷰 ──
-  var targetTags = curTagFilter ? [getTags().find(function(t){return t.name===curTagFilter;})||{name:curTagFilter,bg:'#e8e7e0',color:'#54544e'}] : getTags();
-  if(!targetTags.length) return html+'<div class="empty"><div class="empty-icon">🏷️</div><div class="empty-text">등록된 태그가 없습니다</div></div>';
-
+  var targetTags=curTagFilter?[getTags().find(function(t){return t.name===curTagFilter;})||{name:curTagFilter,bg:'#e8e7e0',color:'#54544e'}]:getTags();
   var hasAny=false;
   targetTags.forEach(function(t){
+    if(!t) return;
     var tagItems=evItems.filter(function(i){return i.tags.indexOf(t.name)>-1;});
     if(!tagItems.length) return;
     hasAny=true;
     var td=tagItems.filter(function(i){return db.checked[i.id];}).length;
     var tp=tagItems.length?Math.round(td/tagItems.length*100):0;
-
     html+='<div style="margin-bottom:24px">'
       +'<div class="sec-hd" style="margin-bottom:8px">'
       +'<div style="display:flex;align-items:center;gap:10px">'
       +'<span style="padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;background:'+t.bg+';color:'+t.color+'">'+t.name+'</span>'
       +'<span style="font-size:11px;font-family:\'DM Mono\',monospace;color:var(--text3)">'+td+'/'+tagItems.length+' 완료 · '+tp+'%</span>'
       +'</div>'
-      +'<div style="width:80px;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+tp+'%;background:'+t.color+';border-radius:2px;transition:width .4s"></div></div>'
+      +'<div style="width:80px;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden">'
+      +'<div style="height:100%;width:'+tp+'%;background:'+t.color+';border-radius:2px;transition:width .4s"></div></div>'
       +'</div>';
     tagItems.forEach(function(item){html+=renderClItem(item,true);});
     html+='</div>';
@@ -741,19 +697,27 @@ function renderChecklist(){
   if(!hasAny) html+='<div class="empty"><div class="empty-icon">🏷️</div><div class="empty-text">해당 태그의 항목이 없습니다</div></div>';
   return html;
 }
-function renderClItem(item,showPerson){
+
+// 항목 렌더 — showPersons: 담당자 뱃지 표시 여부
+function renderClItem(item,showPersons){
   var done=!!db.checked[item.id];
-  var p=db.people.find(function(x){return x.id===item.personId;});
+  var personIds=getPersonIds(item);
   var tags=item.tags.map(function(t){return '<span class="tag" style="'+getTagStyle(t)+'">'+t+'</span>';}).join('');
-  var ptag=showPerson&&p?'<span class="tag tag-person">'+p.name+' '+p.title+'</span>':'';
+  var personBadges='';
+  if(showPersons&&personIds.length){
+    personBadges=renderPersonBadges(personIds);
+  }
   var dtag=item.due?'<span class="tag tag-date">'+formatDate(item.due)+'</span>':'';
-  return '<div class="cl-item"><div class="chkbox'+(done?' on':'')+'" onclick="toggleCheck(\''+item.id+'\')">'
+  return '<div class="cl-item">'
+    +'<div class="chkbox'+(done?' on':'')+'" onclick="toggleCheck(\''+item.id+'\')">'
     +'<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
     +'<div class="cl-body" onclick="toggleCheck(\''+item.id+'\')">'
     +'<div class="cl-text'+(done?' done':'')+'">'+item.text+'</div>'
-    +'<div class="cl-meta">'+tags+ptag+dtag+'</div></div>'
-    +'<div class="cl-actions"><button class="icon-btn" onclick="openEditItemModal(\''+item.id+'\')" title="수정">✎</button>'
-    +'<button class="icon-btn del" onclick="deleteItem(\''+item.id+'\')" title="삭제">✕</button></div></div>';
+    +'<div class="cl-meta">'+tags+personBadges+dtag+'</div></div>'
+    +'<div class="cl-actions">'
+    +'<button class="icon-btn" onclick="openEditItemModal(\''+item.id+'\')" title="수정">✎</button>'
+    +'<button class="icon-btn del" onclick="deleteItem(\''+item.id+'\')" title="삭제">✕</button>'
+    +'</div></div>';
 }
 
 // ── TIMELINE ──
@@ -762,8 +726,7 @@ function renderTimeline(){
   if(!ev) return '<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">왼쪽에서 행사를 선택하세요</div></div>';
   var html='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">';
   db.events.forEach(function(ev2){
-    html+='<button class="btn sm'+(curEventId===ev2.id?' primary':'')+'" onclick="curEventId=\''+ev2.id+'\';render()"'
-      +(curEventId===ev2.id?'':' style="border-color:'+ev2.color+';color:'+ev2.color+'"')+'>'+ev2.name+'</button>';
+    html+='<button class="btn sm'+(curEventId===ev2.id?' primary':'')+'" onclick="curEventId=\''+ev2.id+'\';render()"'+(curEventId===ev2.id?'':' style="border-color:'+ev2.color+';color:'+ev2.color+'"')+'>'+ev2.name+'</button>';
   });
   html+='</div>';
   var evItems=db.items.filter(function(i){return i.eventId===curEventId&&i.due;});
@@ -776,19 +739,21 @@ function renderTimeline(){
   sorted.forEach(function(date){
     var items=groups[date];
     var label=date==='미정'?'기한 미정':formatDateFull(date);
-    var isToday=date===today, isPast=date<today&&date!=='미정';
-    html+='<div class="tl-group"><div class="tl-dot" style="background:'+(isPast?'var(--text3)':isToday?'var(--red)':ev.color)+'"></div>'
+    var isToday=date===today,isPast=date<today&&date!=='미정';
+    html+='<div class="tl-group">'
+      +'<div class="tl-dot" style="background:'+(isPast?'var(--text3)':isToday?'var(--red)':ev.color)+'"></div>'
       +'<div class="tl-date-label" style="color:'+(isPast?'var(--text3)':isToday?'var(--red)':'var(--text)')+'">'+label+(isToday?' 🔴 오늘':'')
       +'<span style="font-size:11px;font-weight:400;color:var(--text3);font-family:\'DM Mono\',monospace">'+items.length+'건</span></div>';
     items.forEach(function(item){
       var done=!!db.checked[item.id];
-      var p=db.people.find(function(x){return x.id===item.personId;});
+      var personIds=getPersonIds(item);
       var tags=item.tags.map(function(t){return '<span class="tag" style="'+getTagStyle(t)+'">'+t+'</span>';}).join('');
       html+='<div class="tl-item" onclick="toggleCheck(\''+item.id+'\')">'
         +'<div class="chkbox'+(done?' on':'')+'" onclick="event.stopPropagation();toggleCheck(\''+item.id+'\')">'
         +'<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
-        +'<div class="tl-item-body"><div class="tl-item-text'+(done?' done':'')+'">'+item.text+'</div>'
-        +'<div class="tl-item-meta">'+tags+(p?'<span class="tag tag-person" style="border-left:2.5px solid '+p.color+'">'+p.name+' '+p.title+'</span>':'')+'</div></div></div>';
+        +'<div class="tl-item-body">'
+        +'<div class="tl-item-text'+(done?' done':'')+'">'+item.text+'</div>'
+        +'<div class="tl-item-meta">'+tags+renderPersonBadges(personIds)+'</div></div></div>';
     });
     html+='</div>';
   });
@@ -812,7 +777,8 @@ function renderSettings(){
   html+='</div><div class="setting-section"><div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">담당자 관리 <button class="btn sm primary" onclick="openPersonModal()">+ 담당자 추가</button></div>';
   if(!db.people.length) html+='<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">등록된 담당자가 없습니다</div></div>';
   db.people.forEach(function(p){
-    html+='<div class="setting-row"><div class="avatar" style="background:'+p.color+';width:36px;height:36px;font-size:13px">'+p.name.slice(0,1)+'</div>'
+    html+='<div class="setting-row">'
+      +'<div class="avatar" style="background:'+p.color+';width:36px;height:36px;font-size:13px">'+p.name.slice(0,1)+'</div>'
       +'<div class="setting-row-info"><div class="setting-row-name">'+p.name+' '+p.title+'</div><div class="setting-row-sub">'+p.role+'</div></div>'
       +'<button class="btn sm" onclick="openEditPersonModal(\''+p.id+'\')">수정</button>'
       +'<button class="btn sm danger" onclick="deletePerson(\''+p.id+'\')">삭제</button></div>';
@@ -830,9 +796,8 @@ function renderSettings(){
       tpls.forEach(function(st,idx){
         var itemCnt=db.items.filter(function(i){return i.eventId===ev.id&&i.sectionTitle===st.title;}).length;
         html+='<div class="setting-row" style="padding:8px 14px">'
-          +'<div style="display:flex;align-items:center;gap:6px;color:var(--text3);font-size:12px;font-family:\'DM Mono\',monospace;min-width:24px">'+(idx+1)+'</div>'
-          +'<div class="setting-row-info"><div class="setting-row-name">'+st.title+'</div>'
-          +'<div class="setting-row-sub">항목 '+itemCnt+'개</div></div>'
+          +'<div style="color:var(--text3);font-size:12px;font-family:\'DM Mono\',monospace;min-width:24px">'+(idx+1)+'</div>'
+          +'<div class="setting-row-info"><div class="setting-row-name">'+st.title+'</div><div class="setting-row-sub">항목 '+itemCnt+'개</div></div>'
           +(idx>0?'<button class="btn sm ghost" onclick="moveSecTpl(\''+ev.id+'\',\''+st.id+'\',\'up\')">↑</button>':'<span style="width:52px"></span>')
           +(idx<tpls.length-1?'<button class="btn sm ghost" onclick="moveSecTpl(\''+ev.id+'\',\''+st.id+'\',\'down\')">↓</button>':'<span style="width:52px"></span>')
           +'<button class="btn sm" onclick="openEditSecTplModal(\''+ev.id+'\',\''+st.id+'\')">수정</button>'
@@ -842,7 +807,6 @@ function renderSettings(){
     });
   }
   html+='</div><div class="setting-section"><div class="setting-title" style="display:flex;align-items:center;justify-content:space-between">태그 관리 <button class="btn sm primary" onclick="openTagModal()">+ 태그 추가</button></div>';
-  if(!getTags().length) html+='<div class="empty"><div class="empty-icon">🏷️</div><div class="empty-text">등록된 태그가 없습니다</div></div>';
   getTags().forEach(function(t){
     html+='<div class="setting-row">'
       +'<span style="padding:3px 12px;border-radius:20px;font-size:12px;font-weight:500;background:'+t.bg+';color:'+t.color+'">'+t.name+'</span>'
@@ -859,176 +823,115 @@ function renderSettings(){
   html+='</div><div class="setting-section"><div class="setting-title">데이터 관리</div>'
     +'<div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">'
     +'<div><div style="font-size:14px;font-weight:500">전체 초기화</div>'
-    +'<div style="font-size:12px;color:var(--text3);margin-top:2px">모든 체크 및 데이터를 초기 상태로 되돌립니다</div></div>'
+    +'<div style="font-size:12px;color:var(--text3);margin-top:2px">모든 데이터를 초기 상태로 되돌립니다</div></div>'
     +'<button class="btn danger" onclick="hardReset()">초기화</button></div></div>';
   return html;
 }
 
 // ═══════════════════════════════════════════
-// EXCEL IMPORT VIEW
+// EXCEL IMPORT
 // ═══════════════════════════════════════════
 function renderImport(){
   var eventOptions=db.events.map(function(ev){
     return '<option value="'+ev.id+'"'+(ev.id===curEventId?' selected':'')+'>'+ev.name+'</option>';
   }).join('');
-
   return '<div style="max-width:720px">'
-
-    // 업로드 존
     +'<div class="upload-zone" id="uploadZone" onclick="document.getElementById(\'fileInput\').click()">'
     +'<input type="file" id="fileInput" accept=".xlsx,.xls,.csv">'
     +'<div class="upload-zone-icon">📊</div>'
     +'<div class="upload-zone-title">엑셀 파일을 클릭하거나 드래그하여 업로드</div>'
     +'<div class="upload-zone-sub">.xlsx · .xls · .csv 파일 지원</div>'
     +'</div>'
-
-    // 미리보기 영역
     +'<div id="previewArea" style="margin-top:20px"></div>'
-
-    // 템플릿 안내
-    +'<div class="template-box">'
-    +'<div style="font-size:28px">📋</div>'
-    +'<div class="template-box-info">'
-    +'<div class="template-box-title">엑셀 템플릿 형식</div>'
+    +'<div class="template-box"><div style="font-size:28px">📋</div>'
+    +'<div class="template-box-info"><div class="template-box-title">엑셀 템플릿 형식</div>'
     +'<div class="template-box-sub" style="margin-top:6px;line-height:1.8">'
     +'열 순서: <strong>섹션명</strong> · <strong>담당자</strong> · <strong>업무내용</strong> · <strong>기한</strong> · <strong>태그</strong><br>'
-    +'• 태그는 쉼표로 구분 (예: 사전,긴급)<br>'
-    +'• 기한은 날짜 형식 (예: 2026-05-10)<br>'
-    +'• 담당자는 이미 등록된 이름과 일치하면 자동 연결, 없으면 새로 생성'
+    +'• <strong>담당자는 쉼표로 구분해 복수 입력 가능</strong> (예: 김지민,백준호)<br>'
+    +'• 태그도 쉼표로 구분 (예: 사전,긴급)<br>'
+    +'• 기한은 날짜 형식 (예: 2026-05-10)'
     +'</div></div>'
     +'<button class="btn primary" onclick="downloadTemplate()">📥 템플릿 받기</button>'
     +'</div>'
-
-    // 행사 선택
     +'<div style="margin-top:20px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
     +'<span style="font-size:13px;font-weight:700;color:var(--text2);white-space:nowrap">가져올 행사:</span>'
-    +'<select class="form-select" id="importEventSel" style="max-width:280px">'+eventOptions+'</select>'
-    +'</div>'
-
-    +'</div>';
+    +(db.events.length?'<select class="form-select" id="importEventSel" style="max-width:280px">'+eventOptions+'</select>':'<span style="font-size:13px;color:var(--text3)">먼저 대시보드에서 행사를 추가하세요</span>')
+    +'</div></div>';
 }
 
 function attachImportListeners(){
   var zone=document.getElementById('uploadZone');
   var input=document.getElementById('fileInput');
   if(!zone||!input) return;
-
-  input.addEventListener('change',function(){
-    if(this.files&&this.files[0]) handleExcelFile(this.files[0]);
-  });
+  input.addEventListener('change',function(){if(this.files&&this.files[0]) handleExcelFile(this.files[0]);});
   zone.addEventListener('dragover',function(e){e.preventDefault();this.classList.add('drag');});
   zone.addEventListener('dragleave',function(){this.classList.remove('drag');});
   zone.addEventListener('drop',function(e){
     e.preventDefault();this.classList.remove('drag');
-    var f=e.dataTransfer.files[0];
-    if(f) handleExcelFile(f);
+    var f=e.dataTransfer.files[0];if(f) handleExcelFile(f);
   });
 }
-
 function handleExcelFile(file){
-  var allowed=['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'application/vnd.ms-excel','text/csv','application/csv'];
   var ext=file.name.split('.').pop().toLowerCase();
-  if(!['xlsx','xls','csv'].includes(ext)){
-    showPreviewError('지원하지 않는 파일 형식입니다. .xlsx, .xls, .csv 파일을 사용해주세요.');
-    return;
-  }
+  if(!['xlsx','xls','csv'].includes(ext)){showPreviewError('지원하지 않는 파일 형식입니다.');return;}
   var reader=new FileReader();
   reader.onload=function(e){
     try{
       var data=new Uint8Array(e.target.result);
       var wb=XLSX.read(data,{type:'array',cellDates:true});
-      showSheetPreview(wb, file.name);
-    }catch(err){
-      showPreviewError('파일을 읽을 수 없습니다: '+err.message);
-    }
+      showSheetPreview(wb,file.name);
+    }catch(err){showPreviewError('파일을 읽을 수 없습니다: '+err.message);}
   };
   reader.readAsArrayBuffer(file);
 }
-
-function showSheetPreview(wb, filename){
-  var area=document.getElementById('previewArea');
-  if(!area) return;
-
-  // 시트 탭
-  var sheetTabsHtml=wb.SheetNames.map(function(name,i){
-    return '<div class="sheet-tab'+(i===0?' active':'')+'" data-sheet="'+name+'" onclick="switchSheet(this,\''+name+'\')">'+name+'</div>';
-  }).join('');
-
+function showSheetPreview(wb,filename){
+  var area=document.getElementById('previewArea');if(!area) return;
+  var tabs=wb.SheetNames.map(function(name,i){return '<div class="sheet-tab'+(i===0?' active':'')+'" onclick="switchSheet(this,\''+name+'\')">'+name+'</div>';}).join('');
   area.innerHTML='<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px">'
-    +'<div style="font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px">'
-    +'<span style="color:var(--accent)">✓</span> '+filename+' 파일 읽기 완료</div>'
-    +'<div class="sheet-tabs" id="sheetTabs">'+sheetTabsHtml+'</div>'
-    +'<div id="sheetContent"></div>'
-    +'</div>';
-
+    +'<div style="font-size:13px;font-weight:700;margin-bottom:12px"><span style="color:var(--accent)">✓</span> '+filename+'</div>'
+    +'<div class="sheet-tabs">'+tabs+'</div><div id="sheetContent"></div></div>';
   area._wb=wb;
-  renderSheetPreview(wb, wb.SheetNames[0]);
+  renderSheetPreview(wb,wb.SheetNames[0]);
 }
-
-function switchSheet(el, name){
+function switchSheet(el,name){
   document.querySelectorAll('.sheet-tab').forEach(function(t){t.classList.remove('active');});
   el.classList.add('active');
   var area=document.getElementById('previewArea');
-  if(area&&area._wb) renderSheetPreview(area._wb, name);
+  if(area&&area._wb) renderSheetPreview(area._wb,name);
 }
-
-function renderSheetPreview(wb, sheetName){
+function renderSheetPreview(wb,sheetName){
   var ws=wb.Sheets[sheetName];
   var rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
-  var sc=document.getElementById('sheetContent');
-  if(!sc) return;
-
-  if(!rows||rows.length<2){
-    sc.innerHTML='<div class="upload-result err">데이터가 없거나 헤더만 있습니다.</div>';
-    return;
-  }
-
-  // 헤더 자동 감지
+  var sc=document.getElementById('sheetContent');if(!sc) return;
+  if(!rows||rows.length<2){sc.innerHTML='<div class="upload-result err">데이터가 없습니다.</div>';return;}
   var header=rows[0].map(function(h){return String(h).trim();});
   var dataRows=rows.slice(1).filter(function(r){return r.some(function(c){return String(c).trim();});});
-
-  // 컬럼 인덱스 자동 매핑
   var colMap=autoMapColumns(header);
-
-  // 미리보기 테이블 (최대 8행)
   var previewRows=dataRows.slice(0,8);
   var thHtml=header.map(function(h,i){
     var mapped=Object.keys(colMap).find(function(k){return colMap[k]===i;});
     return '<th>'+h+(mapped?'<br><span style="font-size:10px;font-weight:400;color:var(--accent)">→ '+mapped+'</span>':'')+'</th>';
   }).join('');
-
-  var tdHtml=previewRows.map(function(row){
-    return '<tr>'+header.map(function(h,i){return '<td>'+(row[i]!==undefined&&row[i]!==null?String(row[i]).slice(0,40):'')+'</td>';}).join('')+'</tr>';
-  }).join('');
-
+  var tdHtml=previewRows.map(function(row){return '<tr>'+header.map(function(h,i){return '<td>'+(row[i]!=null?String(row[i]).slice(0,40):'')+'</td>';}).join('')+'</tr>';}).join('');
   var mappedCount=Object.keys(colMap).length;
-  var importHtml='';
-  if(mappedCount>0){
-    importHtml='<div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">'
-      +'<div style="font-size:13px;color:var(--text2)">총 <strong>'+dataRows.length+'행</strong> 감지 · 매핑된 열: <strong>'+mappedCount+'개</strong></div>'
-      +'<button class="btn primary" onclick="prepareImport(\''+sheetName+'\')">이 시트 가져오기 →</button></div>';
-  } else {
-    importHtml='<div class="upload-result err" style="margin-top:10px">인식 가능한 열을 찾지 못했습니다. 아래 템플릿 형식을 확인해주세요.</div>';
-  }
-
+  var importHtml=mappedCount>0
+    ?'<div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">'
+      +'<div style="font-size:13px;color:var(--text2)">총 <strong>'+dataRows.length+'행</strong> · 매핑 열 <strong>'+mappedCount+'개</strong></div>'
+      +'<button class="btn primary" onclick="prepareImport(\''+sheetName+'\')">이 시트 가져오기 →</button></div>'
+    :'<div class="upload-result err" style="margin-top:10px">인식 가능한 열을 찾지 못했습니다.</div>';
   sc.innerHTML='<div class="preview-scroll"><table class="preview-table"><thead><tr>'+thHtml+'</tr></thead><tbody>'+tdHtml+'</tbody></table></div>'
-    +(dataRows.length>8?'<div style="font-size:12px;color:var(--text3);margin-top:6px;text-align:right">…외 '+(dataRows.length-8)+'행 더 있음</div>':'')
+    +(dataRows.length>8?'<div style="font-size:12px;color:var(--text3);margin-top:6px;text-align:right">…외 '+(dataRows.length-8)+'행</div>':'')
     +importHtml;
-
-  sc._sheetName=sheetName;
   sc._wb=document.getElementById('previewArea')._wb;
 }
-
-// 컬럼 자동 매핑
 function autoMapColumns(header){
   var map={};
   var rules={
-    '업무내용':['업무내용','업무 내용','task','내용','할일','할 일','업무'],
-    '담당자':['담당자','담당','person','이름','name','담당자명'],
+    '업무내용':['업무내용','업무 내용','task','내용','할일','업무'],
+    '담당자':['담당자','담당','person','이름','name'],
     '섹션':['섹션','section','구분','카테고리','분류','그룹'],
-    '기한':['기한','마감','due','날짜','date','마감일','기한일'],
-    '태그':['태그','tag','tags','분류','카테고리','유형']
+    '기한':['기한','마감','due','날짜','date','마감일'],
+    '태그':['태그','tag','tags','유형']
   };
   Object.keys(rules).forEach(function(key){
     rules[key].forEach(function(kw){
@@ -1041,71 +944,54 @@ function autoMapColumns(header){
   });
   return map;
 }
-
 function prepareImport(sheetName){
-  var area=document.getElementById('previewArea');
-  if(!area||!area._wb) return;
-  var wb=area._wb;
-  var ws=wb.Sheets[sheetName];
+  var area=document.getElementById('previewArea');if(!area||!area._wb) return;
+  var ws=area._wb.Sheets[sheetName];
   var rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
   if(!rows||rows.length<2){alert('데이터가 없습니다.');return;}
   var header=rows[0].map(function(h){return String(h).trim();});
   var dataRows=rows.slice(1).filter(function(r){return r.some(function(c){return String(c).trim();});});
   var colMap=autoMapColumns(header);
-
-  if(colMap['업무내용']===undefined){
-    alert('업무내용 열을 찾을 수 없습니다.\n헤더에 "업무내용" 또는 "업무 내용" 열이 있는지 확인해주세요.');
-    return;
-  }
-
-  var eventId=document.getElementById('importEventSel').value;
+  if(colMap['업무내용']===undefined){alert('업무내용 열을 찾을 수 없습니다.');return;}
+  var eventId=document.getElementById('importEventSel')?document.getElementById('importEventSel').value:'';
   if(!eventId){alert('가져올 행사를 선택해주세요.');return;}
 
-  // 파싱
   var parsed=dataRows.map(function(row){
-    var text=colMap['업무내용']!==undefined?String(row[colMap['업무내용']]||'').trim():'';
-    var person=colMap['담당자']!==undefined?String(row[colMap['담당자']]||'').trim():'';
+    var text=String(row[colMap['업무내용']]||'').trim();
+    // 담당자: 쉼표 구분 다중 파싱
+    var personRaw=colMap['담당자']!==undefined?String(row[colMap['담당자']]||'').trim():'';
+    var persons=personRaw?personRaw.split(/[,，、]/).map(function(s){return s.trim();}).filter(Boolean):[];
     var section=colMap['섹션']!==undefined?String(row[colMap['섹션']]||'').trim():'';
     var due=colMap['기한']!==undefined?parseExcelDate(row[colMap['기한']]):'';
     var tagsRaw=colMap['태그']!==undefined?String(row[colMap['태그']]||'').trim():'';
     var tags=tagsRaw?tagsRaw.split(/[,，、]/).map(function(t){return t.trim();}).filter(Boolean):[];
-    return {text,person,section,due,tags};
+    return {text:text,persons:persons,section:section,due:due,tags:tags};
   }).filter(function(r){return r.text;});
 
   if(!parsed.length){alert('가져올 수 있는 항목이 없습니다.');return;}
 
-  // 새 담당자, 섹션 예측
-  var newPersons=[],newSections=[];
-  var personMap={};
+  // 신규 담당자 예측
+  var newPersons=[],personMap={};
   parsed.forEach(function(r){
-    if(!r.person) return;
-    var found=db.people.find(function(p){return p.name===r.person||p.name+p.title===r.person;});
-    if(!found&&!personMap[r.person]){personMap[r.person]=true;newPersons.push(r.person);}
-  });
-  var sectionMap={};
-  parsed.forEach(function(r){
-    if(!r.section) return;
-    var key=(r.person||'')+'__'+r.section;
-    if(!sectionMap[key]){sectionMap[key]=true;newSections.push({person:r.person||'',section:r.section});}
+    r.persons.forEach(function(name){
+      var found=db.people.find(function(p){return p.name===name;});
+      if(!found&&!personMap[name]){personMap[name]=true;newPersons.push(name);}
+    });
   });
 
-  importPending={parsed,eventId};
+  importPending={parsed:parsed,eventId:eventId};
   var summaryHtml='<table style="width:100%;border-collapse:collapse;font-size:13px">'
     +'<tr><td style="padding:5px 0;color:var(--text2);width:50%">가져올 항목 수</td><td style="font-weight:700">'+parsed.length+'개</td></tr>'
     +(newPersons.length?'<tr><td style="padding:5px 0;color:var(--text2)">새로 생성될 담당자</td><td style="font-weight:700;color:var(--blue)">'+newPersons.join(', ')+'</td></tr>':'')
-    +(newSections.length?'<tr><td style="padding:5px 0;color:var(--text2)">새로 생성될 섹션</td><td style="font-weight:700;color:var(--amber)">'+newSections.length+'개</td></tr>':'')
-    +'<tr><td style="padding:5px 0;color:var(--text2)">가져올 행사</td><td style="font-weight:700">'+(db.events.find(function(e){return e.id===eventId;})||{}).name||eventId+'</td></tr>'
+    +'<tr><td style="padding:5px 0;color:var(--text2)">가져올 행사</td><td style="font-weight:700">'+(db.events.find(function(e){return e.id===eventId;})||{}).name||''+'</td></tr>'
     +'</table>';
   document.getElementById('importSummary').innerHTML=summaryHtml;
   openModal('importConfirmModal');
 }
-
 function confirmImport(){
   if(!importPending) return;
-  var parsed=importPending.parsed, eventId=importPending.eventId;
+  var parsed=importPending.parsed,eventId=importPending.eventId;
   var colorIdx=0;
-
-  // 엑셀에 새 섹션명이 있으면 sectionTemplates에 자동 추가
   ensureSectionTemplates(eventId);
   var existingTitles=db.sectionTemplates[eventId].map(function(s){return s.title;});
   parsed.forEach(function(r){
@@ -1115,104 +1001,69 @@ function confirmImport(){
       existingTitles.push(title);
     }
   });
-
   parsed.forEach(function(r){
-    // 담당자 찾거나 생성
-    var person=null;
-    if(r.person){
-      person=db.people.find(function(p){return p.name===r.person;});
-      if(!person){
-        person={id:uid(),name:r.person,title:'',role:'',color:COLORS[colorIdx%COLORS.length]};
-        db.people.push(person);
-        colorIdx++;
-      }
-    }
+    // 담당자들 찾거나 생성 → personIds 배열
+    var personIds=r.persons.map(function(name){
+      var p=db.people.find(function(x){return x.name===name;});
+      if(!p){p={id:uid(),name:name,title:'',role:'',color:COLORS[colorIdx%COLORS.length]};db.people.push(p);colorIdx++;}
+      return p.id;
+    });
     db.items.push({
-      id:uid(),
-      eventId:eventId,
-      personId:person?person.id:'',
+      id:uid(),eventId:eventId,
+      personIds:personIds,
       sectionTitle:r.section||'기타',
-      text:r.text,
-      tags:r.tags,
-      due:r.due||null
+      text:r.text,tags:r.tags,due:r.due||null
     });
   });
-
-  saveDB();
-  closeModal('importConfirmModal');
-  importPending=null;
-
+  saveDB();closeModal('importConfirmModal');importPending=null;
   var area=document.getElementById('previewArea');
-  if(area){
-    area.innerHTML='<div class="upload-result ok" style="padding:16px 18px;font-size:14px">'
-      +'✅ <strong>'+parsed.length+'개 항목</strong>을 성공적으로 가져왔습니다! '
-      +'<button class="btn sm primary" style="margin-left:12px" onclick="setView(\'checklist\',\''+eventId+'\')">체크리스트 보기 →</button></div>';
-  }
+  if(area) area.innerHTML='<div class="upload-result ok" style="padding:16px 18px;font-size:14px">✅ <strong>'+parsed.length+'개 항목</strong> 가져오기 완료! <button class="btn sm primary" style="margin-left:12px" onclick="setView(\'checklist\',\''+importPending===null&&eventId+'\')">체크리스트 보기 →</button></div>';
   render();
 }
-
 function parseExcelDate(val){
   if(!val) return '';
-  if(val instanceof Date){
-    return val.toISOString().slice(0,10);
-  }
-  if(typeof val==='number'&&val>10000){
-    // Excel serial date
-    var d=new Date(Math.round((val-25569)*86400*1000));
-    return d.toISOString().slice(0,10);
-  }
+  if(val instanceof Date) return val.toISOString().slice(0,10);
+  if(typeof val==='number'&&val>10000){var d=new Date(Math.round((val-25569)*86400*1000));return d.toISOString().slice(0,10);}
   var s=String(val).trim();
   if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
   if(/^\d{4}\/\d{2}\/\d{2}$/.test(s)) return s.replace(/\//g,'-');
   if(/^\d{4}\.\d{2}\.\d{2}$/.test(s)) return s.replace(/\./g,'-');
-  var d2=new Date(s);
-  if(!isNaN(d2)) return d2.toISOString().slice(0,10);
+  var d2=new Date(s);if(!isNaN(d2)) return d2.toISOString().slice(0,10);
   return '';
 }
-
-function showPreviewError(msg){
-  var area=document.getElementById('previewArea');
-  if(area) area.innerHTML='<div class="upload-result err">⚠️ '+msg+'</div>';
-}
-
-// ── 템플릿 다운로드 ──
+function showPreviewError(msg){var area=document.getElementById('previewArea');if(area) area.innerHTML='<div class="upload-result err">⚠️ '+msg+'</div>';}
 function downloadTemplate(){
   var wb=XLSX.utils.book_new();
-
-  // 시트 1: 업무 목록 템플릿
   var sampleData=[
     ['섹션','담당자','업무내용','기한','태그'],
-    ['사전 준비','김지민','행사 기획안 최종 승인','2026-04-15','사전,긴급'],
-    ['사전 준비','김지민','후원사 협의 및 관계 유지','2026-04-25','사전'],
-    ['D-1주','백준호','전체 리허설 및 현장 동선 점검','2026-05-30','사전'],
-    ['당일 현장','유성현','메인 무대 운영팀 총괄 관리','2026-06-06','당일'],
-    ['당일 현장','임승민','SNS 현장 실시간 업로드','2026-06-06','당일,홍보'],
+    ['사전 준비','홍길동,김철수','행사 기획안 최종 승인 (공동)','2026-04-15','사전,긴급'],
+    ['사전 준비','홍길동','후원사 협의 및 관계 유지','2026-04-25','사전'],
+    ['D-1주','김철수','전체 리허설 및 현장 동선 점검','2026-05-30','사전'],
+    ['당일 현장','이영희,박지수','메인 무대 운영 총괄','2026-06-06','당일'],
+    ['당일 현장','박지수','SNS 현장 실시간 업로드','2026-06-06','당일,홍보'],
   ];
   var ws1=XLSX.utils.aoa_to_sheet(sampleData);
-  ws1['!cols']=[{wch:20},{wch:12},{wch:40},{wch:14},{wch:18}];
+  ws1['!cols']=[{wch:20},{wch:18},{wch:40},{wch:14},{wch:18}];
   XLSX.utils.book_append_sheet(wb,ws1,'업무목록');
-
-  // 시트 2: 작성 가이드
   var guide=[
     ['열 이름','설명','예시'],
-    ['섹션','업무를 묶는 그룹명. 없으면 "기타"로 분류','사전 준비 / D-1주 / 당일 현장'],
-    ['담당자','담당자 이름. 기존 등록된 이름과 같으면 자동 연결','김지민 / 백준호'],
+    ['섹션','업무를 묶는 그룹명','사전 준비 / D-1주 / 당일 현장'],
+    ['담당자','담당자 이름. 쉼표로 구분해 복수 입력 가능','홍길동 또는 홍길동,김철수'],
     ['업무내용','(필수) 실제 업무 내용','행사 기획안 최종 승인'],
-    ['기한','날짜 형식 입력 (없어도 무방)','2026-05-10 또는 2026/05/10'],
-    ['태그','쉼표로 구분. 사용 가능: 사전,당일,긴급,홍보,계약','사전,긴급'],
+    ['기한','날짜 형식','2026-05-10'],
+    ['태그','쉼표로 구분','사전,긴급'],
   ];
   var ws2=XLSX.utils.aoa_to_sheet(guide);
-  ws2['!cols']=[{wch:14},{wch:42},{wch:36}];
+  ws2['!cols']=[{wch:14},{wch:44},{wch:30}];
   XLSX.utils.book_append_sheet(wb,ws2,'작성가이드');
-
-  XLSX.writeFile(wb,'pawsafe_업무목록_템플릿.xlsx');
+  XLSX.writeFile(wb,'행사운영_업무목록_템플릿.xlsx');
 }
 
 // ═══════════════════════════════════════════
 // ACTIONS
 // ═══════════════════════════════════════════
 function toggleCheck(id){db.checked[id]=!db.checked[id];saveDB();render();}
-function setClMode(mode){curClMode=mode;if(mode==='person') curTagFilter=null;render();}
+function setClMode(mode){curClMode=mode;curTagFilter=null;render();}
 function setTagFilter(tag){curTagFilter=tag;render();}
 function resetChecks(){
   if(!confirm('이 행사의 모든 체크를 초기화할까요?')) return;
@@ -1220,8 +1071,8 @@ function resetChecks(){
   saveDB();render();
 }
 function toggleEditMode(val){editMode=val!==undefined?val:!editMode;render();}
-function scrollToPerson(pid){var el=document.getElementById('person-'+pid);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
-function hardReset(){if(!confirm('모든 데이터를 초기화할까요?')) return;localStorage.removeItem('pms_db_v3');location.reload();}
+function scrollToPerson(pid){var el=document.getElementById('person-'+pid);if(el) el.scrollIntoView({behavior:'smooth',block:'start'});}
+function hardReset(){if(!confirm('모든 데이터를 초기화할까요?')) return;localStorage.removeItem('pms_db_v4');location.reload();}
 
 // ═══════════════════════════════════════════
 // EVENT MODAL
@@ -1229,10 +1080,8 @@ function hardReset(){if(!confirm('모든 데이터를 초기화할까요?')) ret
 function openNewEventModal(){
   eventModalCtx=null;
   document.getElementById('eventModalTitle').textContent='행사 추가';
-  document.getElementById('em_name').value='';
+  ['em_name','em_place','em_note'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('em_date').value='';
-  document.getElementById('em_place').value='';
-  document.getElementById('em_note').value='';
   setColorOpt('em_colors','#2d6a4f');
   openModal('eventModal');
 }
@@ -1251,7 +1100,7 @@ function saveEvent(){
   var name=document.getElementById('em_name').value.trim();
   if(!name){alert('행사명을 입력하세요');return;}
   var color=document.querySelector('#em_colors .color-opt.sel')?.dataset.color||'#2d6a4f';
-  var obj={name,date:document.getElementById('em_date').value,place:document.getElementById('em_place').value.trim(),color,note:document.getElementById('em_note').value.trim()};
+  var obj={name:name,date:document.getElementById('em_date').value,place:document.getElementById('em_place').value.trim(),color:color,note:document.getElementById('em_note').value.trim()};
   if(eventModalCtx){var ev=db.events.find(function(e){return e.id===eventModalCtx;});if(ev) Object.assign(ev,obj);}
   else{obj.id=uid();db.events.push(obj);curEventId=obj.id;}
   saveDB();closeModal('eventModal');render();
@@ -1260,6 +1109,7 @@ function deleteEvent(id){
   if(!confirm('이 행사와 모든 항목을 삭제할까요?')) return;
   db.events=db.events.filter(function(e){return e.id!==id;});
   db.items=db.items.filter(function(i){return i.eventId!==id;});
+  Object.keys(db.checked).forEach(function(k){if(!db.items.find(function(i){return i.id===k;})) delete db.checked[k];});
   if(db.sectionTemplates) delete db.sectionTemplates[id];
   if(curEventId===id) curEventId=(db.events[0]||{}).id||null;
   saveDB();render();
@@ -1289,73 +1139,97 @@ function savePerson(){
   var name=document.getElementById('pm_name').value.trim();
   if(!name){alert('이름을 입력하세요');return;}
   var color=document.querySelector('#pm_colors .color-opt.sel')?.dataset.color||'#2d6a4f';
-  var obj={name,title:document.getElementById('pm_title').value.trim(),role:document.getElementById('pm_role').value.trim(),color};
+  var obj={name:name,title:document.getElementById('pm_title').value.trim(),role:document.getElementById('pm_role').value.trim(),color:color};
   if(personModalCtx){var p=db.people.find(function(x){return x.id===personModalCtx;});if(p) Object.assign(p,obj);}
   else{obj.id=uid();db.people.push(obj);}
   saveDB();closeModal('personModal');render();
 }
 function deletePerson(id){
-  if(!confirm('이 담당자와 관련 항목을 삭제할까요?')) return;
+  if(!confirm('이 담당자를 삭제할까요?\n관련 항목에서 자동으로 제거됩니다.')) return;
   db.people=db.people.filter(function(p){return p.id!==id;});
-  db.items=db.items.filter(function(i){return i.personId!==id;});
+  // personIds에서도 제거
+  db.items.forEach(function(item){
+    item.personIds=(item.personIds||[]).filter(function(pid){return pid!==id;});
+  });
   saveDB();render();
 }
 
 // ═══════════════════════════════════════════
-// ITEM MODAL
+// ITEM MODAL (다중 담당자)
 // ═══════════════════════════════════════════
-// ITEM MODAL
-// ═══════════════════════════════════════════
-function openAddItemModal(eventId, personId, sectionTitle){
-  itemModalCtx={eventId:eventId, personId:personId, sectionTitle:sectionTitle||null, itemId:null};
+function openAddItemModal(eventId,defaultPersonId,sectionTitle){
+  itemModalCtx={eventId:eventId,sectionTitle:sectionTitle||null,itemId:null};
   document.getElementById('itemModalTitle').textContent='항목 추가';
   document.getElementById('im_text').value='';
   document.getElementById('im_date').value='';
-  fillPersonSelect(personId);
-  fillSectionSelect(eventId, sectionTitle);
+  fillSectionSelect(eventId,sectionTitle);
+  renderPersonCheckList(defaultPersonId?[defaultPersonId]:[]);
   renderTagButtons([]);
   openModal('itemModal');
 }
 function openEditItemModal(itemId){
   var item=db.items.find(function(i){return i.id===itemId;});if(!item) return;
-  itemModalCtx={eventId:item.eventId, personId:item.personId, sectionTitle:item.sectionTitle||null, itemId:itemId};
+  itemModalCtx={eventId:item.eventId,sectionTitle:item.sectionTitle||null,itemId:itemId};
   document.getElementById('itemModalTitle').textContent='항목 수정';
   document.getElementById('im_text').value=item.text;
   document.getElementById('im_date').value=item.due||'';
-  fillPersonSelect(item.personId);
-  fillSectionSelect(item.eventId, item.sectionTitle);
+  fillSectionSelect(item.eventId,item.sectionTitle);
+  renderPersonCheckList(getPersonIds(item));
   renderTagButtons(item.tags);
   openModal('itemModal');
 }
-function fillPersonSelect(selectedId){
-  var sel=document.getElementById('im_person');
-  sel.innerHTML='<option value="">-- 선택 --</option>'+db.people.map(function(p){
-    return '<option value="'+p.id+'"'+(p.id===selectedId?' selected':'')+'>'+p.name+' '+p.title+'</option>';
+
+// 담당자 다중 선택 체크리스트 렌더
+function renderPersonCheckList(selectedIds){
+  var container=document.getElementById('im_persons');
+  var empty=document.getElementById('im_persons_empty');
+  if(!db.people.length){
+    container.style.display='none';
+    empty.style.display='block';
+    return;
+  }
+  container.style.display='flex';
+  empty.style.display='none';
+  container.innerHTML=db.people.map(function(p){
+    var isSel=selectedIds&&selectedIds.indexOf(p.id)>-1;
+    return '<div class="person-check-row'+(isSel?' sel':'')+'" data-pid="'+p.id+'" onclick="togglePersonCheck(this)">'
+      +'<div class="person-check-avatar" style="background:'+p.color+'">'+p.name.slice(0,1)+'</div>'
+      +'<div style="flex:1;min-width:0">'
+      +'<div class="person-check-name">'+p.name+(p.title?' <span style="font-size:11px;color:var(--text3);font-weight:400">'+p.title+'</span>':'')+'</div>'
+      +(p.role?'<div class="person-check-role">'+p.role+'</div>':'')
+      +'</div>'
+      +'<div class="check-mark"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,1.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+      +'</div>';
   }).join('');
 }
-function fillSectionSelect(eventId, selectedTitle){
-  var sel=document.getElementById('im_section');
-  if(!sel) return;
+function togglePersonCheck(el){
+  el.classList.toggle('sel');
+}
+function getSelectedPersonIds(){
+  return [].slice.call(document.querySelectorAll('#im_persons .person-check-row.sel')).map(function(el){return el.dataset.pid;});
+}
+
+function fillSectionSelect(eventId,selectedTitle){
+  var sel=document.getElementById('im_section');if(!sel) return;
   var tpls=getSectionTemplates(eventId||curEventId);
   sel.innerHTML=tpls.map(function(st){
     return '<option value="'+st.title+'"'+(st.title===selectedTitle?' selected':'')+'>'+st.title+'</option>';
   }).join('');
-  // 기타 옵션
   sel.innerHTML+='<option value="기타"'+('기타'===selectedTitle?' selected':'')+'>기타</option>';
 }
 function saveItem(){
   var text=document.getElementById('im_text').value.trim();
   if(!text){alert('내용을 입력하세요');return;}
-  var personId=document.getElementById('im_person').value;
+  var personIds=getSelectedPersonIds();
   var sectionTitle=document.getElementById('im_section').value||itemModalCtx.sectionTitle||'사전';
   var due=document.getElementById('im_date').value||null;
   var tags=[].slice.call(document.querySelectorAll('#im_tags .tag-check.sel')).map(function(l){return l.dataset.tag;});
-  var eventId=itemModalCtx.eventId, itemId=itemModalCtx.itemId;
+  var eventId=itemModalCtx.eventId,itemId=itemModalCtx.itemId;
   if(itemId){
     var item=db.items.find(function(i){return i.id===itemId;});
-    if(item){item.text=text;item.personId=personId;item.sectionTitle=sectionTitle;item.due=due;item.tags=tags;}
+    if(item){item.text=text;item.personIds=personIds;item.sectionTitle=sectionTitle;item.due=due;item.tags=tags;}
   } else {
-    db.items.push({id:uid(),eventId:eventId,personId:personId,sectionTitle:sectionTitle,text:text,tags:tags,due:due});
+    db.items.push({id:uid(),eventId:eventId,personIds:personIds,sectionTitle:sectionTitle,text:text,tags:tags,due:due});
   }
   saveDB();closeModal('itemModal');render();
 }
@@ -1369,79 +1243,40 @@ function deleteItem(id){
 // ═══════════════════════════════════════════
 // SECTION TEMPLATE CRUD
 // ═══════════════════════════════════════════
-var secTplCtx=null; // {eventId, stId}
-
-function openAddSecTplModal(eventId){
-  secTplCtx={eventId:eventId, stId:null};
-  document.getElementById('sectionModalTitle').textContent='섹션 추가';
-  document.getElementById('sm_text').value='';
-  openModal('sectionModal');
-}
-function openEditSecTplModal(eventId, stId){
-  var tpls=getSectionTemplates(eventId);
-  var st=tpls.find(function(x){return x.id===stId;});
-  if(!st) return;
-  secTplCtx={eventId:eventId, stId:stId};
-  document.getElementById('sectionModalTitle').textContent='섹션 수정';
-  document.getElementById('sm_text').value=st.title;
-  openModal('sectionModal');
+var secTplCtx=null;
+function openAddSecTplModal(eventId){secTplCtx={eventId:eventId,stId:null};document.getElementById('sectionModalTitle').textContent='섹션 추가';document.getElementById('sm_text').value='';openModal('sectionModal');}
+function openEditSecTplModal(eventId,stId){
+  var tpls=getSectionTemplates(eventId);var st=tpls.find(function(x){return x.id===stId;});if(!st) return;
+  secTplCtx={eventId:eventId,stId:stId};document.getElementById('sectionModalTitle').textContent='섹션 수정';document.getElementById('sm_text').value=st.title;openModal('sectionModal');
 }
 function saveSecTpl(){
-  var title=document.getElementById('sm_text').value.trim();
-  if(!title){alert('섹션 이름을 입력하세요');return;}
-  var eventId=secTplCtx.eventId;
-  ensureSectionTemplates(eventId);
+  var title=document.getElementById('sm_text').value.trim();if(!title){alert('섹션 이름을 입력하세요');return;}
+  var eventId=secTplCtx.eventId;ensureSectionTemplates(eventId);
   if(secTplCtx.stId){
-    // 수정: 제목 변경 시 items도 함께 업데이트
-    var tpls=db.sectionTemplates[eventId];
-    var st=tpls.find(function(x){return x.id===secTplCtx.stId;});
-    if(st){
-      var oldTitle=st.title;
-      st.title=title;
-      // 해당 행사의 items sectionTitle도 일괄 변경
-      db.items.forEach(function(item){
-        if(item.eventId===eventId&&item.sectionTitle===oldTitle) item.sectionTitle=title;
-      });
-    }
+    var st=db.sectionTemplates[eventId].find(function(x){return x.id===secTplCtx.stId;});
+    if(st){var old=st.title;st.title=title;db.items.forEach(function(item){if(item.eventId===eventId&&item.sectionTitle===old) item.sectionTitle=title;});}
   } else {
-    // 추가
-    var order=db.sectionTemplates[eventId].length;
-    db.sectionTemplates[eventId].push({id:uid(),title:title,order:order});
+    db.sectionTemplates[eventId].push({id:uid(),title:title,order:db.sectionTemplates[eventId].length});
   }
   saveDB();closeModal('sectionModal');render();
 }
-function deleteSecTpl(eventId, stId){
-  var tpls=getSectionTemplates(eventId);
-  var st=tpls.find(function(x){return x.id===stId;});
-  if(!st) return;
-  var itemCnt=db.items.filter(function(i){return i.eventId===eventId&&i.sectionTitle===st.title;}).length;
-  var msg='"'+st.title+'" 섹션을 삭제할까요?'+(itemCnt?'\n이 섹션의 항목 '+itemCnt+'개는 "기타"로 이동합니다.':'');
-  if(!confirm(msg)) return;
-  // 항목은 삭제하지 않고 sectionTitle을 '기타'로 변경
-  db.items.forEach(function(item){
-    if(item.eventId===eventId&&item.sectionTitle===st.title) item.sectionTitle='기타';
-  });
+function deleteSecTpl(eventId,stId){
+  var tpls=getSectionTemplates(eventId);var st=tpls.find(function(x){return x.id===stId;});if(!st) return;
+  var cnt=db.items.filter(function(i){return i.eventId===eventId&&i.sectionTitle===st.title;}).length;
+  if(!confirm('"'+st.title+'" 섹션을 삭제할까요?'+(cnt?'\n항목 '+cnt+'개는 "기타"로 이동합니다.':''))) return;
+  db.items.forEach(function(item){if(item.eventId===eventId&&item.sectionTitle===st.title) item.sectionTitle='기타';});
   ensureSectionTemplates(eventId);
   db.sectionTemplates[eventId]=db.sectionTemplates[eventId].filter(function(x){return x.id!==stId;});
   saveDB();render();
 }
-function moveSecTpl(eventId, stId, dir){
+function moveSecTpl(eventId,stId,dir){
   ensureSectionTemplates(eventId);
   var tpls=db.sectionTemplates[eventId].slice().sort(function(a,b){return a.order-b.order;});
-  var idx=tpls.findIndex(function(x){return x.id===stId;});
-  if(idx<0) return;
-  var swapIdx=dir==='up'?idx-1:idx+1;
-  if(swapIdx<0||swapIdx>=tpls.length) return;
-  var tmp=tpls[idx].order; tpls[idx].order=tpls[swapIdx].order; tpls[swapIdx].order=tmp;
-  db.sectionTemplates[eventId]=tpls;
-  saveDB();render();
+  var idx=tpls.findIndex(function(x){return x.id===stId;});if(idx<0) return;
+  var si=dir==='up'?idx-1:idx+1;if(si<0||si>=tpls.length) return;
+  var tmp=tpls[idx].order;tpls[idx].order=tpls[si].order;tpls[si].order=tmp;
+  db.sectionTemplates[eventId]=tpls;saveDB();render();
 }
-
-// 체크리스트 편집 모드에서 항목 추가 시 섹션 선택용 (하위 호환)
-function openAddSectionModal(eventId, personId){ /* deprecated - 섹션은 설정에서 관리 */ }
-function editSectionTitle(id){ /* deprecated */ }
-function deleteSec(id){ /* deprecated */ }
-function saveSection(){ saveSecTpl(); }
 
 // ═══════════════════════════════════════════
 // MODAL HELPERS
@@ -1452,8 +1287,7 @@ function setColorOpt(containerId,color){
   document.querySelectorAll('#'+containerId+' .color-opt').forEach(function(el){el.classList.toggle('sel',el.dataset.color===color);});
 }
 function renderTagButtons(selectedTags){
-  var container=document.getElementById('im_tags');
-  if(!container) return;
+  var container=document.getElementById('im_tags');if(!container) return;
   container.innerHTML=getTags().map(function(t){
     var isSel=selectedTags&&selectedTags.indexOf(t.name)>-1;
     return '<span class="tag-check'+(isSel?' sel':'')+'" data-tag="'+t.name+'"'
@@ -1461,20 +1295,13 @@ function renderTagButtons(selectedTags){
   }).join('');
 }
 function attachTagListeners(){
-  var container=document.getElementById('im_tags');
-  if(!container) return;
+  var container=document.getElementById('im_tags');if(!container) return;
   container.onclick=function(e){
-    var btn=e.target.closest('.tag-check');
-    if(!btn) return;
+    var btn=e.target.closest('.tag-check');if(!btn) return;
     var isSel=btn.classList.contains('sel');
-    var tagName=btn.dataset.tag;
-    var t=getTags().find(function(x){return x.name===tagName;});
+    var t=getTags().find(function(x){return x.name===btn.dataset.tag;});
     btn.classList.toggle('sel',!isSel);
-    if(t){
-      btn.style.background=!isSel?t.bg:'transparent';
-      btn.style.color=!isSel?t.color:'var(--text2)';
-      btn.style.borderColor=!isSel?t.color:'var(--border2)';
-    }
+    if(t){btn.style.background=!isSel?t.bg:'transparent';btn.style.color=!isSel?t.color:'var(--text2)';btn.style.borderColor=!isSel?t.color:'var(--border2)';}
   };
 }
 
@@ -1482,71 +1309,43 @@ function attachTagListeners(){
 // TAG MODAL
 // ═══════════════════════════════════════════
 var tagModalCtx=null;
-function openTagModal(){
-  tagModalCtx=null;
-  document.getElementById('tagModalTitle').textContent='태그 추가';
-  document.getElementById('tm_name').value='';
-  document.getElementById('tm_bg').value='#d8f3e3';
-  document.getElementById('tm_color').value='#1b4332';
-  updateTagPreview();
-  openModal('tagModal');
-}
+function openTagModal(){tagModalCtx=null;document.getElementById('tagModalTitle').textContent='태그 추가';document.getElementById('tm_name').value='';document.getElementById('tm_bg').value='#d8f3e3';document.getElementById('tm_color').value='#1b4332';updateTagPreview();openModal('tagModal');}
 function openEditTagModal(id){
-  var t=getTags().find(function(x){return x.id===id;});
-  if(!t) return;
-  tagModalCtx=id;
-  document.getElementById('tagModalTitle').textContent='태그 수정';
-  document.getElementById('tm_name').value=t.name;
-  document.getElementById('tm_bg').value=t.bg;
-  document.getElementById('tm_color').value=t.color;
-  updateTagPreview();
-  openModal('tagModal');
+  var t=getTags().find(function(x){return x.id===id;});if(!t) return;
+  tagModalCtx=id;document.getElementById('tagModalTitle').textContent='태그 수정';document.getElementById('tm_name').value=t.name;document.getElementById('tm_bg').value=t.bg;document.getElementById('tm_color').value=t.color;updateTagPreview();openModal('tagModal');
 }
 function updateTagPreview(){
-  var name=document.getElementById('tm_name').value||'태그명';
-  var bg=document.getElementById('tm_bg').value;
-  var color=document.getElementById('tm_color').value;
-  var el=document.getElementById('tm_preview');
-  if(el){el.textContent=name;el.style.background=bg;el.style.color=color;}
+  var el=document.getElementById('tm_preview');if(!el) return;
+  el.textContent=document.getElementById('tm_name').value||'태그명';
+  el.style.background=document.getElementById('tm_bg').value;
+  el.style.color=document.getElementById('tm_color').value;
 }
 function saveTag(){
-  var name=document.getElementById('tm_name').value.trim();
-  if(!name){alert('태그 이름을 입력하세요');return;}
-  var bg=document.getElementById('tm_bg').value;
-  var color=document.getElementById('tm_color').value;
+  var name=document.getElementById('tm_name').value.trim();if(!name){alert('태그 이름을 입력하세요');return;}
+  var bg=document.getElementById('tm_bg').value,color=document.getElementById('tm_color').value;
   if(!db.tags) db.tags=JSON.parse(JSON.stringify(DEFAULT_TAGS));
-  if(tagModalCtx){
-    var t=db.tags.find(function(x){return x.id===tagModalCtx;});
-    if(t){t.name=name;t.bg=bg;t.color=color;}
-  } else {
-    if(db.tags.find(function(x){return x.name===name;})){alert('같은 이름의 태그가 이미 있습니다');return;}
-    db.tags.push({id:uid(),name:name,bg:bg,color:color});
-  }
+  if(tagModalCtx){var t=db.tags.find(function(x){return x.id===tagModalCtx;});if(t){t.name=name;t.bg=bg;t.color=color;}}
+  else{if(db.tags.find(function(x){return x.name===name;})){alert('같은 이름의 태그가 있습니다');return;}db.tags.push({id:uid(),name:name,bg:bg,color:color});}
   saveDB();closeModal('tagModal');render();
 }
 function deleteTag(id){
-  var t=getTags().find(function(x){return x.id===id;});
-  if(!t) return;
-  if(!confirm('"'+t.name+'" 태그를 삭제할까요?\n이미 항목에 붙은 태그 텍스트는 유지됩니다.')) return;
-  db.tags=db.tags.filter(function(x){return x.id!==id;});
-  saveDB();render();
+  var t=getTags().find(function(x){return x.id===id;});if(!t) return;
+  if(!confirm('"'+t.name+'" 태그를 삭제할까요?')) return;
+  db.tags=db.tags.filter(function(x){return x.id!==id;});saveDB();render();
 }
 
 // ═══════════════════════════════════════════
 // UTILS
 // ═══════════════════════════════════════════
-function formatDate(d){if(!d) return '';var dt=new Date(d);return (dt.getMonth()+1)+'/'+(dt.getDate());}
+function formatDate(d){if(!d) return '';var dt=new Date(d);return(dt.getMonth()+1)+'/'+(dt.getDate());}
 function formatDateFull(d){if(!d) return '';return new Date(d).toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'short'});}
 
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded',function(){
-  loadDB();
-  render();
-  document.querySelectorAll('.backdrop').forEach(function(b){
-    b.addEventListener('click',function(e){if(e.target===this) this.classList.remove('show');});
-  });
+  loadDB();render();
+  document.querySelectorAll('.backdrop').forEach(function(b){b.addEventListener('click',function(e){if(e.target===this) this.classList.remove('show');});});
   document.querySelectorAll('.color-options').forEach(function(container){
     container.addEventListener('click',function(e){
       var opt=e.target.closest('.color-opt');if(!opt) return;
@@ -1554,11 +1353,7 @@ document.addEventListener('DOMContentLoaded',function(){
       opt.classList.add('sel');
     });
   });
-  // 태그 모달 미리보기 실시간 업데이트
-  ['tm_name','tm_bg','tm_color'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el) el.addEventListener('input',updateTagPreview);
-  });
+  ['tm_name','tm_bg','tm_color'].forEach(function(id){var el=document.getElementById(id);if(el) el.addEventListener('input',updateTagPreview);});
 });
 </script>
 </body>
